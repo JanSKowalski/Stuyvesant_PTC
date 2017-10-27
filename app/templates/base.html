@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/grid.css') }}">
+  </head>
+  <body>
+    <div class="wrapper">
+        <div class="box header">
+            <center>
+                Stuyvesant PTC
+            </center>
+        </div>
+    </div>
+    <!--<div><a href="/index">Home</a></div>-->
+    {% block content %}{% endblock %}
+  </body>
+</html>

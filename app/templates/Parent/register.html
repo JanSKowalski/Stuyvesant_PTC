@@ -1,0 +1,28 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Register</h1>
+  <form action="" method="post" name="login">
+      {{ form.hidden_tag() }}
+      <p>
+          Please enter your name:<br>
+          {{ form.name(size=80) }}<br><br>
+          
+          {% if form.name.errors %}
+		  {{ form.name.errors[0] }}
+		  france
+		  {% endif %}
+
+          Please enter your child's name:<br>
+          {{ form.child_name(size=80) }}<br><br>
+
+          Please enter your email address: (Optional)<br>
+          {{ form.email(size=80) }}<br><br>
+          
+          Supplying your email will register you for notifications about upcoming appointments with teachers.
+      </p>
+      <p><input type="submit" value="Register"></p>
+  </form>
+
+{% endblock %}
