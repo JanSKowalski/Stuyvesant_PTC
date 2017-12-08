@@ -6,5 +6,12 @@ for i in range(0,500):
     db.session.add(u)
 
 
-
+user = Users(username="admin", password="password")
+db.session.add(user)
+ 
+user = Users(username="student", password="python")
+db.session.add(user)
+ 
+ 
+# commit the record the database
 db.session.commit()

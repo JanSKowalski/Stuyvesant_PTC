@@ -1,11 +1,38 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
-from flask_login import login_user, logout_user, current_user, login_required
-from app import app, models, db, lm
-from .forms import LoginForm, RegisterForm
-from .models import Parents, Users
-from flask import flash
+#!flask/bin/python
 
 
+from flask import Flask
+from flask import Flask, flash, redirect, render_template, request, session, abort
+import os
+
+from app import app, models, db, login_manager
+
+'''
+from flask import render_template, flash, redirect, session, url_for, request
+#from flask_login import login_user, logout_user, current_user, login_required
+
+#from .forms import LoginForm, RegisterForm
+#from .models import Parents, Users
+'''
+
+
+@app.route('/')
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return "Hello Boss!"
+ 
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
+
+
+'''
 @app.route('/')
 @app.route('/index')
 def index():
@@ -52,3 +79,5 @@ def register():
 @app.route('/number')
 def number():
     return render_template('Parent/number.html', title = 'Number')
+    
+    '''
