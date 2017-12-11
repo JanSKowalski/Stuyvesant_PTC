@@ -19,7 +19,7 @@ class Parent(db.Model):
     __tablename__ = 'Parent'
     id = db.Column(db.Integer, primary_key=True)
     child_name = db.Column(db.String(128), index=True, unique=False)
-    child_dob = db.Column(db.Integer, index = True, unique = False)
+    child_dob = db.Column(db.DateTime, index = True, unique = False)
     email = db.Column(db.String(128), index=True, unique=False)
     ptqueues = db.relationship('PTQueue', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
@@ -34,6 +34,8 @@ class PTQueue(db.Model):
     teacher = db.Column(db.String(128), index=True, unique=True)
     room = db.Column(db.String(64), index=True, unique=True)
     department = db.Column(db.String(128), index=True, unique=False)
+    parents_seen = db.Column(db.Integer, index = True, unique = False)
+    avg_time = db.Column(db.Integer, index = True, unique = False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic')) 
     parents = []
@@ -52,6 +54,8 @@ class PTQueue(db.Model):
         
     @staticmethod
     def dequeue(self):
+        x = self.parents_seen
+        x = x + 1
         return self.parents.pop()
 
     @staticmethod
