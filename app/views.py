@@ -17,21 +17,28 @@ from flask import render_template, flash, redirect, session, url_for, request
 
 
 @app.route('/')
-def home():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
-        return "Hello Boss!"
+def index():
+    session['logged_in'] = False
+    
+    parents = models.Parent.query.all()
+    ptqueue = models.PTQueue.query.all()
+    return render_template('Parent/parents.html', title = 'Parent Number Look-Up', parents = parents, ptqueue = ptqueue)
+
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+    if request.form['password'] == 'passwords' and request.form['username'] == 'admin':
         session['logged_in'] = True
     else:
         flash('wrong password!')
     return home()
 
 
+@app.route('/parents')
+def parents():
+    parents = models.Parents.query.all()
+    return render_template('Parent/parents.html', title = 'Parent Number Look-Up',
+                         parents = parents)
 '''
 @app.route('/')
 @app.route('/index')

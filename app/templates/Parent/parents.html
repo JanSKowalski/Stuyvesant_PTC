@@ -8,8 +8,10 @@
  <input type="text" name="search" placeholder="Search..."> 
  
 {% for p in parents %}
-    <ul>{{p.name}}, {{p.id}}</ul>
+    <ul>{{p.child_name}}, {{p.id}}</ul>
 {% endfor %}
  
- 
+{% for p in ptqueue %}
+    <ul>{{p.teacher}}, {{p.id}}</ul>
+{% endfor %}
 {% endblock %}

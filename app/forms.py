@@ -5,16 +5,17 @@ from wtforms.validators import DataRequired
 from flask import flash, session
 
 class RegisterForm(Form):
-    name = StringField('name', validators=[DataRequired()])
-    child_name = StringField('name', validators=[DataRequired()])
-    email = StringField('name', validators=[DataRequired()])
+    child_name = StringField('child_name', validators=[DataRequired()])
+    child_dob = StringField('child_dob', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired()])
     
     def validate_on_submit(self):
         if not Form.validate_on_submit(self):
             return False
-        parent = models.Parents.query.filter_by(name = self.name.data).first()
-        if parent:
-            self.name.errors.append("A parent has already registered under this name")
+        d_child_name = models.Parent.query.filter_by(name = self.name.data).first()
+        d_child_dob = models.Parent.query.filter_by(name = self.name.data).first()
+        if d_child_name and d_child_dob:
+            self.name.errors.append("A parent has already registered under this child and date of birth")
             return False
         return True
     
