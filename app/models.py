@@ -34,6 +34,7 @@ class PTQueue(db.Model):
     teacher = db.Column(db.String(128), index=True, unique=True)
     room = db.Column(db.String(64), index=True, unique=True)
     department = db.Column(db.String(128), index=True, unique=False)
+    description = db.Column(db.String(128), index=True, unique=False)
     parents_seen = db.Column(db.Integer, index = True, unique = False)
     avg_time = db.Column(db.Integer, index = True, unique = False)
     parents = db.relationship('Parent', secondary=queues,

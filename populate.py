@@ -1,14 +1,19 @@
 from app import models, db
+from flask import request
+import flask_excel as excel
+
+#excel.init_excel(app)
 
 db.create_all()
-
+'''
 for i in range(0,5):
     s = str(i)
     u = models.Parent(child_name='child'+s,  email= s+'@email.com')
     db.session.add(u)
 
 db.session.commit()
-
+'''
+'''
 for i in range(0,5):
     s = str(i)
     u = models.PTQueue(teacher='teacher'+s)
@@ -27,7 +32,21 @@ for i in range(0,1):
     z.enqueue(z, p)
     print(z)
     db.session.add(z)
+'''
 
+def ptqueue_init_func(row):
+        q = PTQueue()
+        q.teacher = row['Teacher']
+        q.department = row['Department']
+        q.room = row['Room']
+        q.description = row['Description']
+        return q
+
+request.save_book_to_database(
+    field_name='app.db', session=db.session,
+    tables=[PTQueue],
+    initializers=[ptqueue_init_func])
+            
 admin = models.User(username="admin", password="password")
 db.session.add(admin)
  

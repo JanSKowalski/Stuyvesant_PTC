@@ -1,10 +1,7 @@
 #!flask/bin/python
 
-
-from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort
 import os
-
+from flask import Flask, flash, redirect, render_template, request, session, abort
 from app import app, models, db, login_manager
 
 '''
@@ -37,8 +34,16 @@ def do_admin_login():
 @app.route('/parents')
 def parents():
     parents = models.Parents.query.all()
-    return render_template('Parent/parents.html', title = 'Parent Number Look-Up',
-                         parents = parents)
+    return render_template('Parent/parents.html', title = 'Parent Number Look-Up', parents = parents)
+    
+'''
+@app.route("/import", methods=['GET', 'POST'])
+def doimport():
+    if request.method == 'POST':
+
+
+        return redirect('/')
+'''
 '''
 @app.route('/')
 @app.route('/index')
