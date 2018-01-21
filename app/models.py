@@ -32,15 +32,23 @@ class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
     id = db.Column(db.Integer, primary_key=True)
     teacher = db.Column(db.String(128), index=True, unique=True)
-    room = db.Column(db.String(64), index=True, unique=True)
+    room = db.Column(db.String(64), index=True, unique=False)
     department = db.Column(db.String(128), index=True, unique=False)
     description = db.Column(db.String(128), index=True, unique=False)
     parents_seen = db.Column(db.Integer, index = True, unique = False)
     avg_time = db.Column(db.Integer, index = True, unique = False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic')) 
-    parents = []
-            
+    
+    
+    @staticmethod  
+    def __init__(self, teacher, room, department, description):
+        self.parents = []
+        self.teacher = teacher
+        self.room = room
+        self.department = department
+        self.description = description
+    
     @staticmethod        
     def get_id(self):
         return unicode(self.id)
@@ -51,7 +59,8 @@ class PTQueue(db.Model):
 
     @staticmethod
     def enqueue(self, parent):
-        self.parents.insert(0,parent)
+        #self.parents.insert(0,parent)
+        self.parents.append(parent)
         
     @staticmethod
     def dequeue(self):
@@ -64,4 +73,4 @@ class PTQueue(db.Model):
         return len(self.parents)
     
     def __repr__(self):
-        return '<Id %d, Parents %r>' % (self.id, self.parents)
+        return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)

@@ -1,25 +1,17 @@
 #!flask/bin/python
 
 import os
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from app import app, models, db, login_manager
-
-'''
-from flask import render_template, flash, redirect, session, url_for, request
-#from flask_login import login_user, logout_user, current_user, login_required
-
-#from .forms import LoginForm, RegisterForm
-#from .models import Parents, Users
-'''
 
 
 @app.route('/')
 def index():
-    session['logged_in'] = False
-    
-    parents = models.Parent.query.all()
     ptqueue = models.PTQueue.query.all()
-    return render_template('Parent/parents.html', title = 'Parent Number Look-Up', parents = parents, ptqueue = ptqueue)
+    
+    return render_template('database.html', 
+                    title = 'Database', 
+                    ptqueue = ptqueue)
 
  
 @app.route('/login', methods=['POST'])
@@ -35,7 +27,22 @@ def do_admin_login():
 def parents():
     parents = models.Parents.query.all()
     return render_template('Parent/parents.html', title = 'Parent Number Look-Up', parents = parents)
+    '''
+@app.route('/students', methods=['GET'])
+def get_students():
+    students = Student.query.all()
     
+    formatted_students = []
+    for s in students:
+        formatted_students.append({
+            'id': s.id,
+            'first_name': s.first_name,
+            'last_name': s.last_name,
+        })
+    
+    return json.dumps({'students': formatted_students}),
+        200, {'Content-Type': 'application/json'}
+    '''
 '''
 @app.route("/import", methods=['GET', 'POST'])
 def doimport():
@@ -60,7 +67,7 @@ def parents():
     parents = models.Parents.query.all()
     return render_template('Parent/parents.html', title = 'Parent Number Look-Up',
                          parents = parents)
-
+'''
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
@@ -70,7 +77,7 @@ def login():
         return redirect('/index')
     return render_template('login.html', title = 'Login', form = login_form)
     
-    
+  
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     register_form = RegisterForm()
@@ -86,10 +93,3 @@ def register():
         #return redirect('number.html?id=3')
         return redirect('index')
     return render_template('Parent/register.html', title = 'Register', form = register_form)    
-    
-    
-@app.route('/number')
-def number():
-    return render_template('Parent/number.html', title = 'Number')
-    
-    '''
