@@ -1,9 +1,13 @@
 from app import models, db
 from flask import request
+from pandas import DataFrame, read_csv
+from sqlalchemy import create_engine
+import pandas as pd
 
+print pd.__version__
 
-db.create_all()
-
+#db.create_all()
+'''
 for i in range(0,5):
     s = str(i)
     u = models.Parent(child_name='child'+s,  email= s+'@email.com')
@@ -17,6 +21,7 @@ for i in range(0,3):
     u = models.PTQueue(teacher='teacher'+s, room=s, department=s, description=s)
     db.session.add(u)
 db.session.commit()    
+'''
 '''
 z = models.PTQueue().query.get(1)
 print("queue: " + str(z))
@@ -37,26 +42,8 @@ for i in range(0,8):
 #Database
 #########################################################
 '''
-def ptqueue_init_func(row):
-        q = PTQueue()
-        q.teacher = row['Teacher']
-        q.department = row['Department']
-        q.room = row['Room']
-        q.description = row['Description']
-        return q
-
-request.save_book_to_database(
-    field_name='app.db', session=db.session,
-    tables=[PTQueue],
-    initializers=[ptqueue_init_func])
-            
-admin = models.User(username="admin", password="password")
-db.session.add(admin)
- 
-student = models.User(username="student", password="python")
-db.session.add(student)
- 
- 
-# commit the record the database
-db.session.commit()
+Location = 'PTC_Room_Assignments.csv'
+df = pd.read_csv(Location, names=['teacher','department','room','description'])
+engine = create_engine('sqlite:///app.db')
+df.to_sql(engine, models.PTQueue)
 '''
