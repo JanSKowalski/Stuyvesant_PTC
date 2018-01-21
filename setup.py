@@ -1,3 +1,4 @@
+#Note this is incomplete and likely nonfunctional.
 from setuptools import setup
 
 setup(

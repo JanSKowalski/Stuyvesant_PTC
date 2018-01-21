@@ -30,6 +30,7 @@ class Parent(db.Model):
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
+    #rollback = models.PTQueue()
     id = db.Column(db.Integer, primary_key=True)
     teacher = db.Column(db.String(128), index=True, unique=True)
     room = db.Column(db.String(64), index=True, unique=False)
