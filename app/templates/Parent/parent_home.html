@@ -1,0 +1,30 @@
+<!-- extend base layout -->
+{% extends "Cover/base.html" %}
+
+
+{% block content %}
+
+<header>
+  <h1>Welcome Parents!</h1>
+</header>
+<hr>
+Parent Test
+<!--
+<p>Should you forget your number, this tool will allow you to quickly find it</p>
+<input type="text" name="search" placeholder="Search...">
+
+{% for p in parents %}
+<ul>{{p.child_name}}, {{p.id}}</ul>
+{% endfor %}
+
+{% for p in ptqueue %}
+<ul>{{p.teacher}}, {{p.id}}</ul>
+{% endfor %}
+-->
+<a href="parent_search" class="button">ID Look-up</a>
+<a href="register" class="button">Register</a>
+<a href="parent_schedules" class="button">Schedules</a>
+
+
+
+{% endblock %}

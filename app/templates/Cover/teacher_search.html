@@ -1,15 +1,15 @@
  <!-- extend base layout -->
-{% extends "base.html" %}
+{% extends "Cover/base.html" %}
 
- 
+
 {% block content %}
 
 
- <input type="text" name="search" placeholder="Search..."> 
- 
+ <input type="text" name="search" placeholder="Search...">
+
 {% for t in teachers %}
     <ul>{{t.name}}, {{t.room}}</ul>
 {% endfor %}
- 
- 
+
+
 {% endblock %}

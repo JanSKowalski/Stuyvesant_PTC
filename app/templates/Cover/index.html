@@ -1,0 +1,25 @@
+<!-- extend base layout -->
+{% extends "Cover/base.html" %}
+
+{% block content %}
+<div class="header">
+  <header>
+    <h1>Stuyvesant PTC</h1>
+    <h3>Parent-Teacher Conferences</h3>
+  </header>
+</div>
+<hr>
+<a href="search" class="button" id="rcorners2">Search</a>
+<div class="menu-container">
+  <div class="menu-item">
+    <a href="parent" class="button" id="rcorners2">Parents</a>
+  </div>
+  <div class="menu-item">
+    <a href="login" class="button" id="rcorners2">Staff</a>
+  </div>
+</div>
+
+<div class="statistics">
+  <a href="database" class="button">Statistics</a>
+</div>
+{% endblock %}
