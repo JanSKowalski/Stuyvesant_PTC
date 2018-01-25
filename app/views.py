@@ -45,10 +45,11 @@ def staff_home():
 
 
 
-
 #########################   Administration  #########################
 
-#@app.route('')
+@app.route('/administration')
+def admin_home():
+    return render_template('Staff/admin_home.html', title='Admin Portal')
 
 
 
