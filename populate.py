@@ -1,6 +1,6 @@
 from app import models, db
 from app.models import PTQueue
-import csv 
+import csv
 
 #########################################################
 #Database

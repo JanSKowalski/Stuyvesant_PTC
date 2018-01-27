@@ -1,9 +1,17 @@
 import os
-from flask import Flask, flash, redirect, render_template, request, session, jsonify
+from flask import Flask, flash, redirect, url_for, render_template, request, session, jsonify
 from app import app, models, db, login_manager
 
 
+
+from flask_login import current_user, login_user, logout_user
+from .forms import LoginForm, RegistrationForm
+
+#from app.forms import
+from app.models import User, Parent, PTQueue
+
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
@@ -13,8 +21,21 @@ def teacher_search():
 
 @app.route('/login')
 def login():
-    return render_template('Staff/login.html', title='Login Manager')
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login Successful.')
+        if (form.username.data == 'student'):
+            return redirect(url_for('staff'))
+        if (form.username.data == 'admin'):
+            return redirect(url_for('administration'))
+    return render_template('Staff/login.html', title='Login Manager', form=form)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 #Create a specific page for statistics
 
@@ -27,9 +48,25 @@ def parent_home():
 def parent_search():
     return render_template('Parent/parent_search.html', title='ID Look-Up')
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('Parent/register.html', title='Register')
+    #if current_user.is_authenticated:
+    #    return redirect(url_for('index'))
+    form = RegistrationForm()
+
+
+    if  form.validate_on_submit():
+        form.validate_date()
+        form.validate_parent()
+        parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data, email=form.email.data)
+        db.session.add(parent)
+        db.session.commit()
+        flash('Congratulations, you are now a registered parent!')
+        return redirect(url_for('parent'))
+    else:
+        for error in form.errors:
+            flash(error)
+    return render_template('Parent/register.html', title='Register', form=form)
 
 @app.route('/parent_schedules')
 def parent_schedules():
@@ -38,7 +75,6 @@ def parent_schedules():
 
 
 #########################       Staff       #########################
-
 @app.route('/staff')
 def staff_home():
     return render_template('Staff/student_home.html', title='Student Portal')

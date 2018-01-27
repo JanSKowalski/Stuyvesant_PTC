@@ -2,28 +2,34 @@
 {% extends "Cover/base.html" %}
 
 {% block content %}
-  <h1>Register</h1>
-  <!--
-  <form action="" method="post" name="login">
-      {{ form.hidden_tag() }}
-      <p>
-          Please enter your name:<br>
-          {{ form.name(size=80) }}<br><br>
+<h1>Register</h1>
 
-          {% if form.name.errors %}
-		  {{ form.name.errors[0] }}
-		  france
-		  {% endif %}
+<form action="" method="post" name="register">
+  {{ form.hidden_tag() }}
+  <p>
+    Please enter your child's name:<br>
+    {{ form.child_name(size=80) }}<br>
+    {% for error in form.child_name.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  <p>
+    Please enter your child's date of birth:<br>
+    (This should take the form month/day/year, ex: 5/17/2000).<br>
+    {{ form.child_dob(size=80) }}<br>
+    {% for error in form.child_dob.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  <p>
+    Please enter your email address: (Optional)<br>
+    {{ form.email(size=64) }}<br>
+    {% for error in form.email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    <p>Supplying your email will register you for notifications about upcoming appointments with teachers.</p>
 
-          Please enter your child's name:<br>
-          {{ form.child_name(size=80) }}<br><br>
-
-          Please enter your email address: (Optional)<br>
-          {{ form.email(size=80) }}<br><br>
-
-          Supplying your email will register you for notifications about upcoming appointments with teachers.
-      </p>
-      <p><input type="submit" value="Register"></p>
-  </form>
--->
+  </p>
+  <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}

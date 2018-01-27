@@ -1,4 +1,6 @@
 from app import db, login_manager
+import datetime
+
 
 # For student and admin user accounts only
 class User(db.Model):
@@ -23,10 +25,10 @@ class Parent(db.Model):
     email = db.Column(db.String(128), index=True, unique=False)
     ptqueues = db.relationship('PTQueue', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
-                            
+
     def __repr__(self):
-        return '<Child Name %s>' % (self.child_name)
-    
+        return '<Child Name %s>, <Child DoB %s' % (self.child_name, self.child_dob.strftime('%m, %B, %Y'))
+
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
@@ -39,18 +41,18 @@ class PTQueue(db.Model):
     parents_seen = db.Column(db.Integer, index = True, unique = False)
     avg_time = db.Column(db.Integer, index = True, unique = False)
     parents = db.relationship('Parent', secondary=queues,
-                            backref=db.backref('queues', lazy='dynamic')) 
-    
-    
-    @staticmethod  
+                            backref=db.backref('queues', lazy='dynamic'))
+
+
+    @staticmethod
     def __init__(self, teacher, room, department, description):
         self.parents = []
         self.teacher = teacher
         self.room = room
         self.department = department
         self.description = description
-    
-    @staticmethod        
+
+    @staticmethod
     def get_id(self):
         return unicode(self.id)
 
@@ -62,7 +64,7 @@ class PTQueue(db.Model):
     def enqueue(self, parent):
         #self.parents.insert(0,parent)
         self.parents.append(parent)
-        
+
     @staticmethod
     def dequeue(self):
         x = self.parents_seen
@@ -72,6 +74,6 @@ class PTQueue(db.Model):
     @staticmethod
     def size(self):
         return len(self.parents)
-    
+
     def __repr__(self):
         return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)

@@ -1,13 +1,13 @@
 <!-- extend base layout -->
-{% extends "base.html" %}
+{% extends "Cover/base.html" %}
 
 {% block content %}
   <h1>Login</h1>
   <form action="" method="post" name="login">
       {{ form.hidden_tag() }}
-      
+
       <h2>Only for access to student or adminstrator tools</h2>
-      
+
       <p>
           Username:<br>
           {{ form.username(size=80) }}<br><br>
