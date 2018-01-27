@@ -1,7 +1,7 @@
 from app import app, models
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email
+from wtforms.validators import ValidationError, DataRequired, Email, Optional
 from flask import flash, session
 from datetime import datetime
 
@@ -9,7 +9,7 @@ from datetime import datetime
 class RegistrationForm(Form):
     child_name = StringField('child_name', validators=[DataRequired()])
     child_dob = StringField('child_dob', validators=[DataRequired()])
-    email = StringField('email', validators=[Email()])
+    email = StringField('email', validators=[Email(), Optional()])
     submit = SubmitField('Register')
 
     def validate_date(self):

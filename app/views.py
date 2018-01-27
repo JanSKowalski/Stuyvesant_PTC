@@ -50,19 +50,17 @@ def parent_search():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    #if current_user.is_authenticated:
-    #    return redirect(url_for('index'))
     form = RegistrationForm()
 
-
     if  form.validate_on_submit():
-        form.validate_date()
-        form.validate_parent()
+        if (not form.validate_date() or not form.validate_parent()):
+            for error in form.errors:
+                flash(error)
         parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
         flash('Congratulations, you are now a registered parent!')
-        return redirect(url_for('parent'))
+        return redirect('parent')
     else:
         for error in form.errors:
             flash(error)
