@@ -48,5 +48,5 @@ class LoginForm(Form):
         return True
 
 class SearchForm(Form):
-    search_field = StringField('search')
+    search_field = StringField('search', validators=[DataRequired()])
     submit = SubmitField()

@@ -17,7 +17,8 @@ def index():
 
 @app.route('/search')
 def teacher_search():
-    return render_template('Cover/teacher_search.html', title='Teacher Query')
+    teachers = Parent.query.whoosh_search('Thomas', 10).all()
+    return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers)
 
 @app.route('/login')
 def login():
@@ -46,7 +47,8 @@ def parent_home():
 
 @app.route('/parent_search')
 def parent_search():
-    return render_template('Parent/parent_search.html', title='ID Look-Up')
+    results = Post.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+    return render_template('Parent/parent_search.html', title='ID Look-Up', results=results)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
