@@ -1,0 +1,3 @@
+[submodule "flask/Flask-WhooshAlchemy"]
+	path = flask/Flask-WhooshAlchemy
+	url = https://github.com/gyllstromk/Flask-WhooshAlchemy.git
