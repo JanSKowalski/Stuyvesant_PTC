@@ -1,6 +1,6 @@
-from app import db, login_manager
+from app import app, db, login_manager
 import datetime
-
+import flask_whooshalchemy as whooshalchemy
 
 # For student and admin user accounts only
 class User(db.Model):
@@ -19,6 +19,7 @@ queues = db.Table('queues',
 #Many-to-Many relationship with PTQueues
 class Parent(db.Model):
     __tablename__ = 'Parent'
+    __searchable__ = ['id', 'child_name', 'child_dob', 'email']
     id = db.Column(db.Integer, primary_key=True)
     child_name = db.Column(db.String(128), index=True, unique=False)
     child_dob = db.Column(db.DateTime, index = True, unique = False)
@@ -32,7 +33,7 @@ class Parent(db.Model):
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
-    #rollback = models.PTQueue()
+    __searchable__ = ['teacher', 'room', 'department', 'description']
     id = db.Column(db.Integer, primary_key=True)
     teacher = db.Column(db.String(128), index=True, unique=True)
     room = db.Column(db.String(64), index=True, unique=False)
@@ -77,3 +78,7 @@ class PTQueue(db.Model):
 
     def __repr__(self):
         return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)
+
+#Allows whoosh to build an indexing database
+whooshalchemy.whoosh_index(app, Parent)
+whooshalchemy.whoosh_index(app, PTQueue)

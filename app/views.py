@@ -5,7 +5,7 @@ from app import app, models, db, login_manager
 
 
 from flask_login import current_user, login_user, logout_user
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, SearchForm
 
 #from app.forms import
 from app.models import User, Parent, PTQueue
