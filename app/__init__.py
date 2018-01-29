@@ -15,3 +15,5 @@ login_manager.login_view = 'login'
 
 
 from app import views, models
+
+app.config['WHOOSH_BASE'] = 'flask/Flask-WhooshAlchemy'
