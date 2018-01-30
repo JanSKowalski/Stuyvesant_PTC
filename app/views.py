@@ -17,7 +17,7 @@ def index():
 
 @app.route('/search')
 def teacher_search():
-    teachers = PTQueue.query.whoosh_search('Thomas', 10).all()
+    teachers = PTQueue.query.whoosh_search('Mr.', 10).all()
     return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers)
 
 @app.route('/login')
