@@ -139,36 +139,17 @@ a {
     background-color: #B2D6FF; /* Blue */
   }
 }
-/*
-.header {
-  border-radius: 25px;
-  text-align: center;
-  padding: 100px;
-  background-color: green;
+
+
+.menu {
+  margin-top: 15px;
 }
 
-
-
-
-
-
-
-
-
-.menu-item {
-  display: flex;
-  height: 20%;
-  flex-direction: row;
+.menu > li {
+  display: inline;
+  margin-right: 50px;
 }
 
-
-
-#rcorners2 {
-  border-radius: 25px;
-  background: white;
-  border: 2px solid #73AD21;
-  padding: 20px;
-  width: 200px;
-  height: 150px;
+.menu > li:last-of-type {
+  margin-right: 0;
 }
-*/
