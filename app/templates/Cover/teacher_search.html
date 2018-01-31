@@ -1,14 +1,24 @@
- <!-- extend base layout -->
+<!-- extend base layout -->
 {% extends "Cover/base.html" %}
 
 
 {% block content %}
 
 
- <input type="text" name="search" placeholder="Search...">
+<form action="" method="post" name="teacher_query">
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.search_field(size=80) }}<br>
+    {% for error in form.search_field.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+
+  <p>{{ form.submit() }}</p>
+</form>
 
 {% for t in teachers %}
-    <ul>{{t.teacher}}, {{t.room}}</ul>
+  <ul>{{t.teacher}}, {{t.room}}</ul>
 {% endfor %}
 
 

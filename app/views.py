@@ -2,8 +2,6 @@ import os
 from flask import Flask, flash, redirect, url_for, render_template, request, session, jsonify
 from app import app, models, db, login_manager
 
-
-
 from flask_login import current_user, login_user, logout_user
 from .forms import LoginForm, RegistrationForm, SearchForm
 
@@ -15,10 +13,19 @@ from app.models import User, Parent, PTQueue
 def index():
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
-@app.route('/search')
+@app.route('/teacher_search', methods=['GET', 'POST'])
+@app.route('/teacher_search/<teacher_query>', methods=['GET', 'POST'])
 def teacher_search():
-    teachers = PTQueue.query.whoosh_search('Mr.', 10).all()
-    return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers)
+    form = SearchForm()
+    if request.method == 'POST':
+        #if form.validate() == False:
+        #    teachers = []
+        #else:
+        teachers = PTQueue.query.whoosh_search(form.search_field.data, 10).all()
+        return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
+    else:
+        return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)
+
 
 @app.route('/login')
 def login():
