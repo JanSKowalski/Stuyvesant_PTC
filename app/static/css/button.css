@@ -1,0 +1,39 @@
+.button:link,
+.button:visited {
+  display: block;
+  text-decoration: none;
+
+  color: #FFF;
+  background-color: #5995DA;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #5D6063;
+  border-radius: 5px;
+
+  width: 200px;
+  margin: 20px auto;
+}
+
+
+.button:hover,
+.button:visited:hover {
+  color: #FFF;
+  background-color: #76AEED;  /* Light blue */
+}
+
+.button:active,
+.button:visited:active {
+  color: #FFF;
+  background-color: #5995DA;  /* Blue */
+}
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+
+  background: #62f4ff; /* Old Browsers */
+
+  flex-direction: column;
+  justify-content: space-between;
+}
