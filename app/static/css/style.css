@@ -5,13 +5,13 @@
 }
 
 html,div{
-    height:100%;
-    width:100%;
+  height:100%;
+  width:100%;
 }
 
 body {
   margin: auto;
-  margin-top: 4%;
+  margin-top: 8%;
 
   /* text-align: center; */
   width: 60%;
@@ -33,12 +33,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 header {
+  /*
   border-radius: 10px;
-  text-align: center;
+
   font-size: 1.2m;
   padding: 25px;
   border: 1px solid #5D6063;
   border-top-style: double;
+  */
+  text-align: center;
 }
 
 h2 {
@@ -54,89 +57,80 @@ a {
   display: block;
 }
 
-.flex-container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
+/* Cris Coyier */
+.stitched {
+  position: relative;
+  right: 15px;
 
-.flex-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: center;
+  padding: 20px;
   margin: auto;
+
+  background: #ff0030;
+  color: #fff;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1.3em;
+  border: 2px dashed #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 0 4px #ff0030, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
+  text-shadow: -1px -1px #aa3030;
+  font-weight: normal;
 }
 
 
-.section-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap
-  padding: 60%;
-  align-items: center;
-
-}
-
-.section-item {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 50%;
+hr{
+  height: 8%;
+  border:none;
 }
 
 
 
 
-/* Mobile Styles */
-@media only screen and (max-width: 420px) {
-  /*
-  body {
-  background-color: #F09A9D; /* Red */
-  /*
-}
 
-*/
-.section-container {
-  flex-direction: column;
-}
+.ribbon {
+ font-size: 16px !important;
+ /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
 
-.section-item{
-  width: 100%;
-}
-}
+ width: 50%;
 
-/* Tablet Styles */
-@media only screen and (min-width: 421px) and (max-width: 960px) {
-  /*
-  body {
-  background-color: #F5CF8E; /* Yellow */
-  /*
+ position: relative;
+ background: #ba89b6;
+ color: #fff;
+ text-align: center;
+ padding: 1em 2em; /* Adjust to suit */
+ margin: 2em auto 3em; /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
 }
-*/
+.ribbon:before, .ribbon:after {
+ content: "";
+ position: absolute;
+ display: block;
+ bottom: -1em;
+ border: 1.5em solid #986794;
+ z-index: -1;
 }
-
-/* Desktop Styles */
-@media only screen and (min-width: 961px) {
-  /*
-  body {
-  background-color: #B2D6FF; /* Blue */
-  /*
+.ribbon:before {
+ left: -2em;
+ border-right-width: 1.5em;
+ border-left-color: transparent;
 }
-*/
+.ribbon:after {
+ right: -2em;
+ border-left-width: 1.5em;
+ border-right-color: transparent;
 }
-
-
-.menu {
-  margin-top: 15px;
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+ content: "";
+ position: absolute;
+ display: block;
+ border-style: solid;
+ border-color: #804f7c transparent transparent transparent;
+ bottom: -1em;
 }
-
-.menu > li {
-  display: inline;
-  margin-right: 50px;
+.ribbon .ribbon-content:before {
+ left: 0;
+ border-width: 1em 0 0 1em;
 }
-
-.menu > li:last-of-type {
-  margin-right: 0;
+.ribbon .ribbon-content:after {
+ right: 0;
+ border-width: 1em 1em 0 0;
 }

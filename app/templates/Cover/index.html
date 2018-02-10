@@ -2,7 +2,14 @@
 {% extends "Cover/base.html" %}
 
 {% block content %}
-<div class="flex-item">
+
+<h1 class="ribbon">
+   <strong class="ribbon-content">Everybody loves ribbons</strong>
+</h1>
+
+
+
+<div class="flex-item stitched">
   <header>
     <h1>Stuyvesant High School</h1>
     <h3>Parent Teacher Conferences</h3>
@@ -10,24 +17,22 @@
 </div>
 <hr>
 
-<div class="flex-item">
-  <a href="teacher_search" class="button">Search</a>
-  <p> Teacher room registry </p>
-</div>
-
-<div class="section-container">
-  <div class="section-item">
-    <a href="parent" class="button" >Parents</a>
-    <p>Access the parent portal.</p>
+<div class="content">
+  <div class="flex-item">
+    <a href="teacher_search" class="button">Search</a>
   </div>
-  <div class="section-item">
-    <a href="login" class="button" >Staff</a>
-    <p>Access for staff resources.</p>
-  </div>
-</div>
-<div class="flex-item">
-<div class="statistics">
-  <a href="database" class="button">Statistics</a>
-</div>
 
-{% endblock %}
+  <div class="section-container">
+    <div class="section-item" >
+      <a href="parent" class="button" >Parents</a>
+    </div>
+    <div class="section-item">
+      <a href="login" class="button" >Staff</a>
+    </div>
+  </div>
+  <div class="flex-item">
+    <div class="statistics">
+      <a href="database" class="button">Statistics</a>
+    </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,36 @@
+/* Mobile Styles */
+@media only screen and (max-width: 960px) {
+  /*
+  body {
+  background-color: #F09A9D; /* Red */
+  /*
+}
+
+*/
+.section-container {
+  flex-direction: column;
+}
+
+.section-item {
+  width: 100%;
+}
+}
+
+.button{
+  width: 35%;
+}
+
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+  /*
+  body {
+  background-color: #B2D6FF; /* Blue */
+  /*
+}
+
+*/
+.button{
+  width: 35%;
+}
+}
