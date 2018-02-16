@@ -3,13 +3,8 @@
 
 {% block content %}
 
-<h1 class="ribbon">
-   <strong class="ribbon-content">Everybody loves ribbons</strong>
-</h1>
 
-
-
-<div class="flex-item stitched">
+<div class="flex-item flex-column">
   <header>
     <h1>Stuyvesant High School</h1>
     <h3>Parent Teacher Conferences</h3>
@@ -17,16 +12,16 @@
 </div>
 <hr>
 
-<div class="content">
+<div class="flex-item content flex-column">
   <div class="flex-item">
     <a href="teacher_search" class="button">Search</a>
   </div>
 
-  <div class="section-container">
-    <div class="section-item" >
+  <div class="flex-item flex-row expandable">
+    <div class="flex-item" >
       <a href="parent" class="button" >Parents</a>
     </div>
-    <div class="section-item">
+    <div class="flex-item">
       <a href="login" class="button" >Staff</a>
     </div>
   </div>

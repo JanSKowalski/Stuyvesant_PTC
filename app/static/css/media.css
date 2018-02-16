@@ -1,5 +1,5 @@
 /* Mobile Styles */
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 500px) {
   /*
   body {
   background-color: #F09A9D; /* Red */
@@ -7,13 +7,15 @@
 }
 
 */
-.section-container {
+
+.expandable {
   flex-direction: column;
 }
 
-.section-item {
+.flex-item {
   width: 100%;
 }
+
 }
 
 .button{
@@ -22,7 +24,7 @@
 
 
 /* Desktop Styles */
-@media only screen and (min-width: 961px) {
+@media only screen and (min-width: 501px) {
   /*
   body {
   background-color: #B2D6FF; /* Blue */

@@ -3,6 +3,8 @@
 <head>
   <title>{{ title }}</title>
   <meta charset='UTF-8' />
+  <meta name='viewport'
+      content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   <link rel="stylesheet" href="/static/css/style.css" type="text/css">
   <link rel="stylesheet" href="/static/css/button.css" type="text/css">
   <link rel="stylesheet" href="/static/css/containers.css" type="text/css">
@@ -12,7 +14,7 @@
   <script src="/static/scripts/scripts.js"></script>
 </head>
 <body>
-  <div class="flex-container">
+  <div class="flex-column">
     {% block content %}{% endblock %}
 
   </div>
