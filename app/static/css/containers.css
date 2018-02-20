@@ -24,21 +24,15 @@
   align-items: center;
 }
 
-.section-item {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 50%;
-}
 
 .menu {
-
+  display: flex;
+  flex: 34;
 }
-
 
 .content {
   display: flex;
-  flex: 3;
+  flex: 10;
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
@@ -51,7 +45,7 @@
   margin: auto;
 
 
-  background: rgba(0, 38, 77, 0.5);
+  background: rgba(0, 38, 77, 0.6);
   color: #fff;
   font-size: 21px;
   font-weight: bold;

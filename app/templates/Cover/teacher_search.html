@@ -3,23 +3,21 @@
 
 
 {% block content %}
+<div class="flex-item content">
+  <form action="" method="post" name="teacher_query">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.search_field(size=20) }}<br>
+      {% for error in form.search_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <button type=submit>Submit!</button>
+  </form>
 
-
-<form action="" method="post" name="teacher_query">
-  {{ form.hidden_tag() }}
-  <p>
-    {{ form.search_field(size=80) }}<br>
-    {% for error in form.search_field.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-  </p>
-
-  <p>{{ form.submit() }}</p>
-</form>
-
-{% for t in teachers %}
+  {% for t in teachers %}
   <ul>{{t.teacher}}, {{t.room}}</ul>
-{% endfor %}
-
+  {% endfor %}
+</div>
 
 {% endblock %}

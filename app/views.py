@@ -52,9 +52,19 @@ def logout():
 def parent_home():
     return render_template('Parent/parent_home.html', title='Parent Portal')
 
-@app.route('/parent_search')
+@app.route('/parent_search', methods=['GET', 'POST'])
+@app.route('/parent/<parent_query>', methods=['GET', 'POST'])
 def parent_search():
-    results = Post.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+    form = SearchForm()
+    if request.method == 'POST':
+        #if form.validate() == False:
+        #    teachers = []
+        #else:
+        parents = PTQueue.query.whoosh_search(form.search_field.data, 10).all()
+        return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
+    else:
+        return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
+
     return render_template('Parent/parent_search.html', title='ID Look-Up', results=results)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -65,7 +75,7 @@ def register():
         if (not form.validate_date() or not form.validate_parent()):
             for error in form.errors:
                 flash(error)
-        parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data, email=form.email.data)
+        parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
         flash('Congratulations, you are now a registered parent!')

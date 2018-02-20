@@ -9,7 +9,7 @@ from datetime import datetime
 class RegistrationForm(Form):
     child_name = StringField('child_name', validators=[DataRequired()])
     child_dob = StringField('child_dob', validators=[DataRequired()])
-    email = StringField('email', validators=[Email(), Optional()])
+    #email = StringField('email', validators=[Email(), Optional()])
     submit = SubmitField('Register')
 
     def validate_date(self):

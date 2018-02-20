@@ -3,10 +3,23 @@
 
 
 {% block content %}
+<div class="flex-item content">
+  <form action="" method="post" name="parent_query">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.search_field(size=20) }}<br>
+      {% for error in form.search_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <button type=submit>Submit!</button>
+  </form>
 
-<h1>Search results for "{{ query }}":</h1>
-{% for post in results %}
-    {% include 'post.html' %}
+  <!--<h1>Search results for "{{ query }}":</h1>-->
+  {% for p in parent %}
+  <ul>{{p.child_name}}, {{p.child_dob}}</ul>
+  {% endfor %}
+</div>
 
 
 

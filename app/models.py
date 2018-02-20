@@ -1,6 +1,8 @@
 from app import app, db, login_manager
 import datetime
 import flask_whooshalchemy as whooshalchemy
+import whoosh
+from whoosh.fields import SchemaClass, TEXT, KEYWORD, ID, DATETIME
 
 # For student and admin user accounts only
 class User(db.Model):
@@ -19,11 +21,11 @@ queues = db.Table('queues',
 #Many-to-Many relationship with PTQueues
 class Parent(db.Model):
     __tablename__ = 'Parent'
-    __searchable__ = ['id', 'child_name', 'child_dob', 'email']
+    __searchable__ = ['id', ('child_dob', whoosh.fields.DATETIME(stored=True, sortable=True)) , 'child_name']#, 'email']
     id = db.Column(db.Integer, primary_key=True)
     child_name = db.Column(db.String(128), index=True, unique=False)
     child_dob = db.Column(db.DateTime, index = True, unique = False)
-    email = db.Column(db.String(128), index=True, unique=False)
+    #email = db.Column(db.String(128), index=True, unique=False)
     ptqueues = db.relationship('PTQueue', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
 
@@ -78,6 +80,13 @@ class PTQueue(db.Model):
 
     def __repr__(self):
         return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)
+
+
+class MySchema(SchemaClass):
+    id = ID
+    child_name = TEXT
+    child_DOB = DATETIME
+
 
 #Allows whoosh to build an indexing database
 whooshalchemy.whoosh_index(app, Parent)
