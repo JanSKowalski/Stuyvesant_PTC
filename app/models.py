@@ -21,16 +21,16 @@ queues = db.Table('queues',
 #Many-to-Many relationship with PTQueues
 class Parent(db.Model):
     __tablename__ = 'Parent'
-    __searchable__ = ['id', ('child_dob', whoosh.fields.DATETIME(stored=True, sortable=True)) , 'child_name']#, 'email']
+    __searchable__ = ['id', 'child_dob' , 'child_name']#, 'email']
     id = db.Column(db.Integer, primary_key=True)
     child_name = db.Column(db.String(128), index=True, unique=False)
-    child_dob = db.Column(db.DateTime, index = True, unique = False)
+    child_dob = db.Column(db.String(32), index=True, unique=False)
     #email = db.Column(db.String(128), index=True, unique=False)
     ptqueues = db.relationship('PTQueue', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
 
     def __repr__(self):
-        return '<Child Name %s>, <Child DoB %s' % (self.child_name, self.child_dob.strftime('%m, %B, %Y'))
+        return '<Child Name %s>, <Child DoB %s' % (self.child_name, self.child_dob)
 
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
@@ -41,8 +41,8 @@ class PTQueue(db.Model):
     room = db.Column(db.String(64), index=True, unique=False)
     department = db.Column(db.String(128), index=True, unique=False)
     description = db.Column(db.String(128), index=True, unique=False)
-    parents_seen = db.Column(db.Integer, index = True, unique = False)
-    avg_time = db.Column(db.Integer, index = True, unique = False)
+    parents_seen = db.Column(db.Integer, index=True, unique=False)
+    avg_time = db.Column(db.Integer, index=True, unique=False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
 
@@ -80,12 +80,6 @@ class PTQueue(db.Model):
 
     def __repr__(self):
         return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)
-
-
-class MySchema(SchemaClass):
-    id = ID
-    child_name = TEXT
-    child_DOB = DATETIME
 
 
 #Allows whoosh to build an indexing database
