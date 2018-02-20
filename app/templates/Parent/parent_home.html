@@ -8,23 +8,22 @@
   <h1>Welcome Parents!</h1>
   {% include "Cover/menu.html" %}
 </header>
-<hr>
-<!--
-<p>Should you forget your number, this tool will allow you to quickly find it</p>
-<input type="text" name="search" placeholder="Search...">
 
-{% for p in parents %}
-<ul>{{p.child_name}}, {{p.id}}</ul>
-{% endfor %}
+<div class="content">
+  <!--
+  <p>Should you forget your number, this tool will allow you to quickly find it</p>
+  <input type="text" name="search" placeholder="Search...">
 
-{% for p in ptqueue %}
-<ul>{{p.teacher}}, {{p.id}}</ul>
-{% endfor %}
+  {% for p in parents %}
+  <ul>{{p.child_name}}, {{p.id}}</ul>
+  {% endfor %}
+
+  {% for p in ptqueue %}
+  <ul>{{p.teacher}}, {{p.id}}</ul>
+  {% endfor %}
 -->
 <a href="parent_search" class="button">ID Look-up</a>
 <a href="register" class="button">Register</a>
 <a href="parent_schedules" class="button">Schedules</a>
-
-
-
+</div>
 {% endblock %}

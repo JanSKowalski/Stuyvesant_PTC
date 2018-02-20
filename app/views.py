@@ -60,12 +60,11 @@ def parent_search():
         #if form.validate() == False:
         #    teachers = []
         #else:
-        parents = PTQueue.query.whoosh_search(form.search_field.data, 10).all()
+        parents = Parent.query.whoosh_search(form.search_field.data, 10).all()
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
     else:
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
 
-    return render_template('Parent/parent_search.html', title='ID Look-Up', results=results)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -78,8 +77,9 @@ def register():
         parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
-        flash('Congratulations, you are now a registered parent!')
-        return redirect('parent')
+        #flash('Congratulations, you are now a registered parent!')
+        parent_id = parent.id
+        return render_template('Parent/id_response.html', title='ID Response', parent_id=parent_id)
     else:
         for error in form.errors:
             flash(error)

@@ -28,7 +28,7 @@ print "_____________________________\n"
 db.create_all()
 
 for i in range(0, 25):
-    parent = Parent(child_name="child"+str(i), child_dob=datetime.datetime.now())
+    parent = Parent(child_name="child"+str(i), child_dob=str(i))
     db.session.add(parent)
     db.session.commit()
 
