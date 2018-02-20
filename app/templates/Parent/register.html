@@ -4,11 +4,10 @@
 {% block content %}
 <div class="flex-item">
   <header>
-  <h1>Parent Registration</h1>
-  {% include "Cover/menu.html" %}
-</header>
+    <h1>Parent Registration</h1>
+  </header>
 </div>
-
+{% include "Cover/menu.html" %}
 <div class="flex-item content">
   <form action="" method="post" name="register">
     {{ form.hidden_tag() }}
@@ -29,17 +28,17 @@
     </p>
     <!--
     <p>
-      Please enter your email address: (Optional)<br>
-      {#    {{ form.email(size=64) }}<br>
-           {% for error in form.email.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-      <p>Supplying your email will register you for notifications about upcoming appointments with teachers.</p>
+    Please enter your email address: (Optional)<br>
+    {#    {{ form.email(size=64) }}<br>
+    {% for error in form.email.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    <p>Supplying your email will register you for notifications about upcoming appointments with teachers.</p>
 
-    </p>
-     #}
-  -->
-    <p>{{ form.submit() }}</p>
-  </form>
+  </p>
+  #}
+-->
+<p>{{ form.submit() }}</p>
+</form>
 </div>
 {% endblock %}

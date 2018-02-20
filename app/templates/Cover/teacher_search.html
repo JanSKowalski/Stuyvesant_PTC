@@ -1,8 +1,10 @@
 <!-- extend base layout -->
 {% extends "Cover/base.html" %}
 
-
 {% block content %}
+
+{% include "Cover/menu.html" %}
+
 <div class="flex-item content">
   <form action="" method="post" name="teacher_query">
     {{ form.hidden_tag() }}

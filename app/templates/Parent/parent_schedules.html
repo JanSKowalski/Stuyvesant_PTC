@@ -1,1 +1,26 @@
-Parent Schedules test
+<!-- extend base layout -->
+{% extends "Cover/base.html" %}
+
+{% block content %}
+
+
+{% include "Cover/menu.html" %}
+
+<div class="flex-item content">
+  <form action="" method="post" name="parent_query">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.search_field(size=20) }}<br>
+      {% for error in form.search_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <button type=submit>Submit!</button>
+  </form>
+
+  <!--<h1>Search results for "{{ query }}":</h1>-->
+  {% for p in parents %}
+  <ul>{{p.child_name}}, {{p.child_dob}}</ul>
+  {% endfor %}
+</div>
+{% endblock %}

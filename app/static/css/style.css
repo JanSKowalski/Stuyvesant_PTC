@@ -4,9 +4,18 @@
   /*box-sizing: border-box;*/
 }
 
-html,div{
+html {
   height:100%;
   width:100%;
+  /*overflow-y: scroll;*/
+  overflow: auto;
+
+  background: #62f4ff; /* Old Browsers */
+  background: -webkit-linear-gradient(top,#62f4ff,#f2efe0); /*Safari 5.1-6*/
+  background: -o-linear-gradient(top,#62f4ff,#f2efe0); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(top,#62f4ff,#f2efe0); /*Fx 3.6-15*/
+  background: linear-gradient(to bottom, #62f4ff, #f2efe0); /*Standard*/
+
 }
 
 body {
@@ -15,16 +24,17 @@ body {
 
   /* text-align: center; */
   width: 60%;
-  height: 80%;
+  height: 100%;
   font-size: 18px;
 
-  background: #62f4ff; /* Old Browsers */
-  background: -webkit-linear-gradient(top,#62f4ff,#f2efe0); /*Safari 5.1-6*/
-  background: -o-linear-gradient(top,#62f4ff,#f2efe0); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(top,#62f4ff,#f2efe0); /*Fx 3.6-15*/
-  background: linear-gradient(to bottom, #62f4ff, #f2efe0); /*Standard*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
-  background-image: "/static/img/stuy.png";
+
+
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -53,8 +63,4 @@ a {
 hr{
   height: 8%;
   border:none;
-}
-
-.justify {
-  text-align: justify;
 }
