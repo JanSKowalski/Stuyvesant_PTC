@@ -10,31 +10,24 @@ html {
   /*overflow-y: scroll;*/
   overflow: auto;
 
-  background: #62f4ff; /* Old Browsers */
+  background: #62f4ff;  Old Browsers
   background: -webkit-linear-gradient(top,#62f4ff,#f2efe0); /*Safari 5.1-6*/
   background: -o-linear-gradient(top,#62f4ff,#f2efe0); /*Opera 11.1-12*/
   background: -moz-linear-gradient(top,#62f4ff,#f2efe0); /*Fx 3.6-15*/
-  background: linear-gradient(to bottom, #62f4ff, #f2efe0); /*Standard*/
+  background: linear-gradient(to left, #62f4ff, #f2efe0); /*Standard*/
 
+margin-bottom: 8%;
 }
 
 body {
   margin: auto;
   margin-top: 8%;
+  margin-bottom: 8%;
 
   /* text-align: center; */
   width: 60%;
   height: 100%;
   font-size: 18px;
-
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-
-
-
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,8 +39,14 @@ header {
   text-align: center;
 }
 
-h2 {
-  font-size: 1.6em;
+h1 {
+
+  margin: 25px 0px;
+}
+
+h3 {
+  /*font-size: 2em;*/
+  margin: 10px 0px:
 }
 
 ul {
