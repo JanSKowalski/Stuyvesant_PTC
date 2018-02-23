@@ -1,0 +1,19 @@
+In the event of a server side error, this is a record of
+the commands issued in the hopes that it eases the debugging process
+
+Following this DO tutorial on LAMP
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+
+2/22 6:26
+sudo apt-get update
+sudo apt-get install apache2
+sudo nano /etc/apache2/apache2.conf
+	ServerName ptc.stuy.edu
+
+sudo apache2ctl configtest
+sudo systemctl restart apache2
+
+sudo ufw app list
+sudo ufw app info "Apache Full"
+sudo ufw allow in "Apache Full"

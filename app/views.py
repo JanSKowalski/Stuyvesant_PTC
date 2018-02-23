@@ -2,7 +2,7 @@ import os
 from flask import Flask, flash, redirect, url_for, render_template, request, session, jsonify
 from app import app, models, db, login_manager
 
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from .forms import LoginForm, RegistrationForm, SearchForm
 
 #from app.forms import
@@ -11,6 +11,7 @@ from app.models import User, Parent, PTQueue
 @app.route('/')
 @app.route('/index')
 def index():
+    current_user.is_authenticated = False
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
 @app.route('/teacher_search', methods=['GET', 'POST'])
@@ -18,27 +19,38 @@ def index():
 def teacher_search():
     form = SearchForm()
     if request.method == 'POST':
-        #if form.validate() == False:
-        #    teachers = []
-        #else:
         teachers = PTQueue.query.whoosh_search(form.search_field.data, 10).all()
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
     else:
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)
 
-
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    #If a user is already logged in, send them to the right place
+    '''
     if current_user.is_authenticated:
+        if (current_user == 'student'):
+            return redirect(url_for('staff'))
+        if (current_user == 'admin'):
+            return redirect(url_for('administration'))
         return redirect(url_for('index'))
+'''
     form = LoginForm()
+
     if form.validate_on_submit():
-        flash('Login Successful.')
+        user = User.query.filter_by(username=form.username.data).first()
+
+        print(form.username.data)
+
+
+        login_user(user, remember=form.remember_me.data)
         if (form.username.data == 'student'):
             return redirect(url_for('staff'))
         if (form.username.data == 'admin'):
             return redirect(url_for('administration'))
+        return redirect(url_for('index'))
     return render_template('Staff/login.html', title='Login Manager', form=form)
+
 
 @app.route('/logout')
 def logout():
@@ -57,9 +69,6 @@ def parent_home():
 def parent_search():
     form = SearchForm()
     if request.method == 'POST':
-        #if form.validate() == False:
-        #    teachers = []
-        #else:
         parents = Parent.query.whoosh_search(form.search_field.data, 10).all()
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
     else:
@@ -93,6 +102,7 @@ def parent_schedules():
 
 #########################       Staff       #########################
 @app.route('/staff')
+@login_required
 def staff_home():
     return render_template('Staff/student_home.html', title='Student Portal')
 

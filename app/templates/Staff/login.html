@@ -2,20 +2,38 @@
 {% extends "Cover/base.html" %}
 
 {% block content %}
-  <h1>Login</h1>
+<div class="flex-item flex-column">
+  <header>
+    <h1>PTC</h1>
+    <h2>Staff Login</h2>
+  </header>
+</div>
+
+{% include "Cover/menu.html" %}
+
+<div class="flex-item content">
   <form action="" method="post" name="login">
-      {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
 
-      <h2>Only for access to student or adminstrator tools</h2>
+    <h2>Only for access to student or adminstrator tools</h2>
 
-      <p>
-          Username:<br>
-          {{ form.username(size=80) }}<br><br>
+    <p>
+      Username:
+      {{ form.username(size=80) }}
+      {% for error in form.username.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
 
-          Password:<br>
-          {{ form.password(size=80) }}<br><br>
-      </p>
-      <p><input type="submit" value="Login"></p>
+    <p>
+      Password:
+      {{ form.password(size=80) }}
+      {% for error in form.password.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p><input type="submit" value="Login"></p>
   </form>
+</div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from app import app, models, db
-from app.models import PTQueue, Parent
+from app.models import PTQueue, Parent, User
 import csv, datetime
 import whoosh
 from whoosh.fields import Schema, DATETIME
@@ -27,6 +27,18 @@ print "_____________________________\n"
 #db.drop_all()
 db.create_all()
 
+student = User(username='student')
+student.set_password('test1')
+
+admin = User(username='admin')
+admin.set_password('test2')
+
+db.session.add(student)
+db.session.add(admin)
+db.session.commit()
+
+
+#'''
 for i in range(0, 25):
     parent = Parent(child_name="child"+str(i), child_dob=str(i))
     db.session.add(parent)

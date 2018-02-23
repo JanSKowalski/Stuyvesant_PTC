@@ -38,7 +38,7 @@ class LoginForm(Form):
     def validate_on_submit(self):
         if not Form.validate_on_submit(self):
             return False
-        user = models.Users.query.filter_by(username = self.username.data).first()
+        user = models.User.query.filter_by(username = self.username.data).first()
         if (not user):
             self.username.errors.append("No user with this username exists")
             return False
