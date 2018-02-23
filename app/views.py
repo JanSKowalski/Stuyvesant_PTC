@@ -63,7 +63,10 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-#Create a specific page for statistics
+@app.route('/statistics')
+def statistics():
+    ptqueue = models.PTQueue.query.all()
+    return render_template('Staff/statistics.html', ptqueue=ptqueue, title='Statistics')
 
 #########################       Parent      #########################
 @app.route('/parent')
@@ -123,14 +126,10 @@ def admin_home():
 
 
 
-
-
-
-
 @app.route('/database')
 def database():
     ptqueue = models.PTQueue.query.all()
-    return render_template('Cover/database.html', ptqueue=ptqueue, title='database')
+    return render_template('Staff/database.html', ptqueue=ptqueue, title='Database')
 
 @app.route('/upload_csv', methods=['GET', 'POST'])
 def upload_csv():
