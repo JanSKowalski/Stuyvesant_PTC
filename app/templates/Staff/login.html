@@ -2,10 +2,8 @@
 {% extends "Cover/base.html" %}
 
 {% block content %}
-<div class="flex-item flex-column">
-  <header>
-    <h1>PTC</h1>
-    <h2>Staff Login</h2>
+<!-- Continued from base -->
+    <h3>Staff Login</h3>
   </header>
 </div>
 
@@ -15,7 +13,7 @@
   <form action="" method="post" name="login">
     {{ form.hidden_tag() }}
 
-    <h2>Only for access to student or adminstrator tools</h2>
+    <p>Only for access to student or adminstrator tools</p>
 
     <p>
       Username:
@@ -27,7 +25,7 @@
 
     <p>
       Password:
-      {{ form.password(size=80) }}
+      {{ form.username(size=80) }}
       {% for error in form.password.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}

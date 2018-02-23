@@ -11,6 +11,14 @@
 {% include "Cover/menu.html" %}
 
 <div class="flex-item content">
+
+  {% if teachers == [] %}
+  <p>This tool allows you to determine which teachers are the most available.</p>
+  <p>Please search by teacher name, department, or room number.</p>
+  {% else %}
+  <p>Click on the result for more information!</p>
+  {% endif %}
+
   <form action="" method="post" name="teacher_query">
     {{ form.hidden_tag() }}
     <p>

@@ -4,13 +4,20 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h3>Parent Id Search</h3>
+    <h3>Parent ID Search</h3>
   </header>
 </div>
 
 {% include "Cover/menu.html" %}
 
 <div class="flex-item content">
+  {% if parents == [] %}
+  <p>Should you forget your ID number, this tool will allow you to quickly find it.</p>
+  <p>Please search by your child's name or date of birth.</p>
+  {% else %}
+  <p>Click on the result for more information!</p>
+  {% endif %}
+
   <form action="" method="post" name="parent_query">
     {{ form.hidden_tag() }}
     <p>

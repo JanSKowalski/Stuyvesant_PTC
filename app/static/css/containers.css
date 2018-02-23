@@ -19,6 +19,7 @@
   justify-content: space-around;
   text-align: center;
   margin: auto;
+  width: 100%;
 }
 
 
@@ -54,7 +55,7 @@
   border-radius: 10px;
   box-shadow: 0 0 0 4px #00264d, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
 
-  text-shadow: -1px -1px #aa3030;
+  text-shadow: 1px 1px #aa3030;
   /*flex: 34;*/
   border-radius: 10px;
 }
@@ -63,7 +64,7 @@
   display: flex;
   flex: 7;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   margin: auto;
 
@@ -86,6 +87,6 @@
 
   border-radius: 10px;
   box-shadow: 0 0 0 4px #00264d, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
-  text-shadow: -1px -1px #aa3030;
+  /*text-shadow: -1px -1px #aa3030;*/
   font-weight: normal;
 }

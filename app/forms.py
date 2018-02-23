@@ -1,5 +1,6 @@
 from app import app, models
 from flask_wtf import Form
+from flask.ext.login import UserMixin
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, Optional
 from flask import flash, session

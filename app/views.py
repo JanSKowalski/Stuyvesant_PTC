@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, url_for, render_template, request, ses
 from app import app, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
+from flask.ext.login import UserMixin
 from .forms import LoginForm, RegistrationForm, SearchForm
 
 #from app.forms import
@@ -11,7 +12,10 @@ from app.models import User, Parent, PTQueue
 @app.route('/')
 @app.route('/index')
 def index():
-    current_user.is_authenticated = False
+    if 'username' in session:
+      username = session['username']
+      return 'Logged in as ' + username + '<br>'
+    #current_user.is_authenticated = False
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
 @app.route('/teacher_search', methods=['GET', 'POST'])
@@ -45,8 +49,10 @@ def login():
 
         login_user(user, remember=form.remember_me.data)
         if (form.username.data == 'student'):
+            session['username'] = 'student'
             return redirect(url_for('staff'))
         if (form.username.data == 'admin'):
+            session['username'] = 'admin'
             return redirect(url_for('administration'))
         return redirect(url_for('index'))
     return render_template('Staff/login.html', title='Login Manager', form=form)

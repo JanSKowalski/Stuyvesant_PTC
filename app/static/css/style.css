@@ -10,11 +10,11 @@ html {
   /*overflow-y: scroll;*/
   overflow: auto;
 
-  background: #62f4ff;  Old Browsers
-  background: -webkit-linear-gradient(top,#62f4ff,#f2efe0); /*Safari 5.1-6*/
-  background: -o-linear-gradient(top,#62f4ff,#f2efe0); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(top,#62f4ff,#f2efe0); /*Fx 3.6-15*/
-  background: linear-gradient(to left, #62f4ff, #f2efe0); /*Standard*/
+  background: #7FFFD4;  Old Browsers
+  background: -webkit-linear-gradient(left,#7FFFD4,#f2efe0); /*Safari 5.1-6*/
+  background: -o-linear-gradient(left,#7FFFD4,#f2efe0); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(left,#7FFFD4,#f2efe0); /*Fx 3.6-15*/
+  background: linear-gradient(to left, #7FFFD4, #f2efe0); /*Standard*/
 
 margin-bottom: 8%;
 }
@@ -31,7 +31,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica", "Arial", sans-serif;
+  font-family: 'EB Garamond', serif;
   font-weight: normal;
 }
 
@@ -40,26 +40,59 @@ header {
 }
 
 h1 {
-
+  font-family:  cursive;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style:normal;
+  padding-top: 0.1em;
+  text-shadow: 0.1em 0.1em 0 rgba(0, 0, 0, .1);
   margin: 25px 0px;
 }
 
 h3 {
   /*font-size: 2em;*/
   margin: 10px 0px:
+  width: 400px;
+
 }
+
 
 ul {
   list-style-type: none;
+  margin: 20px 0px;
+  background:  #38471f;
+  border-radius: 10px;
+}
+
+ul:hover {
+  background: #556b2f;
 }
 
 a {
   text-decoration: none; /* Removes underline from links */
   display: block;
+  color: White;
+  margin: 3px 0px;
 }
 
+p {
+  margin: 20px 0px;
+}
+
+.menu-button {
+    padding: 5px 5px;
+}
+
+.menu-button:hover {
+  border-radius: 20px;
+  background: #DDA0DD;
+
+}
 
 hr{
   height: 8%;
   border:none;
+
 }
