@@ -113,9 +113,19 @@ def register():
             flash(error)
     return render_template('Parent/register.html', title='Register', form=form)
 
-@app.route('/parent_schedules')
+
+@app.route('/parent_schedules', methods=['GET', 'POST'])
+@app.route('/parent_schedules/<parent_query>', methods=['GET', 'POST'])
 def parent_schedules():
-    return render_template('Parent/parent_schedules.html', title='Parent Schedules')
+    form = SearchForm()
+    if request.method == 'POST':
+        if form.validate_id():
+            parent = models.Parent.query.get(form.search_field.data)
+            return render_template('/Parent/parent.html', title='Parent', parent=parent)
+        else:
+            return render_template('/Parent/parent_schedules.html', title='Parent Schedules', form=form)
+    else:
+        return render_template('/Parent/parent_schedules.html', title='Parent Schedules', form=form)
 
 
 

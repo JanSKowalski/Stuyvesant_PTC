@@ -51,3 +51,14 @@ class LoginForm(Form):
 class SearchForm(Form):
     search_field = StringField('search', validators=[DataRequired()])
     submit = SubmitField()
+
+    def validate_id(self):
+        parent_id = self.search_field.data
+        parent = models.Parent.query.get(parent_id)
+        if parent is None:
+            tmp = list(self.search_field.errors)
+            tmp.append("This ID is not recognized.")
+            self = tuple(tmp)
+            return False
+        else:
+            return True
