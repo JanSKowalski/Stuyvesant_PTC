@@ -16,12 +16,14 @@ html {
   background: -moz-linear-gradient(left,#7FFFD4,#f2efe0); /*Fx 3.6-15*/
   background: linear-gradient(to left, #7FFFD4, #f2efe0); /*Standard*/
 
-margin-bottom: 8%;
+  margin-bottom: 8%;
+  font-family: 'EB Garamond', serif;
+
 }
 
 body {
   margin: auto;
-  margin-top: 8%;
+  margin-top: 6%;
   margin-bottom: 8%;
 
   /* text-align: center; */
@@ -40,19 +42,20 @@ header {
 }
 
 h1 {
-  font-family:  cursive;
-  font-size: 1.5em;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.9em;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
   font-style:normal;
   padding-top: 0.1em;
-  text-shadow: 0.1em 0.1em 0 rgba(0, 0, 0, .1);
+  text-shadow: 0.05em 0.05em 0 rgba(0, 0, 0, .3);
   margin: 25px 0px;
+  color:  	#8B0000;
 }
 
 h3 {
-  /*font-size: 2em;*/
+  font-size: 1.3em;
   margin: 10px 0px:
   width: 400px;
 
@@ -86,13 +89,13 @@ p {
 }
 
 .menu-button:hover {
-  border-radius: 20px;
+  border-radius: 8px;
   background: #DDA0DD;
+  color: rgb(148, 0, 211);
 
 }
 
 hr{
   height: 8%;
   border:none;
-
 }

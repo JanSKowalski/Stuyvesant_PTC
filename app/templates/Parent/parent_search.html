@@ -21,12 +21,12 @@
   <form action="" method="post" name="parent_query">
     {{ form.hidden_tag() }}
     <p>
-      {{ form.search_field(size=20) }}<br>
+      <input id="search_field" name="search_field" size="20" type="text" placeholder="Search...">
       {% for error in form.search_field.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
-    <button type=submit>Submit!</button>
+    <p><input type="submit" value="Submit!"></p>
   </form>
 
   <!--<h1>Search results for "{{ query }}":</h1>-->

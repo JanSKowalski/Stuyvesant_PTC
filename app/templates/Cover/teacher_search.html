@@ -13,7 +13,7 @@
 <div class="flex-item content">
 
   {% if teachers == [] %}
-  <p>This tool allows you to determine which teachers are the most available.</p>
+  <p>This tool allows you to determine which teachers are available and where they are.</p>
   <p>Please search by teacher name, department, or room number.</p>
   {% else %}
   <p>Click on the result for more information!</p>
@@ -22,12 +22,12 @@
   <form action="" method="post" name="teacher_query">
     {{ form.hidden_tag() }}
     <p>
-      {{ form.search_field(size=20) }}<br>
+      <input id="search_field" name="search_field" size="20" type="text" placeholder="Search...">
       {% for error in form.search_field.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
-    <button type=submit>Submit!</button>
+    <p><input type="submit" value="Submit!"></p>
   </form>
 
   {% for t in teachers %}

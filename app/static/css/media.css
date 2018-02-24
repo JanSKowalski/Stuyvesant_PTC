@@ -1,11 +1,13 @@
 /* Mobile Styles */
 @media only screen and (max-width: 500px) {
   body {
-    margin-top: 18%;
+    margin-top: 12%;
 
   }
 
-
+  h1 {
+    font-size: 1.6em;
+  }
 
   .flex-column {
     width: 200px;

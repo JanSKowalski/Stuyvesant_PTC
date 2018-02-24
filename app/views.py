@@ -23,7 +23,7 @@ def index():
 def teacher_search():
     form = SearchForm()
     if request.method == 'POST':
-        teachers = PTQueue.query.whoosh_search(form.search_field.data, 10).all()
+        teachers = PTQueue.query.whoosh_search(form.search_field.data).all()
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
     else:
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)

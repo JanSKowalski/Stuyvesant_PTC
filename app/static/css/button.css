@@ -25,8 +25,8 @@
 
 .button:hover,
 .button:visited:hover {
-  color: #FFF;
-  background-color: #76AEED;  /* Light blue */
+  background-color: #AEC186;
+  color: #333300;
 }
 
 .button:active,
