@@ -1,0 +1,129 @@
+In the event of a server side error, this is a record of
+the commands issued in the hopes that it eases the debugging process
+
+Following this DO tutorial on LAMP
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+
+2/22 6:26
+sudo apt-get update
+sudo apt-get install apache2
+sudo nano /etc/apache2/apache2.conf
+	ServerName ptc.stuy.edu
+
+sudo apache2ctl configtest
+sudo systemctl restart apache2
+
+sudo ufw app list
+sudo ufw app info "Apache Full"
+sudo ufw allow in "Apache Full"
+
+2/24 1:16
+sudo mkdir /var/www/ptc
+cd /var/www/ptc
+sudo git clone https://github.com/Gingernetics/Stuyvesant_PTC.git ptc
+sudo cp ptc.conf /etc/apache2/sites-available/
+sudo a2ensite ptc
+
+
+sudo service apache2 reload
+//At this point received error
+Job for apache2.service failed because the control process exited with error code. See "systemctl status apache2.service" and "journalctl -xe" for details.
+
+
+sudo /etc/init.d/apache2 restart
+failed
+
+sudo /etc/init.d/apache2 reload
+Reloading apache2 configuration (via systemctl): apache2.serviceapache2.service is not active, cannot reload.
+ failed!
+
+sudo service apache2 status
+
+● apache2.service - LSB: Apache2 web server
+   Loaded: loaded (/etc/init.d/apache2; bad; vendor preset: enabled)
+  Drop-In: /lib/systemd/system/apache2.service.d
+           └─apache2-systemd.conf
+   Active: failed (Result: exit-code) since Sat 2018-02-24 18:37:41 UTC; 1min 18s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1534 ExecStop=/etc/init.d/apache2 stop (code=exited, status=0/SUCCESS)
+  Process: 1505 ExecReload=/etc/init.d/apache2 reload (code=exited, status=1/FAILURE)
+  Process: 1677 ExecStart=/etc/init.d/apache2 start (code=exited, status=1/FAILURE)
+
+Feb 24 18:37:41 cubert apache2[1677]: Output of config test was:
+Feb 24 18:37:41 cubert apache2[1677]: AH00526: Syntax error on line 5 of /etc/apache2/sites-enabled/ptc.conf:
+Feb 24 18:37:41 cubert apache2[1677]: Invalid command 'WSGIScriptAlias', perhaps misspelled or defined by a module not included in the server configuration
+Feb 24 18:37:41 cubert apache2[1677]: Action 'configtest' failed.
+Feb 24 18:37:41 cubert apache2[1677]: The Apache error log may have more information.
+Feb 24 18:37:41 cubert systemd[1]: apache2.service: Control process exited, code=exited status=1
+Feb 24 18:37:41 cubert systemd[1]: Failed to start LSB: Apache2 web server.
+Feb 24 18:37:41 cubert systemd[1]: apache2.service: Unit entered failed state.
+Feb 24 18:37:41 cubert systemd[1]: apache2.service: Failed with result 'exit-code'.
+Feb 24 18:38:29 cubert systemd[1]: apache2.service: Unit cannot be reloaded because it is inactive.
+
+Fixed the path to the wsgi __file__
+
+sudo /etc/init.d/apache2 reload
+  Not running, can't restart
+
+
+sudo service apache2 start
+
+Possible wsgi doesn't exist?
+
+sudo a2enmod wsgi
+  ERROR: Module wsgi does not exist!
+
+
+sudo apt-get install libapache2-mod-wsgi
+sudo a2enmod wsgi
+  Module wsgi already enabled
+
+
+sudo service apache2 restart
+
+sudo a2dissite 000-default.conf
+
+sudo a2ensite ptc.conf
+
+sudo service apache2 reload
+
+cd /var/www/html/ptc/
+sudo git clone https://github.com/Gingernetics/Stuyvesant_PTC.git ptc
+
+sudo a2dissite ptc.conf
+sudo a2ensite ptc.conf
+
+sudo service apache2 reload
+
+tail -f /var/log/httpd/error_log
+  No error logs :(
+
+cd /var/www
+sudo rm -rf ptc/
+
+sudo git clone https://github.com/Gingernetics/Stuyvesant_PTC.git ptc
+
+sudo mv app/ ptc/
+
+sudo git config --global user.email "janstefankowalski@gmail.com"
+sudo git config --global user.name "Gingernetics"
+
+cd /var/www/ptc
+
+flask/bin/pip install flask
+  Does not work
+
+sudo apt-get install python-pip
+
+pip install flask
+
+pip install --upgrade pip
+
+sudo pip install flask-login
+
+sudo pip install flask-sqlalchemy
+
+sudo pip install flask_whooshalchemy
+
+sudo pip install flask-wtf

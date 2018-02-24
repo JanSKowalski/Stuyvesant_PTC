@@ -1,8 +1,8 @@
 #!flask/bin/python
-from app import app, db
+from ptc import ptc, db
 
 if __name__ == "__main__":
-    #db.create_all()
-    app.debug = False
-    app.use_reloader = False
-    app.run(debug = False)
+    #db.create_all()ptc
+    ptc.debug = False
+    ptc.use_reloader = False
+    ptc.run(debug = False)

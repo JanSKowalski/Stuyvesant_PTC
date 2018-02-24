@@ -1,16 +1,16 @@
 import os
 from flask import Flask, flash, redirect, url_for, render_template, request, session, jsonify
-from app import app, models, db, login_manager
+from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
 from flask.ext.login import UserMixin
 from .forms import LoginForm, RegistrationForm, SearchForm
 
-#from app.forms import
-from app.models import User, Parent, PTQueue
+#from ptc.forms import
+from ptc.models import User, Parent, PTQueue
 
-@app.route('/')
-@app.route('/index')
+@ptc.route('/')
+@ptc.route('/index')
 def index():
     if 'username' in session:
       username = session['username']
@@ -18,8 +18,8 @@ def index():
     #current_user.is_authenticated = False
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
-@app.route('/teacher_search', methods=['GET', 'POST'])
-@app.route('/teacher_search/<teacher_query>', methods=['GET', 'POST'])
+@ptc.route('/teacher_search', methods=['GET', 'POST'])
+@ptc.route('/teacher_search/<teacher_query>', methods=['GET', 'POST'])
 def teacher_search():
     form = SearchForm()
     if request.method == 'POST':
@@ -28,7 +28,7 @@ def teacher_search():
     else:
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)
 
-@app.route('/login', methods=['GET', 'POST'])
+@ptc.route('/login', methods=['GET', 'POST'])
 def login():
     #If a user is already logged in, send them to the right place
     '''
@@ -58,13 +58,13 @@ def login():
     return render_template('Staff/login.html', title='Login Manager', form=form)
 
 
-@app.route('/logout')
+@ptc.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
-@app.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
+@ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
     teacher = PTQueue.query.get(teacher_id)
     return render_template('Cover/teacher.html', title='Teacher', teacher=teacher)
@@ -75,12 +75,12 @@ def teacher(teacher_id):
 
 
 #########################       Parent      #########################
-@app.route('/parent_home')
+@ptc.route('/parent_home')
 def parent_home():
     return render_template('Parent/parent_home.html', title='Parent Portal')
-
-@app.route('/parent_search', methods=['GET', 'POST'])
-@app.route('/parent_search/<parent_query>', methods=['GET', 'POST'])
+ptc
+@ptc.route('/parent_search', methods=['GET', 'POST'])
+@ptc.route('/parent_search/<parent_query>', methods=['GET', 'POST'])
 def parent_search():
     form = SearchForm()
     if request.method == 'POST':
@@ -89,12 +89,12 @@ def parent_search():
     else:
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
 
-@app.route('/parent/<parent_id>', methods=['GET', 'POST'])
+@ptc.route('/parent/<parent_id>', methods=['GET', 'POST'])
 def parent(parent_id):
     parent = Parent.query.get(parent_id)
     return render_template('Parent/parent.html', title='Parent', parent=parent)
 
-@app.route('/register', methods=['GET', 'POST'])
+@ptc.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
 
@@ -114,8 +114,8 @@ def register():
     return render_template('Parent/register.html', title='Register', form=form)
 
 
-@app.route('/parent_schedules', methods=['GET', 'POST'])
-@app.route('/parent_schedules/<parent_query>', methods=['GET', 'POST'])
+@ptc.route('/parent_schedules', methods=['GET', 'POST'])
+@ptc.route('/parent_schedules/<parent_query>', methods=['GET', 'POST'])
 def parent_schedules():
     form = SearchForm()
     if request.method == 'POST':
@@ -130,7 +130,7 @@ def parent_schedules():
 
 
 #########################       Staff       #########################
-@app.route('/staff')
+@ptc.route('/staff')
 @login_required
 def staff_home():
     return render_template('Staff/student_home.html', title='Student Portal')
@@ -139,25 +139,25 @@ def staff_home():
 
 #########################   Administration  #########################
 
-@app.route('/administration')
+@ptc.route('/administration')
 def admin_home():
     return render_template('Staff/admin_home.html', title='Admin Portal')
 
 
-@app.route('/statistics')
+@ptc.route('/statistics')
 def statistics():
     ptqueue = models.PTQueue.query.all()
     return render_template('Staff/statistics.html', ptqueue=ptqueue, title='Statistics')
 
-@app.route('/database')
+@ptc.route('/database')
 def database():
     ptqueue = models.PTQueue.query.all()
     return render_template('Staff/database.html', ptqueue=ptqueue, title='Database')
 
-@app.route('/upload_csv', methods=['GET', 'POST'])
+@ptc.route('/upload_csv', methods=['GET', 'POST'])
 def upload_csv():
     if request.method == 'POST':
-        with open('app/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
+        with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
             csv_reader = csv.reader(csvDataFile)
             for row in csv_reader:
                 ptqueue = PTQueue(teacher=row[0], department=row[1], room=row[2], description=row[3])

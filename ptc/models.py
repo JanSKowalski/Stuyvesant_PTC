@@ -1,4 +1,4 @@
-from app import app, db, login_manager
+from ptc import ptc, db, login_manager
 import datetime
 import flask_whooshalchemy as whooshalchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -95,5 +95,5 @@ class PTQueue(db.Model):
 
 
 #Allows whoosh to build an indexing database
-whooshalchemy.whoosh_index(app, Parent)
-whooshalchemy.whoosh_index(app, PTQueue)
+whooshalchemy.whoosh_index(ptc, Parent)
+whooshalchemy.whoosh_index(ptc, PTQueue)

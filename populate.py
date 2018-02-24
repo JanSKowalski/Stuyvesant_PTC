@@ -1,5 +1,5 @@
-from app import app, models, db
-from app.models import PTQueue, Parent, User
+from ptc import ptc, models, db
+from ptc.models import PTQueue, Parent, User
 import csv, datetime
 import whoosh
 from whoosh.fields import Schema, DATETIME
@@ -45,7 +45,7 @@ for i in range(0, 25):
     db.session.commit()
 
 
-with open('app/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
+with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
     csv_reader = csv.reader(csvDataFile)
     for row in csv_reader:
         ptqueue = PTQueue(teacher=row[0], department=row[1], room=row[2], description=row[3])

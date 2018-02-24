@@ -1,4 +1,4 @@
-from app import models, db, mail, app
+from ptc import models, db, mail, ptc
 
 
 
@@ -19,7 +19,7 @@ def administrator_authenticate(func):
             flash("You must be an administrator to view this page")
             return redirect('index')
         return func(*args, **kwargs)
-return check_user
+return check_userptc
 
 
 def reset_database():
