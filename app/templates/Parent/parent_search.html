@@ -31,7 +31,7 @@
 
   <!--<h1>Search results for "{{ query }}":</h1>-->
   {% for p in parents %}
-  <ul><a href="parent/{{p.id}}"><p>Room: {{p.child_name}} | {{p.child_dob}}</p><p>ID Number: {{p.id}}</p></a></ul>
+  <ul><a href="parent/{{p.id}}"><p>{{p.child_name}}  |  {{p.child_dob}}</p><p>ID Number: {{p.id}}</p></a></ul>
   {% endfor %}
 </div>
 

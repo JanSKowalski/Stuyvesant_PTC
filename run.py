@@ -3,6 +3,6 @@ from app import app, db
 
 if __name__ == "__main__":
     #db.create_all()
-    app.debug = True
+    app.debug = False
     app.use_reloader = False
-    app.run(debug = True, port = 5017)
+    app.run(debug = False)

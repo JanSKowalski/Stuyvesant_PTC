@@ -17,3 +17,6 @@ sudo systemctl restart apache2
 sudo ufw app list
 sudo ufw app info "Apache Full"
 sudo ufw allow in "Apache Full"
+
+2/24 1:16
+mkdir /var/www/ptc

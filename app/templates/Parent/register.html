@@ -14,15 +14,14 @@
     {{ form.hidden_tag() }}
     <p>
       Please enter your child's name:<br>
-      {{ form.child_name(size=80) }}<br>
+      <input id="child_name" name="child_name" size="80" type="text" placeholder="ex: Tom Sawyer">
       {% for error in form.child_name.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </p>
     <p>
-      Please enter your child's date of birth:<br>
-      (This should take the form month/day/year, ex: 5/17/2000).<br>
-      {{ form.child_dob(size=80) }}<br>
+      Please enter your child's date of birth:
+      <input id="child_dob" name="child_dob" size="80" type="text" placeholder="ex: 5/17/2000">
       {% for error in form.child_dob.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
