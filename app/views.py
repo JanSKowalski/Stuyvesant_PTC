@@ -63,26 +63,36 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/statistics')
-def statistics():
-    ptqueue = models.PTQueue.query.all()
-    return render_template('Staff/statistics.html', ptqueue=ptqueue, title='Statistics')
+
+@app.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
+def teacher(teacher_id):
+    teacher = PTQueue.query.get(teacher_id)
+    return render_template('Cover/teacher.html', title='Teacher', teacher=teacher)
+
+
+
+
+
 
 #########################       Parent      #########################
-@app.route('/parent')
+@app.route('/parent_home')
 def parent_home():
     return render_template('Parent/parent_home.html', title='Parent Portal')
 
 @app.route('/parent_search', methods=['GET', 'POST'])
-@app.route('/parent/<parent_query>', methods=['GET', 'POST'])
+@app.route('/parent_search/<parent_query>', methods=['GET', 'POST'])
 def parent_search():
     form = SearchForm()
     if request.method == 'POST':
-        parents = Parent.query.whoosh_search(form.search_field.data, 10).all()
+        parents = Parent.query.whoosh_search(form.search_field.data).all()
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
     else:
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
 
+@app.route('/parent/<parent_id>', methods=['GET', 'POST'])
+def parent(parent_id):
+    parent = Parent.query.get(parent_id)
+    return render_template('Parent/parent.html', title='Parent', parent=parent)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -124,7 +134,10 @@ def admin_home():
     return render_template('Staff/admin_home.html', title='Admin Portal')
 
 
-
+@app.route('/statistics')
+def statistics():
+    ptqueue = models.PTQueue.query.all()
+    return render_template('Staff/statistics.html', ptqueue=ptqueue, title='Statistics')
 
 @app.route('/database')
 def database():

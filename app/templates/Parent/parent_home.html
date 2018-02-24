@@ -12,20 +12,14 @@
 {% include "Cover/menu.html" %}
 
 <div class="content flex-column">
-  <!--
-
-  <input type="text" name="search" placeholder="Search...">
-
-  {% for p in parents %}
-  <ul>{{p.child_name}}, {{p.id}}</ul>
-  {% endfor %}
-
-  {% for p in ptqueue %}
-  <ul>{{p.teacher}}, {{p.id}}</ul>
-  {% endfor %}
--->
-<a href="parent_search" class="button">ID Look-up</a>
-<a href="register" class="button">Register</a>
-<a href="parent_schedules" class="button">Schedules</a>
+  <div class="flex-item">
+    <a href="parent_search" class="button">ID Look-up</a>
+  </div>
+  <div class="flex-item">
+    <a href="register" class="button">Register</a>
+  </div>
+  <div class="flex-item">
+    <a href="parent_schedules" class="button">Schedules</a>
+  </div>
 </div>
 {% endblock %}

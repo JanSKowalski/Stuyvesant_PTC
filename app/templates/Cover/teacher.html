@@ -1,0 +1,21 @@
+<!-- extend base layout -->
+{% extends "Cover/base.html" %}
+
+{% block content %}
+
+<!-- Continued from base -->
+    <h3>{{teacher.teacher}}</h3>
+  </header>
+</div>
+
+{% include "Cover/menu.html" %}
+
+<div class="flex-item content">
+
+  Hi!
+  {% for p in teacher.parents %}
+      <ul><a href="parent/{{p.id}}"><p>{{p.child_name}}</p></a></ul>
+  {% endfor %}
+</div>
+
+{% endblock %}

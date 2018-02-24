@@ -31,7 +31,7 @@
   </form>
 
   {% for t in teachers %}
-  <ul>{{t.teacher}}, {{t.room}}</ul>
+  <ul><a href="teacher/{{t.id}}"><p>{{t.teacher}}</p><p>Room: {{t.room}} | {{t.size(t)}}</p></a></ul>
   {% endfor %}
 </div>
 
