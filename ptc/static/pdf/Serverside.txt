@@ -127,3 +127,30 @@ sudo pip install flask-sqlalchemy
 sudo pip install flask_whooshalchemy
 
 sudo pip install flask-wtf
+
+sudo ufw allow 5000
+
+
+This seems to identify the problem
+http://www.islandtechph.com/2017/10/21/how-to-deploy-a-flask-python-2-7-application-on-a-live-ubuntu-16-04-linux-server-running-apache2/
+
+source venv/bin/activate
+
+https://stackoverflow.com/questions/36656702/flask-website-500-internal-server-error#
+
+Thank God it works
+
+
+
+
+
+OSError: [Errno 13] Permission denied: '/var/www/ptc/search.db'
+
+Permissions error when starting up  search database
+
+https://stackoverflow.com/questions/21797372/django-errno-13-permission-denied-var-www-media-animals-user-uploads
+
+sudo groupadd varwwwusers
+sudo adduser www-data varwwwusers
+sudo chgrp -R varwwwusers /var/www/
+sudo chmod -R 760 /var/www/
