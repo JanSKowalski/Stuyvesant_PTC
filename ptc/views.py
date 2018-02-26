@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, url_for, render_template, request, ses
 from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
-from flask.ext.login import UserMixin
+#from flask.ext.login import UserMixin
 from .forms import LoginForm, RegistrationForm, SearchForm
 
 #from ptc.forms import
