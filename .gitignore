@@ -106,5 +106,4 @@ ENV/
 
 
 
-# Whooshalchemy files
-flask/Flask-WhooshAlchemy/*
+*log
