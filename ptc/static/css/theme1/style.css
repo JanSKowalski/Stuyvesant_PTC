@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  /*box-sizing: border-box;*/
+}
+
+html {
+  height:100%;
+  width:100%;
+  /*overflow-y: scroll;*/
+  overflow: auto;
+
+  background: #7FFFD4;  Old Browsers
+  background: -webkit-linear-gradient(left,#7FFFD4,#f2efe0); /*Safari 5.1-6*/
+  background: -o-linear-gradient(left,#7FFFD4,#f2efe0); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(left,#7FFFD4,#f2efe0); /*Fx 3.6-15*/
+  background: linear-gradient(to left, #7FFFD4, #f2efe0); /*Standard*/
+
+  margin-bottom: 8%;
+  font-family: 'EB Garamond', serif;
+
+}
+
+body {
+  margin: auto;
+  margin-top: 6%;
+  margin-bottom: 8%;
+
+  /* text-align: center; */
+  width: 60%;
+  height: 100%;
+  font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+  font-weight: normal;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style:normal;
+  padding-top: 0.1em;
+  text-shadow: 0.05em 0.05em 0 rgba(0, 0, 0, .3);
+  margin: 25px 0px;
+  color:  	#8B0000;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin: 10px 0px:
+  width: 400px;
+
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 20px 0px;
+  background:  #38471f;
+  border-radius: 10px;
+}
+
+ul:hover {
+  background: #556b2f;
+}
+
+a {
+  text-decoration: none; /* Removes underline from links */
+  display: block;
+  color: White;
+  margin: 3px 0px;
+}
+
+p {
+  margin: 20px 0px;
+}
+
+.menu-button {
+    padding: 5px 5px;
+}
+
+.menu-button:hover {
+  border-radius: 8px;
+  background: #DDA0DD;
+  color: rgb(148, 0, 211);
+
+}
+
+hr{
+  height: 8%;
+  border:none;
+}
