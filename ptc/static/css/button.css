@@ -8,8 +8,13 @@
   display: block;
   text-decoration: none;
 
+
+
+
+
   /*color: #FFF;*/
-  background-color: #5995DA;
+  /*  background-color: #5995DA;*/
+  background-color: #191970;
   font-weight: bold;
   text-shadow: 0.1em 0.1em 0 rgba(0, 0, 0, .1);
 
@@ -25,8 +30,9 @@
 
 .button:hover,
 .button:visited:hover {
-  background-color: #AEC186;
-  color: #333300;
+  /*background-color: #AEC186;*/
+  background-color: #B8D8D8;
+  color:   black;/* #333300;*/
 }
 
 .button:active,

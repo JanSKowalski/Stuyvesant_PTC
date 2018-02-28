@@ -13,6 +13,14 @@
     width: 200px;
   }
 
+  .content .flex-item {
+    margin: -10px 0px;
+  }
+/*
+  .expandable .flex-item {
+    margin: -8px 0px;
+  }
+*/
   .expandable {
     flex-direction: column;
     flex: 2;
@@ -28,6 +36,10 @@
     padding: 10px 0px;
     right: 0px;
 
+  }
+
+  .content {
+    background-color: rbga(0,0,0,0);
   }
 
   .menu-button {
