@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>{{ title }}</title>
   <meta charset='UTF-8' />
   <meta name='viewport'
       content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+
   <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/static/css/navbar.css" type="text/css">
   <link rel="stylesheet" href="/static/css/button.css" type="text/css">
   <link rel="stylesheet" href="/static/css/form.css" type="text/css">
   <link rel="stylesheet" href="/static/css/containers.css" type="text/css">
   <link rel="stylesheet" href="/static/css/media.css" type="text/css">
+
+
   <link rel="shortcut icon" href="/static/img/stuy.ico" type="image/x-icon" >
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <script src="/static/scripts/scripts.js"></script>
@@ -17,12 +22,19 @@
   <link href='https://fonts.googleapis.com/css?family=Sancreek' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Mukta+Malar" rel="stylesheet">
 </head>
+
+
+
 <body>
+
+  {% include "Cover/navbar.html" %}
+
   <div class="flex-column">
     <div class="flex-item flex-column">
       <header>
         <h1>Stuyvesant High School</h1>
     {% block content %}{% endblock %}
   </div>
+
 </body>
 </html>

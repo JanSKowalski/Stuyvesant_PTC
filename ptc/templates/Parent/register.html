@@ -1,5 +1,6 @@
 <!-- extend base layout -->
 {% extends "Cover/base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
 
@@ -8,7 +9,7 @@
   </header>
 </div>
 
-{% include "Cover/menu.html" %}
+
 <div class="flex-item content">
   <form action="" method="post" name="register">
     {{ form.hidden_tag() }}

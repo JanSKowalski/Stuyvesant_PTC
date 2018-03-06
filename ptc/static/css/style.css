@@ -25,7 +25,7 @@ html {
 
 body {
   margin: auto;
-  margin-top: 6%;
+  margin-top: 10%;
   margin-bottom: 8%;
 
   /* text-align: center; */
@@ -66,11 +66,12 @@ h3 {
 }
 
 
-ul {
+ul {/*
   list-style-type: none;
   margin: 20px 0px;
   background:  #38471f;
   border-radius: 10px;
+  */
 }
 
 ul:hover {
