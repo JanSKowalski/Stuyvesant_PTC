@@ -62,3 +62,38 @@ class SearchForm(Form):
             return False
         else:
             return True
+
+#Add Parent to a teacher queue, validate ID exists
+class AddForm(Form):
+    search_field = StringField('add', validators=[DataRequired()])
+    submit = SubmitField()
+
+    def validate_id(self):
+        parent_id = self.search_field.data
+        parent = models.Parent.query.get(parent_id)
+        if parent is None:
+            tmp = list(self.search_field.errors)
+            tmp.append("This ID is not recognized.")
+            self = tuple(tmp)
+            return False
+        else:
+            return True
+
+#Remove Parent to a teacher queue, validate ID is next parent
+class RemoveForm(Form):
+    search_field = StringField('search', validators=[DataRequired()])
+    submit2 = SubmitField()
+    #submit3 = SubmitField()
+
+    def validate_id(self):
+        parent_id = self.search_field.data
+        parent = models.PTQueue.query.get(parent_id)
+        if parent is None:
+            tmp = list(self.search_field.errors)
+            tmp.append("This ID is not recognized.")
+            self = tuple(tmp)
+            return False
+        else:
+            return True
+
+        return False

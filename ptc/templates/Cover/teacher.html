@@ -4,20 +4,81 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h3>{{teacher.teacher}}</h3>
+    <h1>{{teacher.teacher}}</h1>
   </header>
 </div>
 
-<div class="flex-item content">
+<div class="flex-item flex-row">
 
-  Hi!
-  {% for p in teacher.parents %}
-      <ul><a href="parent/{{p.id}}"><p>{{p.child_name}}</p></a></ul>
-  {% endfor %}
+  <div class="flex-item">
+    Rm. {{teacher.room}}
+  </div>
+
+  <div class="flex-item">
+    Parents waiting: {{teacher.size(teacher)}}
+  </div>
+</div>
+
   <hr>
 
 
-  there is a bear
+
+  {% if session["username"] == "student"%}
+
+  <form action="/teacher/{{teacher.id}}" method="post" name="add_parent">
+    {{ add_form.hidden_tag() }}
+    <p>
+      <input id="search_field" name="search_field" size="20" type="text" placeholder="ID of joining parent">
+      {% for error in add_form.search_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <div class="flex-item">
+    <p><input type="submit" value="Add 'em'"></p>
+  </div>
+  </form>
+
+  <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
+    {{ rm_form.hidden_tag() }}
+    <p>
+      <input id="search_field" name="search_field" size="20" type="text" placeholder="ID of leaving parent">
+      {% for error in rm_form.search_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <div class="flex-item flex-row">
+      <!--
+      <p><input type="submit" value="Saw teacher"></p>
+      <p><input type="submit" value="No show"></p>
+    -->
+    </div>
+  </form>
+
+
+
+  <hr>
+
+  {% endif %}
+
+
+
+
+<div class="flex-item content">
+
+
+  {% for p in teacher.parents %}
+      <ul>
+        <div class="flex-row">
+          <div class="flex-item">
+            <a href="parent/{{p.id}}">{{p.child_name}}
+          </div>
+          <div class="flex-item">
+            <p>Estimated Time: {{p.child_dob}}</p></a>
+          </div>
+        </div>
+      </ul>
+  {% endfor %}
+
 </div>
 
 {% endblock %}
