@@ -2,7 +2,6 @@
 {% extends "Cover/base.html" %}
 
 {% block content %}
-Admin
-<h1>Hi, {{ current_user.username }}!</h1>
+<h1>Hi, {{ session["username"] }}!</h1>
 
 {% endblock %}

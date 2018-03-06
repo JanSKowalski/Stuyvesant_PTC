@@ -10,9 +10,17 @@
 
 <div class="flex-item content">
 
-  Hi!
   {% for t in parent.ptqueues %}
-      <ul><a href="teacher/{{t.id}}"><p>{{t.teacher}}</p></a></ul>
+      <ul>
+        <div class="flex-row">
+          <div class="flex-item">
+            <a href="teacher/{{t.id}}">{{t.teacher}}
+          </div>
+          <div class="flex-item">
+            <p>Estimated Time: It's now or never</p></a>
+          </div>
+        </div>
+      </ul>
   {% endfor %}
 </div>
 

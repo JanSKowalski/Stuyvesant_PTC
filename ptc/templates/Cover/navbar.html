@@ -11,12 +11,7 @@
     <li class="flex-item Stuy">
       <a href="/index" class="dropbtn">Stuyvesant</a>
     </li>
-    {% if current_user.name == "student" or current_user.name == "admin" or current_user.name == ""%}
-    <li class="logout">
-      <a href="/logout" class="dropbtn">Logout</a>
-    </li>
-    {% else %}
-    ::{{current_user.name}}::
+    {% if session["username"] == "student" or session["username"] == "admin"%}
     <li class="logout">
       <a href="/logout" class="dropbtn">Logout</a>
     </li>

@@ -4,7 +4,7 @@ from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
 #from flask.ext.login import UserMixin
-from .forms import LoginForm, RegistrationForm, SearchForm
+from .forms import LoginForm, RegistrationForm, SearchForm, AddForm
 
 #from ptc.forms import
 from ptc.models import User, Parent, PTQueue
@@ -12,12 +12,6 @@ from ptc.models import User, Parent, PTQueue
 @ptc.route('/')
 @ptc.route('/index')
 def index():
-    '''
-    if 'username' in session:
-      username = session['username']
-      return 'Logged in as ' + username + '<br>'
-    #current_user.is_authenticated = False
-    '''
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
 @ptc.route('/teacher_search', methods=['GET', 'POST'])
@@ -32,15 +26,6 @@ def teacher_search():
 
 @ptc.route('/login', methods=['GET', 'POST'])
 def login():
-    #If a user is already logged in, send them to the right place
-    '''
-    if current_user.is_authenticated:
-        if (current_user == 'student'):
-            return redirect(url_for('staff'))
-        if (current_user == 'admin'):
-            return redirect(url_for('administration'))
-        return redirect(url_for('index'))
-'''
     if 'username' in session:
         username = session['username']
         if (username == 'student'):
@@ -56,32 +41,12 @@ def login():
         login_user(user) #, remember=form.remember_me.data)
         if (form.username.data == 'student'):
             session['username'] = 'student'
-            current_user.name = 'student'
             return redirect('/staff')
         if (form.username.data == 'admin'):
             session['username'] = 'admin'
-            current_user.name = 'admin'
             return redirect('/administration')
         return redirect('/index')
     return render_template('Staff/login.html', title='Login Manager', form=form)
-
-
-@ptc.route('/logout')
-def logout():
-    logout_user()
-    session['username'] = 'guest'
-    current_user.name = 'guest'
-    return redirect(url_for('index'))
-
-
-@ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
-def teacher(teacher_id):
-    teacher = PTQueue.query.get(teacher_id)
-    return render_template('Cover/teacher.html', title='Teacher', teacher=teacher)
-
-
-
-
 
 
 #########################       Parent      #########################
@@ -144,6 +109,38 @@ def parent_schedules():
 @login_required
 def staff_home():
     return render_template('Staff/student_home.html', title='Student Portal')
+
+
+@ptc.route('/logout')
+def logout():
+    logout_user()
+    session['username'] = 'guest'
+    return redirect(url_for('index'))
+
+
+@ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
+def teacher(teacher_id):
+    add_form = AddForm()
+
+    teacher = PTQueue.query.get(teacher_id)
+    print("----------------------------------------debug")
+    if request.method == 'POST':
+        print("---------------------------------------debug2")
+        if add_form.validate_id():
+            print("---------------------------------------debug3")
+            parent = models.Parent.query.get(add_form.search_field.data)
+            print(parent)
+            teacher = models.PTQueue.query.get(teacher_id)
+            print(teacher)
+            teacher.enqueue(teacher, parent)
+            print(teacher)
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form)
+
+    return render_template('Cover/teacher.html', title='Teacher',
+                        teacher=teacher, add_form=add_form)
+
+
 
 
 
