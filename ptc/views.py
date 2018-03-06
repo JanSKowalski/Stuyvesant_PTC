@@ -123,17 +123,13 @@ def teacher(teacher_id):
     add_form = AddForm()
 
     teacher = PTQueue.query.get(teacher_id)
-    print("----------------------------------------debug")
     if request.method == 'POST':
-        print("---------------------------------------debug2")
         if add_form.validate_id():
-            print("---------------------------------------debug3")
             parent = models.Parent.query.get(add_form.search_field.data)
-            print(parent)
             teacher = models.PTQueue.query.get(teacher_id)
-            print(teacher)
             teacher.enqueue(teacher, parent)
-            print(teacher)
+            db.session.add(teacher)
+            db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form)
 
