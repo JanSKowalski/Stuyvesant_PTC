@@ -38,21 +38,6 @@
   </div>
   </form>
 
-  <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
-    {{ rm_form.hidden_tag() }}
-    <p>
-      <input id="search_field" name="search_field" size="20" type="text" placeholder="ID of leaving parent">
-      {% for error in rm_form.search_field.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <div class="flex-item flex-row">
-      <!--
-      <p><input type="submit" value="Saw teacher"></p>
-      <p><input type="submit" value="No show"></p>
-    -->
-    </div>
-  </form>
 
 
 
