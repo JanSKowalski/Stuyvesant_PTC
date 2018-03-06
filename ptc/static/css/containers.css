@@ -12,10 +12,23 @@
   /*overflow: hidden;*/
 }
 
+.flex-text {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+  margin-top: 0px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 
 .flex-item {
   display: flex;
-  flex: 1;
+  flex: 10;
   justify-content: space-around;
   text-align: center;
   margin: auto;
@@ -30,4 +43,23 @@
   flex-wrap: wrap
   padding: 60%;
   align-items: center;
+}
+
+.content {
+  color: white;
+  justify-content: center;
+}
+
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  margin: auto;
+
+  color: #fff;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1.3em;
 }

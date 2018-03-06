@@ -25,11 +25,11 @@
   margin-left: 5%;
 }
 
-.Stuy li {
+.logout li {
   list-style-type: none;
-
   float: right;
-  margin-left: 5%;
+  margin-right: 5%;
+  display: inline-block;
 }
 
 li a, .dropbtn {

@@ -43,7 +43,7 @@ class LoginForm(Form):
         if (not user):
             self.username.errors.append("No user with this username exists")
             return False
-        if (user.check_password(self.password.data)):
+        if (not user.check_password(self.password.data)):
             self.password.errors.append("Authentication failed")
             return False
         return True
