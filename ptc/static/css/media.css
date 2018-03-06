@@ -1,12 +1,12 @@
 /* Mobile Styles */
 @media only screen and (max-width: 500px) {
   body {
-    margin-top: 12%;
+    margin-top: 20%;
 
   }
 
   h1 {
-    font-size: 1.6em;
+    font-size: 2em;
   }
 
   .flex-column {
@@ -21,10 +21,6 @@
     margin: -8px 0px;
   }
 */
-  .expandable {
-    flex-direction: column;
-    flex: 2;
-  }
 
 
   .flex-item {
