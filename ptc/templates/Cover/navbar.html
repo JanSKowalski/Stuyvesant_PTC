@@ -1,0 +1,30 @@
+<div class="navbar flex-row">
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Nav.</a>
+      <div class="dropdown-content">
+        <a href="/index">Home</a>
+        <a href="/teacher_search">Teacher Search</a>
+        <a href="/parent_search">Parent ID Search</a>
+        <a href="/register">Register</a>
+      </div>
+    </li>
+    <li class="flex-item Stuy">
+      <a href="/index" class="dropbtn">Stuyvesant</a>
+    </li>
+    {% if current_user.name == "student" or current_user.name == "admin" or current_user.name == ""%}
+    <li class="logout">
+      <a href="/logout" class="dropbtn">Logout</a>
+    </li>
+    {% else %}
+    ::{{current_user.name}}::
+    <li class="logout">
+      <a href="/logout" class="dropbtn">Logout</a>
+    </li>
+    {% endif %}
+  </div>
+
+  <!--
+  <ul class="Stuy">
+  <li class="Stuy"><a href="/index">Stuyvesant</a></li>
+</ul>
+-->

@@ -8,9 +8,7 @@
   </header>
 </div>
 
-{% include "Cover/menu.html" %}
-
-<div class="flex-item content">
+<div class="flex-item flex-column teachers">
   {% if parents == [] %}
   <p>Should you forget your ID number, this tool will allow you to quickly find it.</p>
   <p>Please search by your child's name or date of birth.</p>
@@ -31,7 +29,16 @@
 
   <!--<h1>Search results for "{{ query }}":</h1>-->
   {% for p in parents %}
-  <ul><a href="parent/{{p.id}}"><p>{{p.child_name}}  |  {{p.child_dob}}</p><p>ID Number: {{p.id}}</p></a></ul>
+  <ul>
+    <div class="flex-row">
+      <div class="flex-item">
+        <a href="parent/{{p.id}}">{{p.child_name}}
+      </div>
+      <div class="flex-item">
+        <p>DoB: {{p.child_dob}}</p><p>ID Number: {{p.id}}</p></a>
+      </div>
+    </div>
+  </ul>
   {% endfor %}
 </div>
 

@@ -25,7 +25,7 @@ html {
 
 body {
   margin: auto;
-  margin-top: 6%;
+  margin-top: 10%;
   margin-bottom: 8%;
 
   /* text-align: center; */
@@ -43,6 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 header {
   text-align: center;
 }
+
 
 h1 {
   font-family: 'Oswald', sans-serif;
@@ -66,16 +67,52 @@ h3 {
 }
 
 
-ul {
+ul:hover {
+  background: #556b2f;
+}
+
+
+.teachers ul {
   list-style-type: none;
   margin: 20px 0px;
   background:  #38471f;
   border-radius: 10px;
 }
 
-ul:hover {
+.teachers ul:hover {
   background: #556b2f;
 }
+
+/* Flaired edges, by Tomas Theunissen */
+hr.style1 {
+  margin-top: 40px;
+  overflow: visible;
+  /* For IE */ height: 30px;
+  border-style: solid;
+  border-color:   black;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+}
+hr.style1:before { /* Not really supposed to work, but does */
+  display: block; content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+}
+
+hr. style2 {
+   margin: 20px 0;
+   clear: both;
+   visibility: hidden;
+}
+
+hr.style3 {
+	border-top: 1px dashed #8c8b8b;
+}
+
 
 a {
   text-decoration: none; /* Removes underline from links */
@@ -89,7 +126,7 @@ p {
 }
 
 .menu-button {
-    padding: 5px 5px;
+  padding: 5px 5px;
 }
 
 .menu-button:hover {
@@ -97,9 +134,4 @@ p {
   background: #DDA0DD;
   color: rgb(148, 0, 211);
 
-}
-
-hr{
-  height: 8%;
-  border:none;
 }

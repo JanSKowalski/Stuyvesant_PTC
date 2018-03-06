@@ -12,10 +12,12 @@ from ptc.models import User, Parent, PTQueue
 @ptc.route('/')
 @ptc.route('/index')
 def index():
+    '''
     if 'username' in session:
       username = session['username']
       return 'Logged in as ' + username + '<br>'
     #current_user.is_authenticated = False
+    '''
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
 @ptc.route('/teacher_search', methods=['GET', 'POST'])
@@ -39,28 +41,36 @@ def login():
             return redirect(url_for('administration'))
         return redirect(url_for('index'))
 '''
+    if 'username' in session:
+        username = session['username']
+        if (username == 'student'):
+            return redirect('/staff')
+        if (username == 'admin'):
+            return redirect('/administration')
+
     form = LoginForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
 
-        print(form.username.data)
-
-
-        login_user(user, remember=form.remember_me.data)
+        login_user(user) #, remember=form.remember_me.data)
         if (form.username.data == 'student'):
             session['username'] = 'student'
-            return redirect(url_for('staff'))
+            current_user.name = 'student'
+            return redirect('/staff')
         if (form.username.data == 'admin'):
             session['username'] = 'admin'
-            return redirect(url_for('administration'))
-        return redirect(url_for('index'))
+            current_user.name = 'admin'
+            return redirect('/administration')
+        return redirect('/index')
     return render_template('Staff/login.html', title='Login Manager', form=form)
 
 
 @ptc.route('/logout')
 def logout():
     logout_user()
+    session['username'] = 'guest'
+    current_user.name = 'guest'
     return redirect(url_for('index'))
 
 

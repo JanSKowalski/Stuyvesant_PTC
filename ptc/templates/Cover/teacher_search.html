@@ -8,15 +8,14 @@
   </header>
 </div>
 
-{% include "Cover/menu.html" %}
-
-<div class="flex-item content">
+<div class="flex-item flex-column teachers">
 
   {% if teachers == [] %}
   <p>Search teachers by name, department, or room number.</p>
   {% else %}
   <p>Click on the result for more information!</p>
   {% endif %}
+
 
   <form action="" method="post" name="teacher_query">
     {{ form.hidden_tag() }}
@@ -30,7 +29,16 @@
   </form>
 
   {% for t in teachers %}
-  <ul><a href="teacher/{{t.id}}"><p>{{t.teacher}}</p><p>Room: {{t.room}} | {{t.size(t)}}</p></a></ul>
+  <ul>
+    <div class="flex-row">
+      <div class="flex-item">
+        <a href="teacher/{{t.id}}">{{t.teacher}}
+      </div>
+      <div class="flex-item">
+        <p>Room: {{t.room}}</p><p>Queue: {{t.size(t)}}</p></a>
+      </div>
+    </div>
+  </ul>
   {% endfor %}
 </div>
 

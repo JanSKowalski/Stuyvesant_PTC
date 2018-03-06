@@ -8,14 +8,16 @@
   </header>
 </div>
 
-{% include "Cover/menu.html" %}
-
 <div class="flex-item content">
 
   Hi!
   {% for p in teacher.parents %}
       <ul><a href="parent/{{p.id}}"><p>{{p.child_name}}</p></a></ul>
   {% endfor %}
+  <hr>
+
+
+  there is a bear
 </div>
 
 {% endblock %}
