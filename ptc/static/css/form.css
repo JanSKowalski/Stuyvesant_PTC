@@ -9,7 +9,7 @@ input[type=text], input[type=password] {
 
 input[type=button], input[type=submit]{
    /*background-color: #6B8E23; Color: Green */
-   background-color: #5995DA;
+   background-color: #004d99;/*#5995DA;*/
    border: none;
    color: white;
    padding: 16px 32px;

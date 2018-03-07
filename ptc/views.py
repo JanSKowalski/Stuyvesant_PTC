@@ -69,23 +69,26 @@ def parent(parent_id):
     parent = Parent.query.get(parent_id)
     return render_template('Parent/parent.html', title='Parent', parent=parent)
 
+
+@ptc.route('/id_response/<parent_id>', methods=['GET', 'POST'])
+def id_response(parent_id):
+	return render_template('Parent/id_response.html', title='ID Response', parent_id=parent_id)
+
+
 @ptc.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
 
     if  form.validate_on_submit():
-        if (not form.validate_date() or not form.validate_parent()):
-            for error in form.errors:
-                flash(error)
         parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
         #flash('Congratulations, you are now a registered parent!')
         parent_id = parent.id
-        return render_template('Parent/id_response.html', title='ID Response', parent_id=parent_id)
+        return redirect('id_response/' + str(parent_id))
     else:
-        for error in form.errors:
-            flash(error)
+        return render_template('Parent/register.html', title='Register', form=form)
+
     return render_template('Parent/register.html', title='Register', form=form)
 
 

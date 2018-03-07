@@ -8,6 +8,7 @@ from datetime import datetime
 
 
 class RegistrationForm(Form):
+    parent_name = StringField('parent_name', validators=[DataRequired()])
     child_name = StringField('child_name', validators=[DataRequired()])
     child_dob = StringField('child_dob', validators=[DataRequired()])
     #email = StringField('email', validators=[Email(), Optional()])
@@ -23,11 +24,13 @@ class RegistrationForm(Form):
 
 
     def validate_parent(self):
+        d_parent_name = models.Parent.query.filter_by(parent_name = self.parent_name.data).first()
         d_child_name = models.Parent.query.filter_by(child_name = self.child_name.data).first()
         d_child_dob = models.Parent.query.filter_by(child_dob = self.child_dob.data).first()
-        if d_child_name and d_child_dob:
-            self.child_name.errors.append("A parent has already registered under this child and date of birth")
-            self.child_dob.errors.append("A parent has already registered under this child and date of birth")
+        if d_paret_name and d_child_name and d_child_dob:
+            self.parent_name.errors.append("A parent has already registered with these credentials")
+            self.child_name.errors.append("A parent has already registered with these credentials")
+            self.child_dob.errors.append("A parent has already registered with these credentials")
             return False
         return True
 
