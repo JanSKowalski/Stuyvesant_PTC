@@ -80,7 +80,7 @@ def register():
     form = RegistrationForm()
 
     if  form.validate_on_submit():
-        parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
+        parent = Parent(parent_name=form.parent_name.data, child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
         #flash('Congratulations, you are now a registered parent!')
