@@ -121,6 +121,7 @@ def logout():
 @ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
     add_form = AddForm()
+    #rm_form = RemoveForm()
 
     teacher = PTQueue.query.get(teacher_id)
     if request.method == 'POST':
