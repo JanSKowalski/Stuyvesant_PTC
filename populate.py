@@ -70,7 +70,7 @@ with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
 teacher = PTQueue.query.get(11)
 
 for i in range( 4, 13):
-	parent = Parent.query.get(i)
+	parent = Parent.query.get(25 - i)
 	teacher.enqueue(teacher, parent)
 	db.session.add(teacher)
 
