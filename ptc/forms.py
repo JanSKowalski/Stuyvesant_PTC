@@ -8,6 +8,7 @@ from datetime import datetime
 
 
 class RegistrationForm(Form):
+    parent_name = StringField('parent_name', validators=[DataRequired()])
     child_name = StringField('child_name', validators=[DataRequired()])
     child_dob = StringField('child_dob', validators=[DataRequired()])
     #email = StringField('email', validators=[Email(), Optional()])
@@ -23,11 +24,13 @@ class RegistrationForm(Form):
 
 
     def validate_parent(self):
+        d_parent_name = models.Parent.query.filter_by(parent_name = self.parent_name.data).first()
         d_child_name = models.Parent.query.filter_by(child_name = self.child_name.data).first()
         d_child_dob = models.Parent.query.filter_by(child_dob = self.child_dob.data).first()
-        if d_child_name and d_child_dob:
-            self.child_name.errors.append("A parent has already registered under this child and date of birth")
-            self.child_dob.errors.append("A parent has already registered under this child and date of birth")
+        if d_paret_name and d_child_name and d_child_dob:
+            self.parent_name.errors.append("A parent has already registered with these credentials")
+            self.child_name.errors.append("A parent has already registered with these credentials")
+            self.child_dob.errors.append("A parent has already registered with these credentials")
             return False
         return True
 
@@ -65,16 +68,36 @@ class SearchForm(Form):
 
 #Add Parent to a teacher queue, validate ID exists
 class AddForm(Form):
-    search_field = StringField('search', validators=[DataRequired()])
+    add_field = StringField('add_field', validators=[DataRequired()])
     submit = SubmitField()
 
     def validate_id(self):
-        parent_id = self.search_field.data
+        parent_id = self.add_field.data
         parent = models.Parent.query.get(parent_id)
         if parent is None:
-            tmp = list(self.search_field.errors)
+            tmp = list(self.add_field.errors)
             tmp.append("This ID is not recognized.")
             self = tuple(tmp)
             return False
+        else:
+            return True
+
+#Add Parent to a teacher queue, validate ID exists
+class RemoveForm(Form):
+    rm_field = StringField('rm_field', validators=[DataRequired()])
+    submit = SubmitField()
+
+    def validate_id(self, teacher_id):
+        parent_id = self.rm_field.data
+        parent = models.Parent.query.get(parent_id)
+	teacher = models.PTQueue.query.get(teacher_id)
+	first_parent = teacher.get_next(teacher)
+        if parent is None:
+            tmp = list(self.rm_field.errors)
+            tmp.append("This ID is not recognized.")
+            self = tuple(tmp)
+            return False
+	elif (parent_id != first_parent.id):
+	    return False
         else:
             return True

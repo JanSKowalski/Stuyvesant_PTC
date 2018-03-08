@@ -1,5 +1,6 @@
 .navbar {
   position: fixed;
+  z-index: 200;
   top: 0;
   right: 0;
   left: 0;
@@ -23,13 +24,23 @@
 .dropdown li {
   float: left;
   margin-left: 5%;
+  flex: 1;
 }
+
+
+.Stuy li {
+  float: center;
+  margin: auto;
+  flex: 20;
+}
+
 
 .logout li {
   list-style-type: none;
   float: right;
   margin-right: 10%;
   display: inline-block;
+  flex: 1
 }
 
 li a, .dropbtn {

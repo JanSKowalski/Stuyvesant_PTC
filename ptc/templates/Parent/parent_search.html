@@ -30,12 +30,18 @@
   <!--<h1>Search results for "{{ query }}":</h1>-->
   {% for p in parents %}
   <ul>
-    <div class="flex-row">
+    <a href="parent/{{p.id}}">
+
+      <div class="flex-column">
+
+	<div class="flex-item">
+		{{p.parent_name}}
+	</div>
+	<hr>
       <div class="flex-item">
-        <a href="parent/{{p.id}}">{{p.child_name}}
-      </div>
-      <div class="flex-item">
-        <p>DoB: {{p.child_dob}}</p><p>ID Number: {{p.id}}</p></a>
+	<p>{{p.child_name}}</p>
+        <p>DoB: {{p.child_dob}}</p>
+	<p>ID: {{p.id}}</p></a>
       </div>
     </div>
   </ul>

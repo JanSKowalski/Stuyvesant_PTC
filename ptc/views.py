@@ -4,7 +4,7 @@ from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
 #from flask.ext.login import UserMixin
-from .forms import LoginForm, RegistrationForm, SearchForm, AddForm
+from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm
 
 #from ptc.forms import
 from ptc.models import User, Parent, PTQueue
@@ -69,23 +69,26 @@ def parent(parent_id):
     parent = Parent.query.get(parent_id)
     return render_template('Parent/parent.html', title='Parent', parent=parent)
 
+
+@ptc.route('/id_response/<parent_id>', methods=['GET', 'POST'])
+def id_response(parent_id):
+	return render_template('Parent/id_response.html', title='ID Response', parent_id=parent_id)
+
+
 @ptc.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
 
     if  form.validate_on_submit():
-        if (not form.validate_date() or not form.validate_parent()):
-            for error in form.errors:
-                flash(error)
-        parent = Parent(child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
+        parent = Parent(parent_name=form.parent_name.data, child_name=form.child_name.data, child_dob=form.child_dob.data) #, email=form.email.data)
         db.session.add(parent)
         db.session.commit()
         #flash('Congratulations, you are now a registered parent!')
         parent_id = parent.id
-        return render_template('Parent/id_response.html', title='ID Response', parent_id=parent_id)
+        return redirect('id_response/' + str(parent_id))
     else:
-        for error in form.errors:
-            flash(error)
+        return render_template('Parent/register.html', title='Register', form=form)
+
     return render_template('Parent/register.html', title='Register', form=form)
 
 
@@ -121,24 +124,30 @@ def logout():
 @ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
     add_form = AddForm()
+    rm_form = RemoveForm()
+
+    if request.method == 'POST':
+        if add_form.validate_id():
+            parent = models.Parent.query.get(add_form.add_field.data)
+            teacher = models.PTQueue.query.get(teacher_id)
+            teacher.enqueue(teacher, parent)
+            db.session.add(teacher)
+            db.session.commit()
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
+
+        elif rm_form.validate_id(teacher_id):
+            teacher = models.PTQueue.query.get(teacher_id)
+            teacher.dequeue(teacher)
+            db.session.add(teacher)
+            db.session.commit()
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
 
     teacher = PTQueue.query.get(teacher_id)
-    print("----------------------------------------debug")
-    if request.method == 'POST':
-        print("---------------------------------------debug2")
-        if add_form.validate_id():
-            print("---------------------------------------debug3")
-            parent = models.Parent.query.get(add_form.search_field.data)
-            print(parent)
-            teacher = models.PTQueue.query.get(teacher_id)
-            print(teacher)
-            teacher.enqueue(teacher, parent)
-            print(teacher)
-            return render_template('Cover/teacher.html', title='Teacher',
-                                teacher=teacher, add_form=add_form)
 
     return render_template('Cover/teacher.html', title='Teacher',
-                        teacher=teacher, add_form=add_form)
+                        teacher=teacher, add_form=add_form, rm_form=rm_form)
 
 
 

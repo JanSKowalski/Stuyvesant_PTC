@@ -1,3 +1,4 @@
+import os
 from ptc import ptc, models, db
 from ptc.models import PTQueue, Parent, User
 import csv, datetime
@@ -24,6 +25,13 @@ print schema
 print "_____________________________\n"
 
 '''
+
+os.system("sudo rm ptc.db")
+os.system("sudo rm error.log")
+os.system("sudo rm -rf search.db")
+
+
+
 #db.drop_all()
 db.create_all()
 
@@ -38,11 +46,28 @@ db.session.add(admin)
 db.session.commit()
 
 
+
+
 #'''
-for i in range(0, 25):
-    parent = Parent(child_name="child"+str(i), child_dob=str(i))
+for i in range(3, 25):
+    parent = Parent(parent_name="parent"+str(i), child_name="child"+str(i), child_dob="2/19/20"+str(i))
     db.session.add(parent)
     db.session.commit()
+
+
+
+
+'''
+teacher = PTQueue.query.get(11)
+
+for i in range( 4, 13):
+	parent = Parent.query.get(i)
+	teacher.enqueue(teacher, parent)
+	db.session.add(teacher)
+
+db.session.commit()
+
+'''
 
 
 with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
@@ -52,3 +77,6 @@ with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
         db.session.add(ptqueue)
         db.session.commit()
 #'''
+
+
+os.system("sudo chown -R www-data .")

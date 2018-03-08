@@ -1,6 +1,6 @@
 <div class="navbar flex-row">
     <li class="dropdown">
-      <a href="javascript:void(0)" class="dropbtn">Nav.</a>
+      <a href="javascript:void(0)" class="dropbtn">?</a>
       <div class="dropdown-content">
         <a href="/index">Home</a>
         <a href="/teacher_search">Teacher Search</a>
@@ -9,10 +9,10 @@
       </div>
     </li>
     <li class="flex-item Stuy">
-      <a href="/index" class="dropbtn">Stuyvesant</a>
+      <a href="/index" class="dropbtn">Home</a>
     </li>
     {% if session["username"] == "student" or session["username"] == "admin"%}
-    <li class="logout">
+    <li class="flex-item logout">
       <a href="/logout" class="dropbtn">Logout</a>
     </li>
     {% endif %}
