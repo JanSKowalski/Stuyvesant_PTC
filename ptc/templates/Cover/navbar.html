@@ -12,7 +12,7 @@
       <a href="/index" class="dropbtn">Home</a>
     </li>
     {% if session["username"] == "student" or session["username"] == "admin"%}
-    <li class="logout">
+    <li class="flex-item logout">
       <a href="/logout" class="dropbtn">Logout</a>
     </li>
     {% endif %}

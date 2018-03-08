@@ -49,6 +49,14 @@ class Parent(db.Model):
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
     __searchable__ = ['teacher', 'room', 'department', 'description']
+
+
+    __mapper_args__ = {
+        'confirm_deleted_rows': False
+    }
+
+
+
     id = db.Column(db.Integer, primary_key=True)
     teacher = db.Column(db.String(128), index=True, unique=True)
     room = db.Column(db.String(64), index=True, unique=False)
@@ -67,6 +75,11 @@ class PTQueue(db.Model):
         self.room = room
         self.department = department
         self.description = description
+	#-------------------------#
+	#	Statistics	  #
+	#-------------------------#
+	self.parents_seen = 0
+	self.avg_time = 3
 
     @staticmethod
     def get_id(self):
@@ -77,9 +90,11 @@ class PTQueue(db.Model):
     def get_time(self):
         return unicode(self.avg_time)
 
+
+    #Returns Parent object
     @staticmethod
     def get_next(self):
-        return unicode(self.parents[0])
+        return self.parents[0]
 
 
     @staticmethod
@@ -94,8 +109,9 @@ class PTQueue(db.Model):
     @staticmethod
     def dequeue(self):
         x = self.parents_seen
-        x = x + 1
-        return self.parents.pop()
+        #self.parents_seen = x + 1
+
+        return self.parents.pop(0)
 
     @staticmethod
     def size(self):

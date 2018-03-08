@@ -72,6 +72,13 @@ ul:hover {
 }
 
 
+.list ul {
+  margin: 20px 0px;
+  padding: 20px 0px;
+
+}
+
+
 .teachers ul {
   list-style-type: none;
   margin: 20px 0px;

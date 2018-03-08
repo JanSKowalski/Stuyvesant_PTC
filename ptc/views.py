@@ -4,7 +4,7 @@ from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
 #from flask.ext.login import UserMixin
-from .forms import LoginForm, RegistrationForm, SearchForm, AddForm
+from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm
 
 #from ptc.forms import
 from ptc.models import User, Parent, PTQueue
@@ -124,21 +124,30 @@ def logout():
 @ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
     add_form = AddForm()
-    #rm_form = RemoveForm()
+    rm_form = RemoveForm()
 
-    teacher = PTQueue.query.get(teacher_id)
     if request.method == 'POST':
         if add_form.validate_id():
-            parent = models.Parent.query.get(add_form.search_field.data)
+            parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
             teacher.enqueue(teacher, parent)
             db.session.add(teacher)
             db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
-                                teacher=teacher, add_form=add_form)
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
+
+        elif rm_form.validate_id(teacher_id):
+            teacher = models.PTQueue.query.get(teacher_id)
+            teacher.dequeue(teacher)
+            db.session.add(teacher)
+            db.session.commit()
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
+
+    teacher = PTQueue.query.get(teacher_id)
 
     return render_template('Cover/teacher.html', title='Teacher',
-                        teacher=teacher, add_form=add_form)
+                        teacher=teacher, add_form=add_form, rm_form=rm_form)
 
 
 

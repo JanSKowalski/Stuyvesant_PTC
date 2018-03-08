@@ -24,19 +24,34 @@
 
 
   {% if session["username"] == "student"%}
+<div class="flex-item flex-row">
+    
 
+<div class="flex-item">
   <form action="/teacher/{{teacher.id}}" method="post" name="add_parent">
     {{ add_form.hidden_tag() }}
-    <p>
-      <input id="search_field" name="search_field" size="20" type="text" placeholder="ID of joining parent">
-      {% for error in add_form.search_field.errors %}
+      <input name="add_field" size="20" type="text" placeholder="ID of joining parent">
+      {% for error in add_form.add_field.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
-    </p>
-    <div class="flex-item">
-    <p><input type="submit" value="Add 'em'"></p>
-  </div>
+      <input type="submit" value="Add Parent">
   </form>
+</div>
+
+
+<div class="flex-item">
+  <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
+    {{ rm_form.hidden_tag() }}
+      <input name="rm_field" size="20" type="text" placeholder="ID of leaving parent">
+      {% for error in rm_form.rm_field.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+      <input type="submit" value="Remove Parent">
+  </form>
+</div>
+
+
+</div>
 
 
 
@@ -48,19 +63,43 @@
 
 
 
-<div class="flex-item content">
+<div class="flex-item flex-column">
+
+	<div class="flex-item flex-row">
+		<div class="flex-item">ID</div>
+
+		<div class="flex-item">Parent	</div>
+		<div class="flex-item">Time	</div>
+
+	</div>
+
+
+	<hr>
+
+	{%if teacher.parents == [] %}
+
+		<div class="flex--itemlist ">
+			No Parents have signed up
+		</div>
+
+	{% endif %}
 
 
   {% for p in teacher.parents %}
-      <ul>
-        <div class="flex-row">
+
+      <ul><a href="/parent/{{p.id}}">
+        <div class="flex-item flex-row list">
           <div class="flex-item">
-            <a href="parent/{{p.id}}">{{p.parent_name}}
+            {{p.id}}
           </div>
           <div class="flex-item">
-            <p>Estimated Time: {{p.child_dob}}</p></a>
+            {{p.parent_name}}
+          </div>
+          <div class="flex-item">
+            {{p.child_dob}}
           </div>
         </div>
+	</a>
       </ul>
   {% endfor %}
 
