@@ -88,6 +88,7 @@ class RemoveForm(Form):
     submit = SubmitField()
 
     def validate_id(self, teacher_id):
+	return True
         parent_id = self.rm_field.data
         parent = models.Parent.query.get(parent_id)
 	teacher = models.PTQueue.query.get(teacher_id)

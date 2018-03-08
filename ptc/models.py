@@ -48,12 +48,12 @@ class Parent(db.Model):
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
-    __searchable__ = ['teacher', 'room', 'department', 'description']
+    __searchable__ = ['teacher', 'room', 'department', 'description'] #, 'opt_in']
 
 
-    __mapper_args__ = {
-        'confirm_deleted_rows': False
-    }
+    #__mapper_args__ = {
+    #    'confirm_deleted_rows': False
+    #}
 
 
 
@@ -64,12 +64,13 @@ class PTQueue(db.Model):
     description = db.Column(db.String(128), index=True, unique=False)
     parents_seen = db.Column(db.Integer, index=True, unique=False)
     avg_time = db.Column(db.Integer, index=True, unique=False)
+    opt_in = db.Column(db.Boolean, index=True, unique=False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
 
 
     @staticmethod
-    def __init__(self, teacher, room, department, description):
+    def __init__(self, teacher, room, department, description, opt_in):
         self.parents = []
         self.teacher = teacher
         self.room = room
@@ -78,6 +79,7 @@ class PTQueue(db.Model):
 	#-------------------------#
 	#	Statistics	  #
 	#-------------------------#
+	self.opt_in = opt_in
 	self.parents_seen = 0
 	self.avg_time = 3
 

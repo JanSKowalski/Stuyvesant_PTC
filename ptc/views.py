@@ -38,7 +38,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
 
-        login_user(user) #, remember=form.remember_me.data)
+        login_user(user)
         if (form.username.data == 'student'):
             session['username'] = 'student'
             return redirect('/staff')
@@ -138,9 +138,12 @@ def teacher(teacher_id):
 
         elif rm_form.validate_id(teacher_id):
             teacher = models.PTQueue.query.get(teacher_id)
-            teacher.dequeue(teacher)
-            db.session.add(teacher)
-            db.session.commit()
+            #db.session.add(teacher)
+	    teacher.dequeue(teacher)
+            #teacher.parents.pop(0)
+	    #db.session.add(teacher)
+            #db.session.flush()
+	    #db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
 

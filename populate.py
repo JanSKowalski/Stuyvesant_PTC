@@ -48,7 +48,6 @@ db.session.commit()
 
 
 
-#'''
 for i in range(3, 25):
     parent = Parent(parent_name="parent"+str(i), child_name="child"+str(i), child_dob="2/19/20"+str(i))
     db.session.add(parent)
@@ -57,7 +56,17 @@ for i in range(3, 25):
 
 
 
-'''
+
+
+with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
+    csv_reader = csv.reader(csvDataFile)
+    for row in csv_reader:
+        ptqueue = PTQueue(teacher=row[0], opt_in=int(row[1]), department=row[2], room=row[3], description=row[4])
+        db.session.add(ptqueue)
+        db.session.commit()
+
+
+
 teacher = PTQueue.query.get(11)
 
 for i in range( 4, 13):
@@ -67,16 +76,9 @@ for i in range( 4, 13):
 
 db.session.commit()
 
-'''
 
 
-with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
-    csv_reader = csv.reader(csvDataFile)
-    for row in csv_reader:
-        ptqueue = PTQueue(teacher=row[0], department=row[1], room=row[2], description=row[3])
-        db.session.add(ptqueue)
-        db.session.commit()
-#'''
+
 
 
 os.system("sudo chown -R www-data .")
