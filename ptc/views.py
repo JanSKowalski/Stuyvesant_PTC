@@ -3,11 +3,10 @@ from flask import Flask, flash, redirect, url_for, render_template, request, ses
 from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
-#from flask.ext.login import UserMixin
 from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm
 
-#from ptc.forms import
 from ptc.models import User, Parent, PTQueue
+import time, datetime
 
 @ptc.route('/')
 @ptc.route('/index')
@@ -126,6 +125,10 @@ def teacher(teacher_id):
     add_form = AddForm()
     rm_form = RemoveForm()
 
+
+    teacher = PTQueue.query.get(teacher_id)
+    #for p in teacher.parents:
+
     if request.method == 'POST':
         if add_form.validate_id():
             parent = models.Parent.query.get(add_form.add_field.data)
@@ -138,17 +141,13 @@ def teacher(teacher_id):
 
         elif rm_form.validate_id(teacher_id):
             teacher = models.PTQueue.query.get(teacher_id)
-            db.session.add(teacher)
-	    #db.session.add(teacher)
-	    teacher.dequeue(teacher)
-            #teacher.parents.pop(0)
-	    db.session.add(teacher)
-            #db.session.flush()
+            db.session.add(teacher) 	#Adding before and after is very necessary,
+	    teacher.dequeue(teacher)	#as this allows sqlalchemy to match the orm
+	    db.session.add(teacher) 	#to the regular database. (Google 'sqlalchemy orm')
 	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
 
-    teacher = PTQueue.query.get(teacher_id)
 
     return render_template('Cover/teacher.html', title='Teacher',
                         teacher=teacher, add_form=add_form, rm_form=rm_form)

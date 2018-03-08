@@ -45,16 +45,12 @@ class Parent(db.Model):
     def __repr__(self):
         return '<Child Name %s>, <Child DoB %s' % (self.child_name, self.child_dob)
 
+
+
 #Many-to-many relationship with Parents
 class PTQueue(db.Model):
     __tablename__ = 'PTQueue'
     __searchable__ = ['teacher', 'room', 'department', 'description'] #, 'opt_in']
-
-
-    #__mapper_args__ = {
-    #    'confirm_deleted_rows': False
-    #}
-
 
 
     id = db.Column(db.Integer, primary_key=True)
@@ -67,6 +63,7 @@ class PTQueue(db.Model):
     opt_in = db.Column(db.Boolean, index=True, unique=False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
+    parent_times = db.Column(db.DateTime, index=False, unique=False)
 
 
     @staticmethod
@@ -89,8 +86,27 @@ class PTQueue(db.Model):
 
 
     @staticmethod
-    def get_time(self):
-        return unicode(self.avg_time)
+    def get_avg_time(self):
+        return self.avg_time
+
+
+    @staticmethod
+    def get_parent_position(self, parent):
+   	try:
+            position = self.parents.index(parent)
+        except ValueError:
+            position = -1
+        return position
+
+
+    @staticmethod
+    def get_parent_time(self, parent):
+    	avg_time = self.avg_time
+	position = self.get_parent_position(self, parent)
+	current_time = datetime.datetime.now()
+	time_change = datetime.timedelta(0, (avg_time*position*60)) #Converting to seconds
+	estimated_time = current_time + time_change
+	return estimated_time.strftime('%H : %M')
 
 
     #Returns Parent object

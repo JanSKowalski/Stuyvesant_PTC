@@ -2,6 +2,9 @@ from ptc import models, db, mail, ptc
 
 
 
+
+
+
 def administrator_authenticate(func):
     @wraps(func)
     def check_user(*args, **kwargs):

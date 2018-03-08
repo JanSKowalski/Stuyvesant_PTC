@@ -4,24 +4,62 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h3>{{parent.child_name}}</h3>
+    <h3>{{parent.parent_name}}</h3>
   </header>
 </div>
 
-<div class="flex-item content">
+
+
+
+<div class="flex-item flex-column">
+
+        <div class="flex-item flex-row">
+                <div class="flex-item">Teacher</div>
+                <div class="flex-item">Position</div>
+                <div class="flex-item">Room</div>
+                <div class="flex-item">EstimatedTime</div>
+
+        </div>
+
+
+<hr>
+        {% if parent.ptqueues == [] %}
+
+                <div class="flex--itemlist ">
+                        You have not yet been signed up for any wait lists.
+                </div>
+
+        {% endif %}
+
+
 
   {% for t in parent.ptqueues %}
-      <ul>
-        <div class="flex-row">
+
+      <ul><a href="/teacher/{{t.id}}">
+        <div class="flex-item flex-row list">
           <div class="flex-item">
-            <a href="teacher/{{t.id}}">{{t.teacher}}
+            {{t.teacher}}
           </div>
           <div class="flex-item">
-            <p>Estimated Time: It's now or never</p></a>
+            {{t.get_parent_position(t, parent)}}
+          </div>
+          <div class="flex-item">
+            {{t.room}}
+          </div>
+          <div class="flex-item">
+            {{t.get_parent_time(t, parent)}}
           </div>
         </div>
+        </a>
       </ul>
   {% endfor %}
+
+
+
 </div>
+
+
+
+
 
 {% endblock %}
