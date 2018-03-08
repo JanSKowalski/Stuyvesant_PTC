@@ -35,3 +35,7 @@
   color: #FFF;
   background-color: #5995DA;  /* Blue */
 }
+
+.opt_out {
+  background-color: red;
+}

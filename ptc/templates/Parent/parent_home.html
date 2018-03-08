@@ -21,11 +21,11 @@
     <a href="parent_schedules" class="button">Estimated Parent Schedules</a>
   </div>
 
-
+{% if session['username'] != 'guest' %}
   <div class="flex-item flex-text">
     <a href="parent_search" class="button">ID Look-up</a>
   </div>
-
+{% endif %}
 
   <div class="flex-item flex-text">
     <a href="teacher_search" class="button">Teacher Locations</a>

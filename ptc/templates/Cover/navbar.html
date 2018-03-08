@@ -4,14 +4,16 @@
       <div class="dropdown-content">
         <a href="/index">Home</a>
         <a href="/teacher_search">Teacher Search</a>
+	{% if session['username'] != 'guest' %}
         <a href="/parent_search">Parent ID Search</a>
+	{% endif %}
         <a href="/register">Register</a>
       </div>
     </li>
     <li class="flex-item Stuy">
       <a href="/index" class="dropbtn">Home</a>
     </li>
-    {% if session["username"] == "student" or session["username"] == "admin"%}
+    {% if session['username'] != 'guest' %}
     <li class="flex-item logout">
       <a href="/logout" class="dropbtn">Logout</a>
     </li>
