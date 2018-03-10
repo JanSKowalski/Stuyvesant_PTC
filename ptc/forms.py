@@ -93,6 +93,8 @@ class RemoveForm(Form):
         parent = models.Parent.query.get(parent_id)
 	teacher = models.PTQueue.query.get(teacher_id)
 	first_parent = teacher.get_next(teacher)
+	if first_parent is None:
+	    return False
         if parent is None:
             tmp = list(self.rm_field.errors)
             tmp.append("This ID is not recognized.")

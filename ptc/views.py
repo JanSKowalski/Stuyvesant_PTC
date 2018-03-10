@@ -133,9 +133,10 @@ def teacher(teacher_id):
         if add_form.validate_id():
             parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
-            teacher.enqueue(teacher, parent)
-            db.session.add(teacher)
-            db.session.commit()
+	    db.session.add(teacher)		#Adding before and after is very necessary,
+	    teacher.enqueue(teacher, parent)	#as this allows sqlalchemy to match the orm
+	    db.session.add(teacher) 		#to the regular database. (Google 'sqlalchemy orm')
+	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
 

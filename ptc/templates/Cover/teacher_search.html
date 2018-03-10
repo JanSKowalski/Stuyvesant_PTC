@@ -29,9 +29,11 @@
   </form>
 
   {% for t in teachers %}
-  <ul>
+ 
+{% if t.opt_in %}
+ <ul>
     <a href="teacher/{{t.id}}">
-      <div class="flex-row">
+      <div class="flex-row" >
         <div class="flex-item">
           {{t.teacher}}
         </div>
@@ -41,6 +43,26 @@
       </div>
     </a>
   </ul>
+{% else %}
+  <ul style="color:white;background-color:#DC143C;">
+     <div class="flex-column">
+
+
+      <div class="flex-item flex-row" >
+          <div class="flex-item">
+            {{t.teacher}}
+          </div>
+	  <div class="flex-item">
+          	<p>Room: {{t.room}}</p>
+	  </div>
+  	</div>       
+
+          <div class="flex-item">
+		<p>This teacher is has not opted in.</p>
+          </div>
+        </div>
+  </ul>
+{% endif %}
   {% endfor %}
 </div>
 

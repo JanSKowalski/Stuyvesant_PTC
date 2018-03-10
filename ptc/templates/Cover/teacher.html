@@ -72,7 +72,9 @@
 	<div class="flex-item flex-row">
 		<div class="flex-item">#</div>
 		<div class="flex-item">ID</div>
-		<div class="flex-item">Parent</div>
+		{% if session['username']  != 'guest' %}
+			<div class="flex-item">Parent</div>
+		{% endif %}
 		<div class="flex-item">Time</div>
 
 	</div>
@@ -107,9 +109,13 @@
           <div class="flex-item">
             {{p.id}}
           </div>
+	{% if session['username'] != 'guest' %}
+
           <div class="flex-item">
             {{p.parent_name}}
           </div>
+
+	{%  endif %}
           <div class="flex-item">
             {{teacher.get_parent_time(teacher, p)}}
           </div>
