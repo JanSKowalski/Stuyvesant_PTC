@@ -29,16 +29,15 @@
   </form>
 
   {% for t in teachers %}
- 
+
 {% if t.opt_in %}
  <ul>
     <a href="teacher/{{t.id}}">
       <div class="flex-row" >
         <div class="flex-item">
-          {{t.teacher}}
-        </div>
-        <div class="flex-item">
-          <p>Room: {{t.room}}</p><p>Queue: {{t.size(t)}}</p>
+          <p>{{t.teacher}}</p>
+          <p>Room: {{t.room}}</p>
+          <p>Queue: {{t.size(t)}}</p>
         </div>
       </div>
     </a>
@@ -55,7 +54,7 @@
 	  <div class="flex-item">
           	<p>Room: {{t.room}}</p>
 	  </div>
-  	</div>       
+  	</div>
 
           <div class="flex-item">
 		<p>This teacher is has not opted in.</p>

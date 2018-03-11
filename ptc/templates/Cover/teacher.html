@@ -4,8 +4,8 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h1>{{teacher.teacher}}</h1>
-  </header>
+<h1>{{teacher.teacher}}</h1>
+</header>
 </div>
 
 <div class="flex-item flex-row">
@@ -15,7 +15,7 @@
   </div>
 
   <div class="flex-item">
-    Avg. Time: {{teacher.avg_time}} min.
+    Avg. Time: {{int(teacher.avg_time)}} min.
   </div>
 
   <div class="flex-item">
@@ -23,126 +23,152 @@
   </div>
 </div>
 
-  <hr>
+<hr>
 
 
-
-  {% if session["username"] == "Student"%}
+<!-- Editing Queue -->
+{% if session["username"] == "Student"%}
 <div class="flex-item flex-row">
-    
 
-<div class="flex-item">
-  <form action="/teacher/{{teacher.id}}" method="post" name="add_parent">
-    {{ add_form.hidden_tag() }}
+
+  <div class="flex-item">
+    <form action="/teacher/{{teacher.id}}" method="post" name="add_parent">
+      {{ add_form.hidden_tag() }}
       <input name="add_field" size="20" type="text" placeholder="ID of joining parent">
       {% for error in add_form.add_field.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
       <input type="submit" value="Add Parent">
-  </form>
-</div>
+    </form>
+  </div>
 
 
-<div class="flex-item">
-  <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
-    {{ rm_form.hidden_tag() }}
+  <div class="flex-item">
+    <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
+      {{ rm_form.hidden_tag() }}
       <input name="rm_field" size="20" type="text" placeholder="ID of leaving parent">
       {% for error in rm_form.rm_field.errors %}
       <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
       <input type="submit" value="Remove Parent">
-  </form>
-</div>
+    </form>
+  </div>
 
 
 </div>
+<hr>
 
-
-
-
-  <hr>
-
-  {% endif %}
+{% endif %}
 
 
 
 
 <div class="flex-item flex-column">
 
-	<div class="flex-item flex-row">
-		<div class="flex-item">#</div>
-		<div class="flex-item">ID</div>
-		{% if session['username']  != 'Guest' %}
-			<div class="flex-item">Parent</div>
-		{% endif %}
-		<div class="flex-item">Time</div>
 
-	</div>
+  {% if session['username']  == 'Teacher' %}
 
-
-	<hr>
+  <div class="flex-item flex-row">
+    <div class="flex-item">#</div>
+    <div class="flex-item">Parent</div>
+    <div class="flex-item">Child</div>
+    <div class="flex-item">Time</div>
+  </div>
 
 
-	{% if not teacher.opt_in %}
-
-		<div class="flex--itemlist ">
-			This teacher has not opted into this website service yet.
-		</div>
-
-
-	{% elif teacher.parents == [] %}
-
-		<div class="flex--itemlist ">
-			No Parents are currently signed up.
-		</div>
+  {% else %}
+  <div class="flex-item flex-row">
+    <div class="flex-item">#</div>
+    <div class="flex-item">ID</div>
+    {% if session['username']  != 'Guest' %}
+    <div class="flex-item">Parent</div>
+    {% endif %}
+    <div class="flex-item">Time</div>
+  </div>
+  {% endif %}
 
 
-	{% else %}
+  <hr>
+
+
+  {% if not teacher.opt_in %}
+
+  <div class="flex--itemlist ">
+    This teacher has not opted into this website service yet.
+  </div>
+
+
+  {% elif teacher.parents == [] %}
+
+  <div class="flex--itemlist ">
+    No Parents are currently signed up.
+  </div>
+
+ <!-- Teacher View -->
+  {% elif session['username'] == 'Teacher' %}
 
   {% for p in teacher.parents %}
 
-      <ul>
-
-
-	{% if session['username'] != 'Guest' %}
-
-<a href="/parent/{{p.id}}">
-
-	{%  endif %}
-
-
-
-        <div class="flex-item flex-row list">
-          <div class="flex-item">
-            {{teacher.get_parent_position(teacher, p)}}
-          </div>
-          <div class="flex-item">
-            {{p.id}}
-          </div>
-	{% if session['username'] != 'Guest' %}
-
-          <div class="flex-item">
-            {{p.parent_name}}
-          </div>
-
-	{%  endif %}
-          <div class="flex-item">
-            {{teacher.get_parent_time(teacher, p)}}
-          </div>
+  <ul >
+      <div class="flex-item flex-row list">
+        <div class="flex-item">
+          {{teacher.get_parent_position(teacher, p)}}
         </div>
 
-	{% if session['username'] != 'Guest' %}
+        <div class="flex-item">
+          {{p.parent_name}}
+        </div>
 
-	</a>
+        <div class="flex-item">
+          {{p.child_name}}
+        </div>
 
-	{%  endif %}
+        <div class="flex-item">
+          {{teacher.get_parent_time(teacher, p)}}
+        </div>
+      </div>
+  {% endfor %}
+
+  {% else %}
+
+  {% for p in teacher.parents %}
+
+  <ul>
+    {% if session['username'] != 'Guest' %}
+    <a href="/parent/{{p.id}}">
+    {%  endif %}
 
 
-      </ul>
+
+      <div class="flex-item flex-row list">
+        <div class="flex-item">
+          {{teacher.get_parent_position(teacher, p)}}
+        </div>
+        <div class="flex-item">
+          {{p.id}}
+        </div>
+
+        {% if session['username'] != 'Guest' %}
+        <div class="flex-item">
+          {{p.parent_name}}
+        </div>
+        {%  endif %}
+
+        <div class="flex-item">
+          {{teacher.get_parent_time(teacher, p)}}
+        </div>
+      </div>
+
+    {% if session['username'] != 'Guest' %}
+    </a>
+    {%  endif %}
+
+
+  </ul>
   {% endfor %}
 
 
-	{% endif %}
+  {% endif %}
 
 
 </div>

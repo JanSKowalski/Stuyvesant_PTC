@@ -11,8 +11,7 @@ import time, datetime
 @ptc.route('/')
 @ptc.route('/index')
 def index():
-    if not 'username' in session:
-        session['username'] = 'Guest'
+    session['username'] = 'Guest'
 
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
@@ -152,19 +151,19 @@ def teacher(teacher_id):
         if add_form.validate_id():
             parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
-	    db.session.add(teacher)		#Adding before and after is very necessary,
-	    teacher.enqueue(teacher, parent)	#as this allows sqlalchemy to match the orm
-	    db.session.add(teacher) 		#to the regular database. (Google 'sqlalchemy orm')
-	    db.session.commit()
+    	    db.session.add(teacher)		#Adding before and after is very necessary,
+    	    teacher.enqueue(teacher, parent)	#as this allows sqlalchemy to match the orm
+    	    db.session.add(teacher) 		#to the regular database. (Google 'sqlalchemy orm')
+    	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
 
         elif rm_form.validate_id(teacher_id):
             teacher = models.PTQueue.query.get(teacher_id)
             db.session.add(teacher) 	#Adding before and after is very necessary,
-	    teacher.dequeue(teacher)	#as this allows sqlalchemy to match the orm
-	    db.session.add(teacher) 	#to the regular database. (Google 'sqlalchemy orm')
-	    db.session.commit()
+    	    teacher.dequeue(teacher)	#as this allows sqlalchemy to match the orm
+    	    db.session.add(teacher) 	#to the regular database. (Google 'sqlalchemy orm')
+    	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
 

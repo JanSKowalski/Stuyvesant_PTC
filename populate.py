@@ -35,26 +35,6 @@ os.system("sudo rm -rf search.db")
 #db.drop_all()
 db.create_all()
 
-student = User(username='student')
-student.set_password('test1')
-
-admin = User(username='admin')
-admin.set_password('test2')
-
-station = User(username='station')
-station.set_password('test3')
-
-teacher = User(username='teacher')
-teacher.set_password('test4')
-
-db.session.add(student)
-db.session.add(admin)
-db.session.add(station)
-db.session.add(teacher)
-db.session.commit()
-
-
-
 
 for i in range(3, 25):
     parent = Parent(parent_name="parent"+str(i), child_name="child"+str(i), child_dob="2/19/20"+str(i))
@@ -89,4 +69,4 @@ db.session.commit()
 
 
 
-os.system("sudo chown -R www-data .")
+#os.system("sudo chown -R www-data .")

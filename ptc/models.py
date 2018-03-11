@@ -59,7 +59,8 @@ class PTQueue(db.Model):
     department = db.Column(db.String(128), index=True, unique=False)
     description = db.Column(db.String(128), index=True, unique=False)
     parents_seen = db.Column(db.Integer, index=True, unique=False)
-    avg_time = db.Column(db.Integer, index=True, unique=False)
+    avg_time = db.Column(db.Float, index=True, unique=False)
+    previous_time = db.Column(db.DateTime, index=True, unique=False)
     opt_in = db.Column(db.Boolean, index=True, unique=False)
     parents = db.relationship('Parent', secondary=queues,
                             backref=db.backref('queues', lazy='dynamic'))
@@ -73,12 +74,10 @@ class PTQueue(db.Model):
         self.room = room
         self.department = department
         self.description = description
-	#-------------------------#
-	#	Statistics	  #
-	#-------------------------#
-	self.opt_in = opt_in
-	self.parents_seen = 0
-	self.avg_time = 3
+        self.opt_in = opt_in
+        self.parents_seen = 0
+        self.avg_time = 3.0
+        self.previous_time = None
 
     @staticmethod
     def get_id(self):
@@ -92,7 +91,7 @@ class PTQueue(db.Model):
 
     @staticmethod
     def get_parent_position(self, parent):
-   	try:
+        try:
             position = self.parents.index(parent)
         except ValueError:
             position = -1
@@ -102,11 +101,11 @@ class PTQueue(db.Model):
     @staticmethod
     def get_parent_time(self, parent):
     	avg_time = self.avg_time
-	position = self.get_parent_position(self, parent)
-	current_time = datetime.datetime.now()
-	time_change = datetime.timedelta(0, (avg_time*position*60)) #Converting to seconds
-	estimated_time = current_time + time_change
-	return estimated_time.strftime('%H : %M')
+        position = self.get_parent_position(self, parent)
+        current_time = datetime.datetime.now()
+        time_change = datetime.timedelta(0, (int(avg_time)*position*60)) #Converting to seconds
+        estimated_time = current_time + time_change
+        return estimated_time.strftime('%I : %M')
 
 
     #Returns Parent object
@@ -121,14 +120,18 @@ class PTQueue(db.Model):
 
     @staticmethod
     def enqueue(self, parent):
-        #self.parents.insert(0,parent)
         self.parents.append(parent)
 
     @staticmethod
     def dequeue(self):
         x = self.parents_seen
-        #self.parents_seen = x + 1
-
+        parents_seen = x + 1
+        current_time = datetime.datetime.now()
+        #This setup updates the avg time of teachers
+        if (self.previous_time is not None):
+            time_change = current_time - self.previous_time
+            self.avg_time = (avg_time*parents_seen + time_change)/parents_seen
+        previous_time = current_time
         return self.parents.pop(0)
 
     @staticmethod
