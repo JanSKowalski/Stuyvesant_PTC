@@ -11,6 +11,9 @@ import time, datetime
 @ptc.route('/')
 @ptc.route('/index')
 def index():
+    if not 'username' in session:
+        session['username'] = 'Guest'
+
     return render_template('Cover/index.html', title='Stuyvesant PTC')
 
 @ptc.route('/teacher_search', methods=['GET', 'POST'])
@@ -27,9 +30,9 @@ def teacher_search():
 def login():
     if 'username' in session:
         username = session['username']
-        if (username == 'student'):
+        if (username == 'Student'):
             return redirect('/staff')
-        if (username == 'admin'):
+        if (username == 'Admin'):
             return redirect('/administration')
 
     form = LoginForm()
@@ -39,10 +42,16 @@ def login():
 
         login_user(user)
         if (form.username.data == 'student'):
-            session['username'] = 'student'
+            session['username'] = 'Student'
             return redirect('/staff')
+        if (form.username.data == 'station'):
+            session['username'] = 'Station'
+            return redirect('/station')
+        if (form.username.data == 'teacher'):
+            session['username'] = 'Teacher'
+            return redirect('/teacher_home')
         if (form.username.data == 'admin'):
-            session['username'] = 'admin'
+            session['username'] = 'Admin'
             return redirect('/administration')
         return redirect('/index')
     return render_template('Staff/login.html', title='Login Manager', form=form)
@@ -112,11 +121,21 @@ def parent_schedules():
 def staff_home():
     return render_template('Staff/student_home.html', title='Student Portal')
 
+@ptc.route('/station')
+@login_required
+def station_home():
+    return render_template('Staff/station_home.html', title='Station Portal')
+
+@ptc.route('/teacher_home')
+@login_required
+def teacher_home():
+    return render_template('Staff/teacher_home.html', title='Teacher Portal')
+
 
 @ptc.route('/logout')
 def logout():
     logout_user()
-    session['username'] = 'guest'
+    session['username'] = 'Guest'
     return redirect(url_for('index'))
 
 

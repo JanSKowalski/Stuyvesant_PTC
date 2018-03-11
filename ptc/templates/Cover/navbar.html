@@ -2,9 +2,9 @@
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropbtn">?</a>
       <div class="dropdown-content">
-        <a href="/index">Home</a>
+        <a href="/index">Front Page</a>
         <a href="/teacher_search">Teacher Search</a>
-	{% if session['username'] != 'guest' %}
+	{% if session['username'] != 'Guest' %}
         <a href="/parent_search">Parent ID Search</a>
 	{% endif %}
         <a href="/register">Register</a>
@@ -13,15 +13,13 @@
     <li class="flex-item Stuy">
       <a href="/index" class="dropbtn">Home</a>
     </li>
-    {% if session['username'] != 'guest' %}
+    {% if session['username'] != 'Guest' %}
     <li class="flex-item logout">
-      <a href="/logout" class="dropbtn">Logout</a>
+      <a href="/logout" class="dropbtn">Logout {{session['username']}}</a>
+    </li>
+    {% else %}
+    <li class="flex-item logout">
+      <a href="/login" class="dropbtn">Login</a>
     </li>
     {% endif %}
   </div>
-
-  <!--
-  <ul class="Stuy">
-  <li class="Stuy"><a href="/index">Stuyvesant</a></li>
-</ul>
--->
