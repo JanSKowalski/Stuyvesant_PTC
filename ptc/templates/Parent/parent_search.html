@@ -4,9 +4,10 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h3>Parent ID Search</h3>
-  </header>
+<h3>Parent ID Search</h3>
+</header>
 </div>
+
 
 <div class="flex-item flex-column teachers">
   {% if parents == [] %}
@@ -34,16 +35,23 @@
 
       <div class="flex-column">
 
-	<div class="flex-item">
-		{{p.parent_name}}
-	</div>
-	<hr>
-      <div class="flex-item">
-	<p>{{p.child_name}}</p>
-        <p>DoB: {{p.child_dob}}</p>
-	<p>ID: {{p.id}}</p></a>
-      </div>
-    </div>
+        <div class="flex-item">
+          {{p.parent_name}}
+        </div>
+        <hr>
+        <div class="flex-item flex-row">
+          <div class="flex-item">
+            <p>{{p.child_name}}</p>
+          </div>
+          <div class="flex-item">
+            <p>DoB: {{p.child_dob}}</p>
+          </div>
+          <div class="flex-item">
+            <p>ID: {{p.id}}</p>
+          </div>
+        </div> <!-- Ends flex-row -->
+      </div>  <!-- Ends flex-column -->
+    </a>
   </ul>
   {% endfor %}
 </div>

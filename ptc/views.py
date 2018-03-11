@@ -8,6 +8,8 @@ from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm
 from ptc.models import User, Parent, PTQueue
 import time, datetime
 
+from flask import Response #For disabling cache
+
 @ptc.route('/')
 @ptc.route('/index')
 def index():
@@ -140,6 +142,13 @@ def logout():
 
 @ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
+    #This prevents the browser from editing the queue if you hit the back button
+    response = Response("")
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate" # HTTP 1.1.
+    response.headers["Pragma"] = "no-cache" # HTTP 1.0.
+    response.headers["Expires"] = "0" # Proxies.
+
+
     add_form = AddForm()
     rm_form = RemoveForm()
 

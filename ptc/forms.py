@@ -88,19 +88,18 @@ class RemoveForm(Form):
     submit = SubmitField()
 
     def validate_id(self, teacher_id):
-	return True
         parent_id = self.rm_field.data
         parent = models.Parent.query.get(parent_id)
-	teacher = models.PTQueue.query.get(teacher_id)
-	first_parent = teacher.get_next(teacher)
-	if first_parent is None:
-	    return False
-        if parent is None:
+    	teacher = models.PTQueue.query.get(teacher_id)
+    	first_parent = teacher.get_next(teacher)
+    	if first_parent is None:
+    	    return False
+        elif parent is None:
             tmp = list(self.rm_field.errors)
             tmp.append("This ID is not recognized.")
             self = tuple(tmp)
             return False
-	elif (parent_id != first_parent.id):
-	    return False
+    	elif (parent_id != first_parent.id):
+    	    return False
         else:
             return True
