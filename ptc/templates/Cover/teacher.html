@@ -46,10 +46,6 @@
   <div class="flex-item">
     <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
       {{ rm_form.hidden_tag() }}
-      <input name="rm_field" size="20" type="text" placeholder="ID of leaving parent">
-      {% for error in rm_form.rm_field.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
       <input type="submit" value="Remove Parent">
     </form>
   </div>

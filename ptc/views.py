@@ -160,9 +160,9 @@ def teacher(teacher_id):
         if add_form.validate_id():
             parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
-    	    db.session.add(teacher)		#Adding before and after is very necessary,
-    	    teacher.enqueue(teacher, parent)	#as this allows sqlalchemy to match the orm
-    	    db.session.add(teacher) 		#to the regular database. (Google 'sqlalchemy orm')
+    	    db.session.add(teacher)	    #Adding before and after is very necessary,
+    	    teacher.enqueue(parent)	    #as this allows sqlalchemy to match the orm
+            db.session.add(teacher)     #to the regular database. (Google 'sqlalchemy orm')
     	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
@@ -170,7 +170,7 @@ def teacher(teacher_id):
         elif rm_form.validate_id(teacher_id):
             teacher = models.PTQueue.query.get(teacher_id)
             db.session.add(teacher) 	#Adding before and after is very necessary,
-    	    teacher.dequeue(teacher)	#as this allows sqlalchemy to match the orm
+    	    teacher.dequeue()	#as this allows sqlalchemy to match the orm
     	    db.session.add(teacher) 	#to the regular database. (Google 'sqlalchemy orm')
     	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',

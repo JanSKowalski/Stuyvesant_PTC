@@ -92,7 +92,6 @@ class RemoveForm(Form):
         #parent = models.Parent.query.get(parent_id)
     	teacher = models.PTQueue.query.get(teacher_id)
         size = teacher.size(teacher)
-    	#first_parent = teacher.get_next(teacher)
     	if size == 0:
     	    return False
         #elif parent is None:
@@ -100,6 +99,7 @@ class RemoveForm(Form):
         #    tmp.append("This ID is not recognized.")
         #    self = tuple(tmp)
         #    return False
+        #first_parent = teacher.get_next(teacher)
     	#elif (parent_id != first_parent.id):
     	#    return False
         else:

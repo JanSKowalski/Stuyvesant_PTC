@@ -118,11 +118,11 @@ class PTQueue(db.Model):
     def isEmpty(self):
         return self.parents == []
 
-    @staticmethod
+
     def enqueue(self, parent):
         self.parents.append(parent)
 
-    @staticmethod
+
     def dequeue(self):
         x = self.parents_seen
         parents_seen = x + 1

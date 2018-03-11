@@ -58,9 +58,10 @@ with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
 teacher = PTQueue.query.get(11)
 
 for i in range( 4, 13):
-	parent = Parent.query.get(25 - i)
-	teacher.enqueue(teacher, parent)
-	db.session.add(teacher)
+    parent = Parent.query.get(25 - i)
+    db.session.add(teacher)
+    teacher.enqueue(parent)
+    db.session.add(teacher)
 
 db.session.commit()
 

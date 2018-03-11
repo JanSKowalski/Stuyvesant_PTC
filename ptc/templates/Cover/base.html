@@ -5,7 +5,13 @@
   <title>{{ title }}</title>
   <meta charset='UTF-8' />
   <meta name='viewport'
-      content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+
+
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
 
   <link rel="stylesheet" href="/static/css/style.css" type="text/css">
   <link rel="stylesheet" href="/static/css/navbar.css" type="text/css">
@@ -17,7 +23,7 @@
 
   <link rel="shortcut icon" href="/static/img/stuy.ico" type="image/x-icon" >
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <script src="/static/scripts/scripts.js"></script>
+  <script src="/static/scripts/refresh.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Mukta+Malar" rel="stylesheet">
 </head>
@@ -31,10 +37,9 @@
   <div class="flex-column">
     <div class="flex-item flex-column">
       <header>
+        <!-- Continued in blocks -->
+        {% block content %}{% endblock %}
+      </div>
 
-        <!--<img src= "/static/img/test3.png">-->
-    {% block content %}{% endblock %}
-  </div>
-
-</body>
-</html>
+    </body>
+    </html>
