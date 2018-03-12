@@ -23,7 +23,11 @@ def teacher_search():
     form = SearchForm()
     if request.method == 'POST':
         teachers = PTQueue.query.whoosh_search(form.search_field.data).all()
-        return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
+        teachers = teachers + PTQueue.query.whoosh_search('*'+form.search_field.data).all()
+        teachers = teachers + PTQueue.query.whoosh_search(form.search_field.data+'*').all()
+        teachers = teachers + PTQueue.query.whoosh_search('*'+form.search_field.data+'*').all()
+        teachers = list(set(teachers))
+	return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
     else:
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)
 
@@ -69,6 +73,10 @@ def parent_search():
     form = SearchForm()
     if request.method == 'POST':
         parents = Parent.query.whoosh_search(form.search_field.data).all()
+        parents = parents + Parent.query.whoosh_search('*'+form.search_field.data).all()
+        parents = parents + Parent.query.whoosh_search(form.search_field.data+'*').all()
+        parents = parents + Parent.query.whoosh_search('*'+form.search_field.data+'*').all()
+        parents = list(set(parents))
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
     else:
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
@@ -175,7 +183,9 @@ def teacher(teacher_id):
     	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
-
+	else:
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
 
     return render_template('Cover/teacher.html', title='Teacher',
                         teacher=teacher, add_form=add_form, rm_form=rm_form)

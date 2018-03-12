@@ -3,16 +3,16 @@ from ptc.models import User
 
 
 student = User(username='student')
-student.set_password('test1')
+student.set_password('Honor')
 
 admin = User(username='admin')
-admin.set_password('test2')
+admin.set_password('Authority')
 
 station = User(username='station')
-station.set_password('test3')
+station.set_password('Train')
 
 teacher = User(username='teacher')
-teacher.set_password('test4')
+teacher.set_password('AnotherBrick')
 
 db.session.add(student)
 db.session.add(admin)

@@ -67,7 +67,5 @@ db.session.commit()
 
 
 
-
-
-
-#os.system("sudo chown -R www-data .")
+os.system("sudo python accounts.py")
+os.system("sudo chown -R www-data .")
