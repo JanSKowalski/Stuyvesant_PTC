@@ -44,8 +44,7 @@
 
 
   <div class="flex-item">
-    <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
-      {{ rm_form.hidden_tag() }}
+    <form action="/confirm_rm/{{teacher.id}}" method="post" name="rm_parent">
       <input type="submit" value="Remove Parent">
     </form>
   </div>
