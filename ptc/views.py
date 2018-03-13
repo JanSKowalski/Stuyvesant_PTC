@@ -175,6 +175,9 @@ def teacher(teacher_id):
     	    db.session.commit()
             return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form, rm_form=rm_form)
+        else:
+            return render_template('Cover/teacher.html', title='Teacher',
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
 
 
     return render_template('Cover/teacher.html', title='Teacher',
