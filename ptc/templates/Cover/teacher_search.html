@@ -42,7 +42,7 @@
       </div>
     </a>
   </ul>
-{% elif t.opt_in == 0 %}
+{% else %}
   <ul style="color:white;background-color:#B22222;">
      <div class="flex-column">
 
@@ -61,8 +61,6 @@
           </div>
         </div>
   </ul>
-  {% else %}
-  <!-- Nothing to see here... -->
 {% endif %}
   {% endfor %}
 </div>

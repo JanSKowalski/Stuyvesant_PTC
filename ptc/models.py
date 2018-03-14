@@ -66,6 +66,7 @@ class PTQueue(db.Model):
     department = db.Column(db.String(128), index=True, unique=False)
     description = db.Column(db.String(128), index=True, unique=False)
     parents_seen = db.Column(db.Integer, index=True, unique=False)
+    parents_timed = db.Column(db.Integer, index=True, unique=False)
     avg_time = db.Column(db.Float, index=True, unique=False)
     previous_time = db.Column(db.DateTime, index=True, unique=False)
     opt_in = db.Column(db.Boolean, index=True, unique=False)
@@ -83,6 +84,7 @@ class PTQueue(db.Model):
         self.description = description
         self.opt_in = opt_in
         self.parents_seen = 0
+        self.parents_timed = 1
         self.avg_time = 3.0
         self.previous_time = None
 
@@ -132,13 +134,19 @@ class PTQueue(db.Model):
 
     def dequeue(self):
         x = self.parents_seen
-        parents_seen = x + 1
+        self.parents_seen = x + 1
         current_time = datetime.datetime.now()
         #This setup updates the avg time of teachers
-        if (self.previous_time is not None):
-            time_change = current_time - self.previous_time
-            self.avg_time = (avg_time*parents_seen + time_change)/parents_seen
-        previous_time = current_time
+        if (self.size(self) > 1):
+            if (self.previous_time is not None):
+
+                t = self.parents_timed
+                self.parents_timed = t + 1
+
+                time_change = current_time - self.previous_time
+                time_change = time_change.total_seconds()/60.0
+                self.avg_time = (self.avg_time*(self.parents_timed - 1) + time_change)/self.parents_timed
+        self.previous_time = current_time
         return self.parents.pop(0)
 
     @staticmethod

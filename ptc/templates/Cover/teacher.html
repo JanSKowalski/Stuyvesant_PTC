@@ -13,11 +13,11 @@
   <div class="flex-item">
     Rm. {{teacher.room}}
   </div>
-<!--
+
   <div class="flex-item">
-    Avg. Time: {# {teacher.avg_time} #} min.
+    Avg. Time: {{"%.2f"|format(teacher.avg_time)}} min.
   </div>
--->
+
   <div class="flex-item">
     Parents waiting: {{teacher.size(teacher)}}
   </div>

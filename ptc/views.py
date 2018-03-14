@@ -216,44 +216,17 @@ def rm_confirm(teacher_id):
                 db.session.commit()
 
             #Deal with Bug Barrow Error
+            #note: this bug has been found, but the exception
+            #as kept as a layer of security
             except:
-                #Kill session when error occurs
+                #Kill session if error occurs
                 db.session.remove()
                 db.session.rollback()
 
-                #Attempt to reacreate teacher
-                #try:
-                    #listy = db.session.query(PTQueue).get(teacher_id).parents
-
-                    #Transfer information to new teacher
-                teacher = models.PTQueue.query.get(teacher_id)
-                teacher_name = teacher.teacher
-                department = teacher.department
-                room = teacher.room
-                description = teacher.description
-                new_teacher = PTQueue(teacher_name, department, room, description, 1)
-                db.session.add(new_teacher)
+                teacher.opt_in = 0
+                db.session.add(teacher)
                 db.session.commit()
-
-                #Delink old teacher
-                #teacher.opt_in = 2 #Invisible to searches
-
-                #Transfer parents to new teacher, minus the first parent
-                parents = teacher.parents
-                parents.pop(0)
-                new_teacher.parents = parents
-                parents = new_teacher.parents
-                db.session.add(new_teacher)
-                db.session.commit()
-
-
-                return redirect('/teacher/'+new_teacher.id)
-
-                #except:
-                #    teacher.opt_in = 0
-                #    db.session.add(teacher)
-                #    db.session.commit()
-                #    return render_template('Cover/error.html')
+                return render_template('Cover/error.html')
 
             return redirect('/teacher/'+teacher_id)
         return redirect('/teacher/'+teacher_id)
