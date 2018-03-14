@@ -5,6 +5,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from whoosh.fields import SchemaClass, TEXT, KEYWORD, ID, DATETIME
 from flask_login import UserMixin #Generic Authentication Functions
 
+
+#class Statistics(db.Model):
+
+
+
+
+
 # For student and admin user accounts only
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,7 +61,7 @@ class PTQueue(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    teacher = db.Column(db.String(128), index=True, unique=True)
+    teacher = db.Column(db.String(128), index=True, unique=False)
     room = db.Column(db.String(64), index=True, unique=False)
     department = db.Column(db.String(128), index=True, unique=False)
     description = db.Column(db.String(128), index=True, unique=False)

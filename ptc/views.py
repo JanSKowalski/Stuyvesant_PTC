@@ -161,17 +161,31 @@ def teacher(teacher_id):
 
 
     teacher = PTQueue.query.get(teacher_id)
-    #for p in teacher.parents:
+    teacher_id = teacher.id
 
     if request.method == 'POST':
-        if add_form.validate_id():
+        if add_form.validate_id(teacher_id):
             parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
             db.session.add(teacher)
             teacher.enqueue(parent)
             db.session.add(teacher)
-            #db.session.query().filter_by(name='davidism').scalar() is not None
-            #if
+            #if db.session.query().filter_by(name='davidism').scalar() is not None:
+            #try:
+            #    listy = db.session.query(PTQueue).get(teacher_id).parents
+            #    return render_template('Cover/test.html', listy=listy)
+            #except:
+            #    return "No parents!"
+            #    listy = db.session.query(PTQueue).get(teacher_id)
+            #    return render_template('Cover/test.html', listy=listy)
+
+
+
+            #if db.session.query(PTQueue).all() is not None:
+            #    listy = db.session.query(PTQueue).all()
+            #    return render_template('Cover/test.html', listy=listy)
+
+            #Exception handling for commit
             try:
                 db.session.commit()
 			    #db.session.flush()
@@ -200,17 +214,47 @@ def rm_confirm(teacher_id):
             db.session.add(teacher)
             try:
                 db.session.commit()
-            except:
-                db.session.remove()
-                teacher.opt_in = 0
-                db.session.add(teacher)
-                db.session.commit()
-                return render_template('Cover/error.html')
-				#db.session.rollback()
-				#teacher.parents = []
 
-				#db.session.flush()
-			    #    return redirect('/teacher/'+teacher_id)
+            #Deal with Bug Barrow Error
+            except:
+                #Kill session when error occurs
+                db.session.remove()
+                db.session.rollback()
+
+                #Attempt to reacreate teacher
+                #try:
+                    #listy = db.session.query(PTQueue).get(teacher_id).parents
+
+                    #Transfer information to new teacher
+                teacher = models.PTQueue.query.get(teacher_id)
+                teacher_name = teacher.teacher
+                department = teacher.department
+                room = teacher.room
+                description = teacher.description
+                new_teacher = PTQueue(teacher_name, department, room, description, 1)
+                db.session.add(new_teacher)
+                db.session.commit()
+
+                #Delink old teacher
+                #teacher.opt_in = 2 #Invisible to searches
+
+                #Transfer parents to new teacher, minus the first parent
+                parents = teacher.parents
+                parents.pop(0)
+                new_teacher.parents = parents
+                parents = new_teacher.parents
+                db.session.add(new_teacher)
+                db.session.commit()
+
+
+                return redirect('/teacher/'+new_teacher.id)
+
+                #except:
+                #    teacher.opt_in = 0
+                #    db.session.add(teacher)
+                #    db.session.commit()
+                #    return render_template('Cover/error.html')
+
             return redirect('/teacher/'+teacher_id)
         return redirect('/teacher/'+teacher_id)
         #return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)

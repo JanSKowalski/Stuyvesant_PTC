@@ -71,13 +71,17 @@ class AddForm(Form):
     add_field = StringField('add_field', validators=[DataRequired()])
     submit = SubmitField()
 
-    def validate_id(self):
+    def validate_id(self, teacher_id):
+        teacher = models.PTQueue.query.get(teacher_id)
+        parent_list = teacher.parents
         parent_id = self.add_field.data
         parent = models.Parent.query.get(parent_id)
         if parent is None:
             tmp = list(self.add_field.errors)
             tmp.append("This ID is not recognized.")
             self = tuple(tmp)
+            return False
+        if parent in parent_list:
             return False
         else:
             return True

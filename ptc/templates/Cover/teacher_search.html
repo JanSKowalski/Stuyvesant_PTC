@@ -30,7 +30,7 @@
 
   {% for t in teachers %}
 
-{% if t.opt_in %}
+{% if t.opt_in == 1 %}
  <ul>
     <a href="teacher/{{t.id}}">
       <div class="flex-row" >
@@ -42,7 +42,7 @@
       </div>
     </a>
   </ul>
-{% else %}
+{% elif t.opt_in == 0 %}
   <ul style="color:white;background-color:#B22222;">
      <div class="flex-column">
 
@@ -61,6 +61,8 @@
           </div>
         </div>
   </ul>
+  {% else %}
+  <!-- Nothing to see here... -->
 {% endif %}
   {% endfor %}
 </div>
