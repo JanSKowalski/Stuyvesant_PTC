@@ -43,7 +43,7 @@ class Parent(db.Model):
                             backref=db.backref('queues', lazy='dynamic'))
 
     def __repr__(self):
-        return '<Child Name %s>, <Child DoB %s' % (self.child_name, self.child_dob)
+        return '<ID %d>\n' % (self.id)
 
 
 
@@ -139,7 +139,7 @@ class PTQueue(db.Model):
         return len(self.parents)
 
     def __repr__(self):
-        return '<Id %d, Parents %r, Teacher %r, Room %r>\n\n' % (self.id, self.parents, self.teacher, self.room)
+        return '<Id %d>\n' % (self.id)
 
 
 #Allows whoosh to build an indexing database

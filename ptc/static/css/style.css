@@ -20,7 +20,6 @@ html {
   margin-bottom: 8%;
   /*font-family: 'EB Garamond', serif;*/
   font-family: 'Mukta Malar', sans-serif;
-
 }
 
 body {
@@ -32,6 +31,7 @@ body {
   width: 60%;
   height: 100%;
   font-size: 18px;
+  color: #ffffe6;
 }
 
 h1, h2, h3, h4, h5, h6 {

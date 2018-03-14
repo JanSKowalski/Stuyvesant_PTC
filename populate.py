@@ -43,28 +43,12 @@ for i in range(3, 25):
 
 
 
-
-
-
 with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
     csv_reader = csv.reader(csvDataFile)
     for row in csv_reader:
         ptqueue = PTQueue(teacher=row[0], opt_in=int(row[1]), department=row[2], room=row[3], description=row[4])
         db.session.add(ptqueue)
         db.session.commit()
-
-
-
-teacher = PTQueue.query.get(11)
-
-for i in range( 4, 13):
-    parent = Parent.query.get(25 - i)
-    db.session.add(teacher)
-    teacher.enqueue(parent)
-    db.session.add(teacher)
-
-db.session.commit()
-
 
 
 os.system("sudo python accounts.py")

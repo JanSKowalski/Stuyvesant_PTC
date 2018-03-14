@@ -66,7 +66,7 @@ def login():
 @ptc.route('/parent_home')
 def parent_home():
     return render_template('Parent/parent_home.html', title='Parent Portal')
-ptc
+
 @ptc.route('/parent_search', methods=['GET', 'POST'])
 @ptc.route('/parent_search/<parent_query>', methods=['GET', 'POST'])
 def parent_search():
@@ -165,20 +165,21 @@ def teacher(teacher_id):
 
     if request.method == 'POST':
         if add_form.validate_id():
-            	parent = models.Parent.query.get(add_form.add_field.data)
-            	teacher = models.PTQueue.query.get(teacher_id)
-		#Adding before and after is very necessary,
-		#as this allows sqlalchemy to match the orm
-    		#to the regular database. (Google 'sqlalchemy orm')
-    	    	db.session.add(teacher)
-    		teacher.enqueue(parent)
-		db.session.add(teacher)
-		try:
-	    	    	db.session.commit()
-			#db.session.flush()
-            	except:
-			return "Tell Jan about this error -- add"
-            	return render_template('Cover/teacher.html', title='Teacher',
+            parent = models.Parent.query.get(add_form.add_field.data)
+            teacher = models.PTQueue.query.get(teacher_id)
+            db.session.add(teacher)
+            teacher.enqueue(parent)
+            db.session.add(teacher)
+            #db.session.query().filter_by(name='davidism').scalar() is not None
+            #if
+            try:
+                db.session.commit()
+			    #db.session.flush()
+            except:
+                db.session.remove()
+                #teacher.opt_in = 0
+                return render_template('Cover/error.html')
+            return render_template('Cover/teacher.html', title='Teacher',
                                 teacher=teacher, add_form=add_form)
 	else:
             return render_template('Cover/teacher.html', title='Teacher',
@@ -190,32 +191,31 @@ def teacher(teacher_id):
 
 @ptc.route('/confirm_rm/<teacher_id>', methods=['POST'])
 def rm_confirm(teacher_id):
-	rm_form = RemoveForm()
+    rm_form = RemoveForm()
+    teacher = models.PTQueue.query.get(teacher_id)
+    if request.method == 'POST':
+        if rm_form.validate_id(teacher_id):
+            db.session.add(teacher)
+            teacher.dequeue()
+            db.session.add(teacher)
+            try:
+                db.session.commit()
+            except:
+                db.session.remove()
+                teacher.opt_in = 0
+                db.session.add(teacher)
+                db.session.commit()
+                return render_template('Cover/error.html')
+				#db.session.rollback()
+				#teacher.parents = []
 
-    	teacher = models.PTQueue.query.get(teacher_id)
+				#db.session.flush()
+			    #    return redirect('/teacher/'+teacher_id)
+            return redirect('/teacher/'+teacher_id)
+        return redirect('/teacher/'+teacher_id)
+        #return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
 
-	if request.method == 'POST':
-	        if rm_form.validate_id(teacher_id):
-            		db.session.add(teacher)
-    	    		teacher.dequeue()
-			#Adding before and after is very necessary,
-			#as this allows sqlalchemy to match the orm
-	    	    	#to the regular database. (Google 'sqlalchemy orm')
-			db.session.add(teacher)
-			try:
-				db.session.commit()
-    	    		except:
-				db.session.rollback()
-				teacher.parents = []
-
-				db.session.flush()
-			        return redirect('/teacher/'+teacher_id)
-
-
-		        return redirect('/teacher/'+teacher_id)
-	        return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
-
-        return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
+    return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
 
 
 

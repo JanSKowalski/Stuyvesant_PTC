@@ -40,7 +40,7 @@
 
 
   {% for t in parent.ptqueues %}
-
+    {% if t.opt_in == 1 %}
       <ul><a href="/teacher/{{t.id}}">
         <div class="flex-item flex-row list">
           <div class="flex-item">
@@ -58,6 +58,7 @@
         </div>
         </a>
       </ul>
+    {% endif %}
   {% endfor %}
 
 
