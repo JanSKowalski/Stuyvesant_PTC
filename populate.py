@@ -51,5 +51,5 @@ with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
         db.session.commit()
 
 
-os.system("sudo python accounts.py")
-os.system("sudo chown -R www-data .")
+#os.system("sudo python accounts.py")
+#os.system("sudo chown -R www-data .")

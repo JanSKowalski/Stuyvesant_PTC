@@ -29,16 +29,17 @@
 
 
 .Stuy li {
-  float: center;
+  /*float: center;*/
   margin: auto;
-  flex: 20;
+  float: center;
+  left: 100px;
 }
 
 
 .logout li {
   list-style-type: none;
   float: right;
-  margin-right: 10%;
+  /*margin-right: 10%;*/
   display: inline-block;
   flex: 1
 }
@@ -61,6 +62,7 @@ li.dropdown {
 }
 
 .dropdown-content {
+  top: 55px;
   display: none;
   position: absolute;
   background-color: #f9f9f9;

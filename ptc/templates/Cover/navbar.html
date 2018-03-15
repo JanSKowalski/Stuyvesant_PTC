@@ -1,6 +1,6 @@
 <div class="navbar flex-row">
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">?</a>
+  <li class="flex-item dropdown">
+    <a href="javascript:void(0)" class="dropbtn" style="flex: 1; float: left;">Menu</a>
     <div class="dropdown-content">
       <a href="/index">Front Page</a>
       <a href="/teacher_search">Teacher Search</a>
@@ -13,19 +13,19 @@
     </div>
   </li>
   {% if session['username'] == 'Student' %}
-  <li class="flex-item Stuy" style="flex: 30;">
+  <li class="flex-item Stuy">
     <a href="/staff" class="dropbtn">{{session['username']}} Home</a>
   </li>
   {% elif  session['username'] == 'Teacher' %}
-  <li class="flex-item Stuy" style="flex: 30;">
+  <li class="flex-item Stuy" >
     <a href="/teacher_home" class="dropbtn">{{session['username']}} Home</a>
   </li>
   {% elif  session['username'] == 'Station' %}
-  <li class="flex-item Stuy" style="flex: 30;">
+  <li class="flex-item Stuy">
     <a href="/station" class="dropbtn">{{session['username']}} Home</a>
   </li>
   {% else %}
-  <li class="flex-item Stuy" style="flex: 30;">
+  <li class="flex-item Stuy">
     <a href="/parent_home" class="dropbtn">Home</a>
   </li>
   {% endif %}
@@ -34,7 +34,7 @@
     <a href="/logout" class="dropbtn">Logout</a>
   </li>
   {% else %}
-  <li class="flex-item logout">
+  <li class="flex-item logout" >
     <a href="/login" class="dropbtn">Login</a>
   </li>
   {% endif %}
