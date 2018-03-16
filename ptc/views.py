@@ -220,13 +220,15 @@ def rm_confirm(teacher_id):
             #as kept as a layer of security
             except:
                 #Kill session if error occurs
-                db.session.remove()
+#                db.session.remove()
                 db.session.rollback()
 
-                teacher.opt_in = 0
-                db.session.add(teacher)
-                db.session.commit()
-                return render_template('Cover/error.html')
+                #teacher.opt_in = 0
+                #db.session.add(teacher)
+                #db.session.commit()
+	        return redirect('/teacher/'+teacher_id)
+
+        #        return render_template('Cover/error.html')
 
             return redirect('/teacher/'+teacher_id)
         return redirect('/teacher/'+teacher_id)
