@@ -44,6 +44,10 @@ header {
   text-align: center;
 }
 
+br {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
 h1 {
   font-family: 'Oswald', sans-serif;
