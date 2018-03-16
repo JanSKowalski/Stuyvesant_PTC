@@ -27,7 +27,7 @@ print "_____________________________\n"
 '''
 
 os.system("sudo rm ptc.db")
-os.system("sudo rm error.log")
+os.system("sudo rm -f error.log")
 os.system("sudo rm -rf search.db")
 
 
@@ -35,12 +35,12 @@ os.system("sudo rm -rf search.db")
 #db.drop_all()
 db.create_all()
 
-
+'''
 for i in range(3, 25):
     parent = Parent(parent_name="parent"+str(i), child_name="child"+str(i), child_dob="2/19/20"+str(i))
     db.session.add(parent)
     db.session.commit()
-
+'''
 
 
 with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
@@ -50,6 +50,20 @@ with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
         db.session.add(ptqueue)
         db.session.commit()
 
+
+student = User(username='student')
+student.set_password('wisdomwithage')
+
+station = User(username='station')
+station.set_password('train')
+
+teacher = User(username='teacher')
+teacher.set_password('AnotherBrick')
+
+db.session.add(student)
+db.session.add(teacher)
+db.session.add(station)
+db.session.commit()
 
 #os.system("sudo python accounts.py")
 #os.system("sudo chown -R www-data .")

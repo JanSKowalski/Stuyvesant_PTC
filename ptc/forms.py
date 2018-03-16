@@ -2,7 +2,7 @@ from ptc import ptc, models
 from flask_wtf import Form
 from flask.ext.login import UserMixin
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email, Optional
+from wtforms.validators import ValidationError, DataRequired, NumberRange, Email, Optional
 from flask import flash, session
 from datetime import datetime
 
@@ -68,13 +68,15 @@ class SearchForm(Form):
 
 #Add Parent to a teacher queue, validate ID exists
 class AddForm(Form):
-    add_field = StringField('add_field', validators=[DataRequired()])
+    add_field = StringField('add_field', validators=[NumberRange()])
     submit = SubmitField()
 
     def validate_id(self, teacher_id):
         teacher = models.PTQueue.query.get(teacher_id)
         parent_list = teacher.parents
         parent_id = self.add_field.data
+        if parent_id is None:
+            return False
         parent = models.Parent.query.get(parent_id)
         if parent is None:
             tmp = list(self.add_field.errors)
@@ -88,23 +90,22 @@ class AddForm(Form):
 
 #Add Parent to a teacher queue, validate ID exists
 class RemoveForm(Form):
-    rm_field = StringField('rm_field', validators=[DataRequired()])
+    rm_field = StringField('rm_field', validators=[NumberRange()])
     submit = SubmitField()
 
     def validate_id(self, teacher_id):
-        #parent_id = self.rm_field.data
-        #parent = models.Parent.query.get(parent_id)
     	teacher = models.PTQueue.query.get(teacher_id)
         size = teacher.size(teacher)
+        position = self.rm_field.data
+        if position == '':
+            return False
     	if size == 0:
     	    return False
-        #elif parent is None:
-        #    tmp = list(self.rm_field.errors)
-        #    tmp.append("This ID is not recognized.")
-        #    self = tuple(tmp)
-        #    return False
-        #first_parent = teacher.get_next(teacher)
-    	#elif (parent_id != first_parent.id):
-    	#    return False
+        try:
+            position = int(position)
+        except:
+            return False
+        if position < 0 or position > teacher.size(teacher):
+            return False
         else:
             return True

@@ -158,85 +158,45 @@ def teacher(teacher_id):
 
 
     add_form = AddForm()
-
+    rm_form = RemoveForm()
 
     teacher = PTQueue.query.get(teacher_id)
     teacher_id = teacher.id
 
     if request.method == 'POST':
-        if add_form.validate_id(teacher_id):
+
+        if rm_form.validate_id(teacher_id):
+            db.session.add(teacher)
+            position = int(rm_form.rm_field.data)
+            teacher.dequeue(position)
+            db.session.add(teacher)
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+            return render_template('Cover/teacher.html', title='Teacher',
+                    teacher=teacher, add_form=add_form, rm_form=rm_form)
+
+
+        if  add_form.validate_id(teacher_id):
             parent = models.Parent.query.get(add_form.add_field.data)
             teacher = models.PTQueue.query.get(teacher_id)
             db.session.add(teacher)
             teacher.enqueue(parent)
             db.session.add(teacher)
-            #if db.session.query().filter_by(name='davidism').scalar() is not None:
-            #try:
-            #    listy = db.session.query(PTQueue).get(teacher_id).parents
-            #    return render_template('Cover/test.html', listy=listy)
-            #except:
-            #    return "No parents!"
-            #    listy = db.session.query(PTQueue).get(teacher_id)
-            #    return render_template('Cover/test.html', listy=listy)
-
-
-
-            #if db.session.query(PTQueue).all() is not None:
-            #    listy = db.session.query(PTQueue).all()
-            #    return render_template('Cover/test.html', listy=listy)
-
-            #Exception handling for commit
             try:
                 db.session.commit()
-			    #db.session.flush()
             except:
                 db.session.remove()
-                #teacher.opt_in = 0
-                return render_template('Cover/error.html')
+
             return render_template('Cover/teacher.html', title='Teacher',
-                                teacher=teacher, add_form=add_form)
-	else:
-            return render_template('Cover/teacher.html', title='Teacher',
-                                teacher=teacher, add_form=add_form)
+                                teacher=teacher, add_form=add_form, rm_form=rm_form)
+
+        return render_template('Cover/teacher.html', title='Teacher', teacher=teacher,
+                            add_form=add_form, rm_form=rm_form)
 
     return render_template('Cover/teacher.html', title='Teacher',
-                        teacher=teacher, add_form=add_form)
-
-
-@ptc.route('/confirm_rm/<teacher_id>', methods=['POST'])
-def rm_confirm(teacher_id):
-    rm_form = RemoveForm()
-    teacher = models.PTQueue.query.get(teacher_id)
-    if request.method == 'POST':
-        if rm_form.validate_id(teacher_id):
-            db.session.add(teacher)
-            teacher.dequeue()
-            db.session.add(teacher)
-            try:
-                db.session.commit()
-
-            #Deal with Bug Barrow Error
-            #note: this bug has been found, but the exception
-            #as kept as a layer of security
-            except:
-                #Kill session if error occurs
-#                db.session.remove()
-                db.session.rollback()
-
-                #teacher.opt_in = 0
-                #db.session.add(teacher)
-                #db.session.commit()
-	        return redirect('/teacher/'+teacher_id)
-
-        #        return render_template('Cover/error.html')
-
-            return redirect('/teacher/'+teacher_id)
-        return redirect('/teacher/'+teacher_id)
-        #return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
-
-    return render_template('Cover/rm_confirm.html', teacher=teacher, rm_form=rm_form)
-
-
+                        teacher=teacher, add_form=add_form, rm_form=rm_form)
 
 
 

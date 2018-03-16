@@ -132,22 +132,8 @@ class PTQueue(db.Model):
         self.parents.append(parent)
 
 
-    def dequeue(self):
-        #x = self.parents_seen
-        #self.parents_seen = x + 1
-        #current_time = datetime.datetime.now()
-        #This setup updates the avg time of teachers
-        #if (self.size(self) > 1):
-        #    if (self.previous_time is not None):
-
-        #        t = self.parents_timed
-        #        self.parents_timed = t + 1
-
-        #        time_change = current_time - self.previous_time
-        #        time_change = time_change.total_seconds()/60.0
-        #        self.avg_time = (self.avg_time*(self.parents_timed - 1) + time_change)/self.parents_timed
-        #self.previous_time = current_time
-        return self.parents.pop(0)
+    def dequeue(self, position):
+        return self.parents.pop(position)
 
     @staticmethod
     def size(self):

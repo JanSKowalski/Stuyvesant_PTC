@@ -13,11 +13,11 @@
   <div class="flex-item">
     Rm. {{teacher.room}}
   </div>
-
+<!--
   <div class="flex-item">
-    Avg. Time: {{"%.2f"|format(teacher.avg_time)}} min.
+    Avg. Time: { {"%.2f"|format(teacher.avg_time)} } min.
   </div>
-
+-->
   <div class="flex-item">
     Parents waiting: {{teacher.size(teacher)}}
   </div>
@@ -28,23 +28,25 @@
 
 <!-- Editing Queue -->
 {% if session["username"] == "Student"%}
-<div class="flex-item flex-row">
+<div class="flex-item flex-column">
 
 
   <div class="flex-item">
     <form action="/teacher/{{teacher.id}}" method="post" name="add_parent">
       {{ add_form.hidden_tag() }}
       <input name="add_field" size="20" type="text" placeholder="ID of joining parent">
-      {% for error in add_form.add_field.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
       <input type="submit" value="Add Parent">
     </form>
   </div>
 
 
+  <div class="flex-item " style="margin-top: 10px;">
+    <h4> Removing 0 takes the first parent off the list </h4>
+  </div>
   <div class="flex-item">
-    <form action="/confirm_rm/{{teacher.id}}" method="post" name="rm_parent">
+    <form action="/teacher/{{teacher.id}}" method="post" name="rm_parent">
+      {{ rm_form.hidden_tag() }}
+      <input name="rm_field" size="20" type="text" placeholder="Position of parent">
       <input type="submit" value="Remove Parent">
     </form>
   </div>
@@ -89,7 +91,7 @@
   {% if not teacher.opt_in %}
 
   <div class="flex--itemlist ">
-    This teacher has not opted into this website service yet.
+    This teacher is not using the website yet.
   </div>
 
 
