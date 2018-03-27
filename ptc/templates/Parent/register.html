@@ -4,55 +4,60 @@
 {% block content %}
 
 <!-- Continued from base -->
-    <h3>Parent Registration</h3>
-    <hr>
 <!--
-    <h4 style="color:white;">Registration will open on Wednesday (3/14/18) at 8pm.</h4>
--->
-    <h4 style="color:white;">Every child should have a separate ID.</h4> 
-   <hr>
-  </header>
-</div>
+<h3>Parent Registration</h3>
+<hr>
+<!--
+<h4 style="color:white;">Registration will open on Wednesday (3/14/18) at 8pm.</h4>
 
+
+<h4 style="color:white;">Every child should have a separate ID.</h4>
+<hr>
+</header>
+</div>
+-->
 
 <div class="flex-item content">
-  <form action="" method="post" name="register">
-    {{ form.hidden_tag() }}
-    <p>
-      Please enter your name:<br>
-      <input id="parent_name" name="parent_name" size="80" type="text" placeholder="ex: Billy Joel" required>
-      {% for error in form.parent_name.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      Please enter your child's name:<br>
-      <input id="child_name" name="child_name" size="80" type="text" placeholder="ex: Tom Sawyer" required>
-      {% for error in form.child_name.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>
-      Please enter your child's date of birth:
-      <input id="child_dob" name="child_dob" size="80" type="text" placeholder="ex: 5/17/2000" required>
-      {% for error in form.child_dob.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <!--
-    <p>
-    Please enter your email address: (Optional)<br>
-    {#    {{ form.email(size=64) }}<br>
-    {% for error in form.email.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-    <p>Supplying your email will register you for notifications about upcoming appointments with teachers.</p>
+    <form action="" method="post" name="register">
+        {{ form.hidden_tag() }}
+        <p>
+            Please enter your name:<br>
+            <input id="parent_name" name="parent_name" size="80" type="text" placeholder="ex: Flossie Wong-Staal" required>
+            {% for error in form.parent_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            Please enter your child's name:<br>
+            <input id="child_name" name="child_name" size="80" type="text" placeholder="ex: Tom Sawyer" required>
+            {% for error in form.child_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            Please enter your child's date of birth:
+            <input id="child_dob" name="child_dob" size="80" type="text" placeholder="ex: 5/17/2000" required>
+            {% for error in form.child_dob.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <!--
+        <p>
+        Please enter your email address: (Optional)<br>
+        {#    {{ form.email(size=64) }}<br>
+        {% for error in form.email.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <p>Supplying your email will register you for notifications about upcoming appointments with teachers.</p>
 
-  </p>
-  #}
+    </p>
+    #}
 -->
 
+<!--
+NOTE: This tag should be deactivated until three weeks before PTC
 <p>{{ form.submit() }}</p>
+-->
 
 </form>
 </div>

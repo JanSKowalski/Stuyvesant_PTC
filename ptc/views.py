@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, url_for, render_template, request, ses
 from ptc import ptc, models, db, login_manager
 
 from flask_login import current_user, login_required, login_user, logout_user
-from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm
+from .forms import LoginForm, RegistrationForm, SearchForm, AddForm, RemoveForm, NumberForm
 
 from ptc.models import User, Parent, PTQueue
 import time, datetime
@@ -26,7 +26,7 @@ def teacher_search():
         teachers = teachers + PTQueue.query.whoosh_search('*'+form.search_field.data).all()
         teachers = teachers + PTQueue.query.whoosh_search(form.search_field.data+'*').all()
         teachers = teachers + PTQueue.query.whoosh_search('*'+form.search_field.data+'*').all()
-        teachers = list(set(teachers))
+        teachers = set(teachers)
 	return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=teachers, form=form)
     else:
         return render_template('Cover/teacher_search.html', title='Teacher Query', teachers=[], form=form)
@@ -76,7 +76,7 @@ def parent_search():
         parents = parents + Parent.query.whoosh_search('*'+form.search_field.data).all()
         parents = parents + Parent.query.whoosh_search(form.search_field.data+'*').all()
         parents = parents + Parent.query.whoosh_search('*'+form.search_field.data+'*').all()
-        parents = list(set(parents))
+        parents = set(parents)
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=parents, form=form)
     else:
         return render_template('Parent/parent_search.html', title='ID Look-Up', parents=[], form=form)
@@ -148,6 +148,11 @@ def logout():
     return redirect(url_for('index'))
 
 
+@ptc.route('/test')
+def test():
+    return render_template('Cover/test.html', title='Test')
+
+
 @ptc.route('/teacher/<teacher_id>', methods=['GET', 'POST'])
 def teacher(teacher_id):
     #This prevents the browser from editing the queue if you hit the back button
@@ -202,9 +207,17 @@ def teacher(teacher_id):
 
 #########################   Administration  #########################
 
-@ptc.route('/administration')
+@ptc.route('/administration', methods=['GET', 'POST'])
 def admin_home():
-    return render_template('Staff/admin_home.html', title='Admin Portal')
+    ptqueue = models.PTQueue.query.all()
+    count = 0
+    for teacher in ptqueue:
+        count += 1
+    number_form = NumberForm()
+    if request.method == 'POST':
+        number = int(number_form.number.data)
+        number +=1
+    return render_template('Staff/admin_home.html', count=count, title='Admin Portal', number_form=number_form, number=number)
 
 
 @ptc.route('/statistics')

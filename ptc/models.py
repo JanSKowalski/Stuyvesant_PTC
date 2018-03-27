@@ -140,7 +140,7 @@ class PTQueue(db.Model):
         return len(self.parents)
 
     def __repr__(self):
-        return '<Id %d>\n' % (self.id)
+        return '<Id %d, Avg Time: %f>\n' % (self.id, self.avg_time)
 
 
 #Allows whoosh to build an indexing database

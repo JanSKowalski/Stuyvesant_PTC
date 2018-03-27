@@ -3,5 +3,18 @@
 
 {% block content %}
 <h1>Hi, {{ session["username"] }}!</h1>
+<h1>{{ count }}</h1>
+<h1>{{ number }}</h1>
+{% if session["username"] == "Admin"%}
+<div class="flex-item flex-column">
 
+
+  <div class="flex-item">
+    <form action="/administration" method="post">
+      {{ number_form.hidden_tag() }}
+      <input name="number" size="20" type="text" placeholder="ID of joining parent">
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+{% endif %}
 {% endblock %}

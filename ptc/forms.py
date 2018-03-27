@@ -6,6 +6,9 @@ from wtforms.validators import ValidationError, DataRequired, NumberRange, Email
 from flask import flash, session
 from datetime import datetime
 
+class NumberForm(Form):
+    number = StringField('number', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class RegistrationForm(Form):
     parent_name = StringField('parent_name', validators=[DataRequired()])

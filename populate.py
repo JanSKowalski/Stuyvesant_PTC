@@ -35,12 +35,12 @@ os.system("sudo rm -rf search.db")
 #db.drop_all()
 db.create_all()
 
-'''
+
 for i in range(3, 25):
     parent = Parent(parent_name="parent"+str(i), child_name="child"+str(i), child_dob="2/19/20"+str(i))
     db.session.add(parent)
     db.session.commit()
-'''
+
 
 
 with open('ptc/static/csv/PTC_Room_Assignments.csv') as csvDataFile:
@@ -60,9 +60,13 @@ station.set_password('train')
 teacher = User(username='teacher')
 teacher.set_password('AnotherBrick')
 
+admin = User(username='admin')
+admin.set_password('admin')
+
 db.session.add(student)
 db.session.add(teacher)
 db.session.add(station)
+db.session.add(admin)
 db.session.commit()
 
 #os.system("sudo python accounts.py")
