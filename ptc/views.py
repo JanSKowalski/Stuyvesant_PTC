@@ -217,7 +217,7 @@ def admin_home():
     if request.method == 'POST':
         number = int(number_form.number.data)
         number +=1
-    return render_template('Staff/admin_home.html', count=count, title='Admin Portal', number_form=number_form, number=number)
+    return render_template('Staff/admin_home.html', count=count, title='Admin Portal', number_form=number_form)#, number=number)
 
 
 @ptc.route('/statistics')
