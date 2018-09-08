@@ -1,15 +1,19 @@
+<p align="center">
 ![Stuyvesant PTC](/ptc/static/img/RoundLogo.png)
-
+</p>
 ---
+##What this is
 The Stuyvesant PTC website was built out of a desire to improve the process by which ~3000 parents meet with their children's teachers over the course of two days. Rather than assigning time slots, this website informs parents about where they are in any particular queue, so that they can more efficiently plan their schedule traversing a 10-story building.
 
 It is the hope of the creator that future years of StuyCS students are able to improve the website and make it in part their own.
 
 Although one person did code the entirety of the project (yours truly), there existed a community of individuals within the class of 2018 who put in a lot of time and energy to make the site what it is.
 
-If you are interested in interacting with the website on a deeper level, I would direct you to the (admittedly incomplete) wiki page.
+If you are interested in interacting with the website on a deeper level, I would direct you to the (admittedly incomplete) [wiki page](https://github.com/Gingernetics/Stuyvesant_PTC/wiki).
 
 ---
+##Who we are
+
 ### Ryan Siu 
 (https://github.com/siuryan)
 
@@ -56,12 +60,15 @@ I am indebted to Sammantha for describing to me in great detail the poor design 
 Rodda served as the inspiration for this project, having created the ARISTA website just a year before to serve the Stuyvesant community. 
 
 ### Tina Wong
+(https://github.com/tinawong15)
 
-Tina became the original apprentice to this opperation and I'm grateful I was able to act as a mentor and laugh with her over silly mistakes.
+Tina became the original apprentice to this opperation and I'm grateful I was able to act as mentor and laugh with her over silly mistakes.
 
 ### Mr. Dyrland-Weaver, Mr. Konstantinovich, and Mr. Brown Mykolyk
 
 Thank you for the improvements suggested, the advice, and the support provided.
+
+---
 
 Thank you to Mr. Eric Contreras (former principal) and the school board of directors for green-lighting this student-run project for live use in a DOE event, and for continuing to support the creative spirit that embodies Stuyvesant High School.
 
