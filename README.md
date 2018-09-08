@@ -1,8 +1,12 @@
 <p align="center">
-![Stuyvesant PTC](/ptc/static/img/RoundLogo.png)
+  
+<img src="/ptc/static/img/RoundLogo.png">
+
 </p>
+
 ---
-##What this is
+
+## What this is
 The Stuyvesant PTC website was built out of a desire to improve the process by which ~3000 parents meet with their children's teachers over the course of two days. Rather than assigning time slots, this website informs parents about where they are in any particular queue, so that they can more efficiently plan their schedule traversing a 10-story building.
 
 It is the hope of the creator that future years of StuyCS students are able to improve the website and make it in part their own.
@@ -12,7 +16,8 @@ Although one person did code the entirety of the project (yours truly), there ex
 If you are interested in interacting with the website on a deeper level, I would direct you to the (admittedly incomplete) [wiki page](https://github.com/Gingernetics/Stuyvesant_PTC/wiki).
 
 ---
-##Who we are
+
+## Who we are
 
 ### Ryan Siu 
 (https://github.com/siuryan)
