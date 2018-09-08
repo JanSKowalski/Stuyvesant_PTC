@@ -19,6 +19,12 @@ If you are interested in interacting with the website on a deeper level, I would
 
 ## Who we are
 
+### Jan Kowalski
+(https://github.com/Gingernetics)
+
+C'est Moi! I like to build things, and sometimes they even work.
+
+
 ### Ryan Siu 
 (https://github.com/siuryan)
 
