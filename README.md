@@ -77,7 +77,7 @@ Tina became the original apprentice to this opperation and I'm grateful I was ab
 
 ### Mr. Dyrland-Weaver, Mr. Konstantinovich, and Mr. Brown Mykolyk
 
-Thank you for the improvements suggested, the advice, and the support provided.
+Thank you for the improvements suggested, the advice given, and the support provided.
 
 ---
 
